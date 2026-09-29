@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Phân Tích Nhãn Cảnh Báo Đứt Chuỗi Lạnh</title>
+    <title>Phân Tích Nhãn Cảnh Báo Điều Kiện Bảo Quản Lạnh TTI</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons CDN -->
@@ -77,8 +77,8 @@
         #cropBox {
             position: absolute;
             border: 2px dashed #3b82f6;
-            background: rgba(59, 130, 246, 0.18);
-            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.65);
+            background: rgba(59, 130, 246, 0.2);
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
             cursor: move;
             z-index: 20;
             touch-action: none;
@@ -86,8 +86,8 @@
         
         .crop-handle {
             position: absolute;
-            width: 24px;
-            height: 24px;
+            width: 18px;
+            height: 18px;
             background-color: #ffffff;
             border: 3px solid #2563eb;
             border-radius: 50%;
@@ -95,34 +95,15 @@
             z-index: 21;
             touch-action: none;
         }
-        @media (min-width: 640px) {
-            .crop-handle {
-                width: 16px;
-                height: 16px;
-                border-radius: 4px;
-                border-width: 2px;
-            }
-        }
         
-        .handle-tl { top: -12px; left: -12px; }
-        .handle-tr { top: -12px; right: -12px; }
-        .handle-bl { bottom: -12px; left: -12px; }
-        .handle-br { bottom: -12px; right: -12px; }
-        .handle-tm { top: -12px; left: calc(50% - 12px); }
-        .handle-bm { bottom: -12px; left: calc(50% - 12px); }
-        .handle-ml { top: calc(50% - 12px); left: -12px; }
-        .handle-mr { top: calc(50% - 12px); right: -12px; }
-
-        @media (min-width: 640px) {
-            .handle-tl { top: -8px; left: -8px; }
-            .handle-tr { top: -8px; right: -8px; }
-            .handle-bl { bottom: -8px; left: -8px; }
-            .handle-br { bottom: -8px; right: -8px; }
-            .handle-tm { top: -8px; left: calc(50% - 8px); }
-            .handle-bm { bottom: -8px; left: calc(50% - 8px); }
-            .handle-ml { top: calc(50% - 8px); left: -8px; }
-            .handle-mr { top: calc(50% - 8px); right: -8px; }
-        }
+        .handle-tl { top: -9px; left: -9px; }
+        .handle-tr { top: -9px; right: -9px; }
+        .handle-bl { bottom: -9px; left: -9px; }
+        .handle-br { bottom: -9px; right: -9px; }
+        .handle-tm { top: -9px; left: calc(50% - 9px); }
+        .handle-bm { bottom: -9px; left: calc(50% - 9px); }
+        .handle-ml { top: calc(50% - 9px); left: -9px; }
+        .handle-mr { top: calc(50% - 9px); right: -9px; }
 
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
@@ -161,8 +142,7 @@
         <!-- LEFT COLUMN -->
         <section class="lg:col-span-7 flex flex-col gap-2.5 sm:gap-4">
             
-            <!-- Đã sửa h-[520px] cho màn hình di động để tăng diện tích hiển thị ảnh -->
-            <div class="glass-panel rounded-2xl p-2.5 sm:p-4 flex flex-col h-[520px] sm:h-[500px] relative overflow-hidden">
+            <div class="glass-panel rounded-2xl p-2.5 sm:p-4 flex flex-col h-[480px] relative overflow-hidden">
                 
                 <div class="flex items-center justify-between mb-2 pb-2 border-b border-gray-800 text-xs text-gray-300">
                     <div class="flex items-center gap-1.5 font-semibold text-gray-200 text-xs">
@@ -195,7 +175,7 @@
                         <input type="file" id="fileInput" accept="image/*" class="hidden">
                     </div>
 
-                    <div id="imageStage" class="relative hidden origin-center cursor-grab touch-none">
+                    <div id="imageStage" class="absolute left-0 top-0 hidden origin-top-left cursor-grab touch-none">
                         <img id="sourceImage" class="max-w-none block pointer-events-none" alt="Source Label" />
 
                         <div id="cropBox" class="hidden">
@@ -217,7 +197,6 @@
                             <i class="fa-solid fa-wand-magic-sparkles absolute inset-0 flex items-center justify-center text-blue-400 text-base"></i>
                         </div>
                         <p class="text-xs font-medium text-blue-300 animate-pulse">AI đang tìm tâm tem màu TTI...</p>
-                        <p class="text-[10px] text-gray-400">Đang tối ưu độ chính xác dải sắc xanh</p>
                     </div>
 
                 </div>
@@ -235,22 +214,19 @@
                     <div class="flex items-center justify-between bg-slate-900/90 p-1.5 rounded-lg border border-gray-800">
                         <span class="text-[10px] text-gray-400 pl-1">Thu/Phóng:</span>
                         <div class="flex gap-1">
-                            <button onclick="resizeCropStep(-8)" class="w-7 h-7 rounded bg-slate-800 active:bg-blue-600 text-gray-200"><i class="fa-solid fa-minus text-[10px]"></i></button>
-                            <button onclick="resizeCropStep(8)" class="w-7 h-7 rounded bg-slate-800 active:bg-blue-600 text-gray-200"><i class="fa-solid fa-plus text-[10px]"></i></button>
+                            <button onclick="resizeCropStep(-10)" class="w-7 h-7 rounded bg-slate-800 active:bg-blue-600 text-gray-200"><i class="fa-solid fa-minus text-[10px]"></i></button>
+                            <button onclick="resizeCropStep(10)" class="w-7 h-7 rounded bg-slate-800 active:bg-blue-600 text-gray-200"><i class="fa-solid fa-plus text-[10px]"></i></button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Bảng điều khiển nút bấm bên dưới -->
                 <div class="mt-2 flex flex-col gap-2 text-xs">
                     <div class="grid grid-cols-2 gap-2">
-                        <!-- Nút Đổi Ảnh Mới -->
                         <button id="btnResetAll" onclick="resetToInitialState()" class="hidden px-3 py-2 bg-rose-500/10 hover:bg-rose-500/20 active:scale-98 text-rose-400 border border-rose-500/30 rounded-lg font-semibold transition flex items-center justify-center gap-1.5 text-xs">
                             <i class="fa-solid fa-rotate-left"></i>
                             <span>Đổi Ảnh Mới</span>
                         </button>
 
-                        <!-- Nút AI Tự Tìm Đúng Tem màu -->
                         <button id="btnAutoCrop" class="w-full px-3 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 active:scale-98 text-white rounded-lg font-semibold shadow-md transition flex items-center justify-center gap-1.5 text-xs col-span-2">
                             <i class="fa-solid fa-wand-magic-sparkles"></i>
                             <span>AI Tự Tìm Đúng Tem Màu TTI</span>
@@ -418,7 +394,11 @@
             if (!file.type.startsWith('image/')) return;
             const reader = new FileReader();
             reader.onload = (e) => {
-                sourceImage.onload = () => initImageStage();
+                sourceImage.onload = () => {
+                    requestAnimationFrame(() => {
+                        initImageStage();
+                    });
+                };
                 sourceImage.src = e.target.result;
             };
             reader.readAsDataURL(file);
@@ -469,15 +449,32 @@
             hiddenCanvas.height = sourceImage.naturalHeight;
             hiddenCtx.drawImage(sourceImage, 0, 0);
 
-            const vpW = viewport.clientWidth - 20;
-            const vpH = viewport.clientHeight - 20;
-            const scale = Math.min(vpW / sourceImage.naturalWidth, vpH / sourceImage.naturalHeight, 1.0);
-            
-            currentZoom = Math.max(scale, 0.2);
-            panX = 0; panY = 0;
-            updateTransform();
-
             autoDetectLabelRegion();
+        }
+
+        /* TỰ ĐỘNG CANH GIỮA VÀ ZOMM VÀO KHUNG CROP */
+        function focusCropInViewport() {
+            const vpW = viewport.clientWidth;
+            const vpH = viewport.clientHeight;
+            if (!vpW || !vpH) return;
+
+            // Đặt kích thước hiển thị lý tưởng của Khung Crop trên màn hình (ví dụ: 160px)
+            const targetCropDisplaySize = Math.min(vpW, vpH) * 0.45; 
+
+            // Tính tỷ lệ zoom tối ưu dựa vào kích thước vùng crop
+            currentZoom = targetCropDisplaySize / cropState.w;
+            
+            // Giới hạn zoom trong khoảng hợp lý
+            currentZoom = Math.max(0.1, Math.min(currentZoom, 3.0));
+
+            // Tính tọa độ pan để đưa tâm của khung crop ra ĐÚNG CHÍNH GIỮA viewport
+            const cropCenterX = cropState.x + cropState.w / 2;
+            const cropCenterY = cropState.y + cropState.h / 2;
+
+            panX = (vpW / 2) - (cropCenterX * currentZoom);
+            panY = (vpH / 2) - (cropCenterY * currentZoom);
+
+            updateTransform();
         }
 
         function updateTransform() {
@@ -485,8 +482,8 @@
             zoomVal.textContent = `${Math.round(currentZoom * 100)}%`;
         }
 
-        btnZoomIn.addEventListener('click', () => { currentZoom = Math.min(currentZoom + 0.2, 4.0); updateTransform(); });
-        btnZoomOut.addEventListener('click', () => { currentZoom = Math.max(currentZoom - 0.2, 0.2); updateTransform(); });
+        btnZoomIn.addEventListener('click', () => { currentZoom = Math.min(currentZoom + 0.15, 4.0); updateTransform(); });
+        btnZoomOut.addEventListener('click', () => { currentZoom = Math.max(currentZoom - 0.15, 0.05); updateTransform(); });
 
         function getPointerPos(e) {
             if (e.touches && e.touches.length > 0) {
@@ -559,7 +556,7 @@
         function handleCropResize(dx, dy) {
             let { x, y, w, h } = initialCropState;
             const minSize = 20;
-            const maxSize = Math.round(sourceImage.naturalWidth * 0.5);
+            const maxSize = Math.round(Math.min(sourceImage.naturalWidth, sourceImage.naturalHeight) * 0.6);
 
             if (currentHandle.includes('r')) w = Math.min(maxSize, Math.max(minSize, w + dx));
             if (currentHandle.includes('b')) h = Math.min(maxSize, Math.max(minSize, h + dy));
@@ -590,7 +587,7 @@
 
         function nudgeCrop(dir) {
             triggerHaptic();
-            const step = 4;
+            const step = Math.max(4, Math.round(cropState.w * 0.05));
             if (dir === 'left') cropState.x = Math.max(0, cropState.x - step);
             if (dir === 'right') cropState.x = Math.min(sourceImage.naturalWidth - cropState.w, cropState.x + step);
             if (dir === 'up') cropState.y = Math.max(0, cropState.y - step);
@@ -601,7 +598,7 @@
 
         function resizeCropStep(delta) {
             triggerHaptic();
-            const maxSize = Math.round(sourceImage.naturalWidth * 0.5);
+            const maxSize = Math.round(Math.min(sourceImage.naturalWidth, sourceImage.naturalHeight) * 0.6);
             cropState.w = Math.max(20, Math.min(maxSize, cropState.w + delta));
             cropState.h = Math.max(20, Math.min(maxSize, cropState.h + delta));
             updateCropBoxUI();
@@ -624,8 +621,9 @@
 
             const imgData = hiddenCtx.getImageData(0, 0, imgW, imgH).data;
 
-            const winSize = Math.round(Math.min(imgW, imgH) * 0.20);
-            const step = Math.max(4, Math.round(Math.min(imgW, imgH) / 45));
+            // Đặt kích thước mặc định chuẩn của khung Crop (15% chiều nhỏ nhất ảnh)
+            const winSize = Math.max(40, Math.round(Math.min(imgW, imgH) * 0.15));
+            const step = Math.max(6, Math.round(Math.min(imgW, imgH) / 40));
 
             let highestPriorityScore = -1;
             let bestX = (imgW - winSize) / 2;
@@ -635,8 +633,8 @@
                 for (let x = 0; x <= imgW - winSize; x += step) {
                     let scoreP1 = 0, scoreP2 = 0, scoreP3 = 0;
                     
-                    for (let py = y; py < y + winSize; py += 4) {
-                        for (let px = x; px < x + winSize; px += 4) {
+                    for (let py = y; py < y + winSize; py += 6) {
+                        for (let px = x; px < x + winSize; px += 6) {
                             const idx = (py * imgW + px) * 4;
                             const r = imgData[idx];
                             const g = imgData[idx + 1];
@@ -667,10 +665,12 @@
             cropState = { x: bestX, y: bestY, w: winSize, h: winSize };
             cropBox.classList.remove('hidden');
             updateCropBoxUI();
+            
+            // Tự động Phóng to & Căn giữa vị trí vừa phát hiện
+            focusCropInViewport();
             runAIAnalysis();
         }
 
-        /* THUẬT TOÁN PHÂN TÍCH VÙNG LÕI & NHẬN DIỆN NÂNG CAO */
         function runAIAnalysis() {
             if (cropState.w <= 0 || cropState.h <= 0) return;
 
@@ -683,7 +683,6 @@
                 0, 0, cropState.w, cropState.h
             );
 
-            // Kỹ thuật Core Region Sampling: Lấy 50% vùng tâm để tránh viền nhiễu
             const marginX = Math.round(cropState.w * 0.25);
             const marginY = Math.round(cropState.h * 0.25);
             const coreW = Math.max(1, Math.round(cropState.w * 0.5));
@@ -714,7 +713,6 @@
             evaluateTTIStatus(hsv, darkness, avgR, avgG, avgB);
         }
 
-        /* BỘ PHÂN LOẠI CHI TIẾT MÀU XANH VÀ MÀU KHÔNG PHÙ HỢP */
         function evaluateTTIStatus(hsv, darkness, r, g, b) {
             let percent = 0;
             let title = "";
@@ -729,72 +727,38 @@
             const s = hsv.s;
             const v = hsv.v;
 
-            // ==========================================================================
-            // 1. KIỂM TRA MÀU SAI SẢN PHẨM (Đã bỏ Đen/Tối sẫm & Dải màu chính TTI)
-            // ==========================================================================
             let detectedInvalidColor = "";
-
-            // Tính độ sáng cảm nhận (Luminance Y) và độ chênh lệch cực trị RGB
             const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255; 
             const maxRGB = Math.max(r, g, b);
             const minRGB = Math.min(r, g, b);
-            const rgbDiff = maxRGB - minRGB; // Chênh lệch giữa kênh sáng nhất và tối nhất
+            const rgbDiff = maxRGB - minRGB;
 
-            // --------------------------------------------------------------------------
-            // TẦNG 1: BỘ LỌC MÀU TRUNG TÍNH (Bỏ qua Trắng, Đen -> Chỉ bắt Xám)
-            // --------------------------------------------------------------------------
             if (s < 0.12 || (rgbDiff / 255) < 0.10) {
-                // - Nếu Luminance >= 0.65 -> Tem TRẮNG (Hợp lệ, bỏ qua)
-                // - Nếu Luminance < 0.15  -> Tem ĐEN / TỐI SẪM (Màu chính TTI -> Hợp lệ, bỏ qua)
-
-                // CHỈ BẮT LỖI KHI RƠI VÀO DẢI MÀU XÁM:
                 if (luminance >= 0.35 && luminance < 0.65) {
                     detectedInvalidColor = "Xám thường";
                 }
-            }
-
-            // --------------------------------------------------------------------------
-            // TẦNG 2: PHÂN LOẠI CÁC MÀU SAI KHÁC (Đỏ, Nâu, Cam, Vàng, Xanh lá)
-            // (Bỏ qua dải 165° - 345° chứa Xanh dương, Tím, Hồng - màu chính TTI)
-            // --------------------------------------------------------------------------
-            else {
-                // A. NHÓM MÀU ĐỎ (Hue: 345° -> 360° và 0° -> 15°)
+            } else {
                 if ((h >= 345 && h <= 360) || (h >= 0 && h < 15)) {
                     if (v > 0.75) detectedInvalidColor = "Đỏ nhạt / Đỏ tươi";
                     else if (v >= 0.40) detectedInvalidColor = "Đỏ thường";
                     else detectedInvalidColor = "Đỏ đậm / Đỏ sẫm";
-                } 
-                
-                // B. NHÓM MÀU NÂU (Hue: 15° -> 30°)
-                else if (h >= 15 && h < 30) {
+                } else if (h >= 15 && h < 30) {
                     if (v > 0.70 && s < 0.50) detectedInvalidColor = "Nâu nhạt / Nâu kem";
                     else if (v >= 0.35) detectedInvalidColor = "Nâu thường";
                     else detectedInvalidColor = "Nâu đậm / Nâu đất";
-                } 
-                
-                // C. NHÓM MÀU CAM (Hue: 30° -> 48°)
-                else if (h >= 30 && h < 48) {
+                } else if (h >= 30 && h < 48) {
                     if (v > 0.75) detectedInvalidColor = "Cam nhạt";
                     else if (v >= 0.45) detectedInvalidColor = "Cam thường";
                     else detectedInvalidColor = "Cam sẫm / Cam nâu";
-                } 
-                
-                // D. NHÓM MÀU VÀNG (Hue: 48° -> 75°)
-                else if (h >= 48 && h < 75) {
+                } else if (h >= 48 && h < 75) {
                     if (v > 0.80) detectedInvalidColor = "Vàng nhạt / Vàng chanh";
                     else if (v >= 0.50) detectedInvalidColor = "Vàng thường";
                     else detectedInvalidColor = "Vàng đậm / Vàng đất";
-                } 
-                
-                // E. NHÓM MÀU XANH LÁ (Hue: 75° -> 165°)
-                else if (h >= 75 && h < 165) {
+                } else if (h >= 75 && h < 165) {
                     if (v > 0.75) detectedInvalidColor = "Xanh lá nhạt / Xanh đọt chuối";
                     else if (v >= 0.40) detectedInvalidColor = "Xanh lá thường";
                     else detectedInvalidColor = "Xanh lá đậm / Xanh rêu";
-                }
-                
-                // G. NHÓM MÀU HỒNG (Hue: 305° -> 345°)
-                else if (h >= 305 && h < 345) {
+                } else if (h >= 305 && h < 345) {
                     if (v > 0.80) detectedInvalidColor = "Hồng nhạt / Hồng phấn";
                     else if (v >= 0.45) detectedInvalidColor = "Hồng thường";
                     else detectedInvalidColor = "Hồng đậm / Hồng cánh sen";
@@ -810,10 +774,7 @@
                 iconHtml = `<i class="fa-solid fa-triangle-exclamation text-purple-400"></i>`;
                 riskText = "Không Xác Định";
                 riskClass = "text-xs font-bold text-purple-400";
-            } 
-            // 2. PHÂN LOẠI ĐỘ NHẠY SẮC XANH TIÊU CHUẨN TTI
-            else {
-                // A. TRẮNG TINH / SÁNG CHUẨN
+            } else {
                 if (darkness < 0.12 && s < 0.12) {
                     catText = "Trắng Tinh / Sáng Chuẩn";
                     percent = Math.round(darkness * 40);
@@ -823,9 +784,7 @@
                     iconHtml = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
                     riskText = "An Toàn (0%)";
                     riskClass = "text-xs font-bold text-emerald-400";
-                } 
-                // B. MÀU PASTEL / XANH NHẠT
-                else if (darkness < 0.22 && s < 0.30) {
+                } else if (darkness < 0.22 && s < 0.30) {
                     catText = "Màu Pastel / Xanh Nhạt Phấn";
                     percent = Math.round(10 + (darkness - 0.12) * 80);
                     title = "An Toàn (Phản ứng nhẹ)";
@@ -834,9 +793,7 @@
                     iconHtml = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
                     riskText = "An Toàn (10-20%)";
                     riskClass = "text-xs font-bold text-emerald-400";
-                } 
-                // C. XANH TRẮNG / XANH LƠ NHẠT
-                else if (darkness < 0.38 || (h >= 170 && h <= 205 && s < 0.45)) {
+                } else if (darkness < 0.38 || (h >= 170 && h <= 205 && s < 0.45)) {
                     catText = "Xanh Trắng / Xanh Lơ Nhạt";
                     percent = Math.round(25 + (darkness - 0.22) * 90);
                     title = "Cảnh Báo Sớm";
@@ -845,9 +802,7 @@
                     iconHtml = `<i class="fa-solid fa-triangle-exclamation text-amber-400"></i>`;
                     riskText = "Nguy Cơ Thấp";
                     riskClass = "text-xs font-bold text-amber-400";
-                } 
-                // D. XANH THƯỜNG / BLUE TIÊU CHUẨN
-                else if (darkness < 0.58 && h >= 190 && h <= 245) {
+                } else if (darkness < 0.58 && h >= 190 && h <= 245) {
                     catText = "Xanh Thường / Blue Tiêu Chuẩn";
                     percent = Math.round(40 + (darkness - 0.38) * 100);
                     title = "Cảnh Báo Đứt Chuỗi Lạnh";
@@ -856,9 +811,7 @@
                     iconHtml = `<i class="fa-solid fa-triangle-exclamation text-orange-400"></i>`;
                     riskText = "Đứt Chuỗi Lạnh";
                     riskClass = "text-xs font-bold text-orange-400";
-                } 
-                // E. XANH ĐẬM / XANH NAVY
-                else if (darkness < 0.78 && h >= 200 && h <= 255) {
+                } else if (darkness < 0.78 && h >= 200 && h <= 255) {
                     catText = "Xanh Đậm / Xanh Navy";
                     percent = Math.round(60 + (darkness - 0.58) * 120);
                     title = "Đứt Chuỗi Nghiêm Trọng";
@@ -867,9 +820,7 @@
                     iconHtml = `<i class="fa-solid fa-circle-xmark text-rose-400"></i>`;
                     riskText = "Đứt Chuỗi Nặng";
                     riskClass = "text-xs font-bold text-rose-400";
-                } 
-                // F. XANH ĐEN / TÍM THAN ĐẬM
-                else {
+                } else {
                     catText = "Xanh Đen / Tím Than Đậm";
                     percent = 100;
                     title = "Hỏng Hoàn Toàn (Nguy Hiểm)";
@@ -936,7 +887,11 @@
             tCtx.arc(200, 220, 40, 0, Math.PI * 2);
             tCtx.fill();
 
-            sourceImage.onload = () => initImageStage();
+            sourceImage.onload = () => {
+                requestAnimationFrame(() => {
+                    initImageStage();
+                });
+            };
             sourceImage.src = tempCanvas.toDataURL();
         }
     </script>
