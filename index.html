@@ -452,20 +452,26 @@
             autoDetectLabelRegion();
         }
 
-        /* TỰ ĐỘNG CANH GIỮA VÀ ZOMM VÀO KHUNG CROP */
+        /* TỰ ĐỘNG CANH GIỮA VÀ ZOMM TỐI ƯU THEO THIẾT BỊ */
         function focusCropInViewport() {
             const vpW = viewport.clientWidth;
             const vpH = viewport.clientHeight;
             if (!vpW || !vpH) return;
 
-            // Đặt kích thước hiển thị lý tưởng của Khung Crop trên màn hình (ví dụ: 160px)
-            const targetCropDisplaySize = Math.min(vpW, vpH) * 0.45; 
+            // Kiểm tra xem thiết bị hiện tại là Điện thoại hay Máy tính
+            const isMobile = window.innerWidth < 768;
+
+            // Tỷ lệ phóng khung crop dựa trên màn hình:
+            // - Điện thoại (Mobile): 0.70 (~70% viewport) để xem rõ
+            // - Máy tính (Desktop): 0.30 (~30% viewport) theo yêu cầu
+            const targetRatio = isMobile ? 0.70 : 0.30;
+            const targetCropDisplaySize = Math.min(vpW, vpH) * targetRatio;
 
             // Tính tỷ lệ zoom tối ưu dựa vào kích thước vùng crop
             currentZoom = targetCropDisplaySize / cropState.w;
             
             // Giới hạn zoom trong khoảng hợp lý
-            currentZoom = Math.max(0.1, Math.min(currentZoom, 3.0));
+            currentZoom = Math.max(0.05, Math.min(currentZoom, 4.0));
 
             // Tính tọa độ pan để đưa tâm của khung crop ra ĐÚNG CHÍNH GIỮA viewport
             const cropCenterX = cropState.x + cropState.w / 2;
@@ -666,7 +672,7 @@
             cropBox.classList.remove('hidden');
             updateCropBoxUI();
             
-            // Tự động Phóng to & Căn giữa vị trí vừa phát hiện
+            // Tự động Phóng to & Căn giữa vị trí vừa phát hiện phù hợp với từng thiết bị
             focusCropInViewport();
             runAIAnalysis();
         }
