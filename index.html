@@ -735,13 +735,29 @@
             const minRGB = Math.min(r, g, b);
             const rgbDiff = maxRGB - minRGB;
 
-            // KIỂM TRA MÀU LOẠI TRỪ (Nóng/Nâu/Xám đậm...)
-            if (s >= 0.15 && ((h >= 0 && h < 165) || (h >= 300 && h <= 360))) {
-                if (h >= 0 && h < 15) detectedInvalidColor = "Đỏ";
-                else if (h >= 15 && h < 45) detectedInvalidColor = "Cam / Nâu";
-                else if (h >= 45 && h < 75) detectedInvalidColor = "Vàng";
-                else if (h >= 75 && h < 165) detectedInvalidColor = "Xanh lá";
-                else if (h >= 300 && h <= 360) detectedInvalidColor = "Hồng / Tím đỏ";
+           if (s >= 0.28) {
+                // Tím đỏ / Hồng sẫm (Magenta / Deep Pink)
+                if (h >= 315 || h < 10) {
+                    if (v < 0.45) detectedInvalidColor = "Nâu / Đỏ sẫm";
+                    else detectedInvalidColor = "Hồng / Tím đỏ";
+                }
+                // Đỏ tươi / Cam
+                else if (h >= 10 && h < 40) {
+                    if (v < 0.50 && s > 0.35) detectedInvalidColor = "Nâu";
+                    else detectedInvalidColor = "Đỏ / Cam";
+                }
+                // Vàng
+                else if (h >= 40 && h < 70) {
+                    detectedInvalidColor = "Vàng";
+                }
+                // Xanh lá (Green)
+                else if (h >= 70 && h < 155) {
+                    detectedInvalidColor = "Xanh lá";
+                }
+                // Hồng phấn / Tím nhạt (Pink/Purple)
+                else if (h >= 270 && h < 315) {
+                    detectedInvalidColor = "Hồng / Tím";
+                }
             }
 
             if (detectedInvalidColor !== "") {
