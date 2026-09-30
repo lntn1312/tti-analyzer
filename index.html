@@ -742,9 +742,6 @@
                 else if (h >= 45 && h < 75) detectedInvalidColor = "Vàng";
                 else if (h >= 75 && h < 165) detectedInvalidColor = "Xanh lá";
                 else if (h >= 300 && h <= 360) detectedInvalidColor = "Hồng / Tím đỏ";
-            } else if (s < 0.15 && luminance < 0.28) {
-                // Xám rất đậm / Đen không phải tem TTI
-                detectedInvalidColor = "Xám đậm / Đen";
             }
 
             if (detectedInvalidColor !== "") {
@@ -764,7 +761,7 @@
                     if (s < 0.08 && luminance > 0.88) {
                         catText = "Trắng Tinh Chuẩn";
                     } else {
-                        catText = "Trắng / Xám Nhạt (Do Ánh Sáng)";
+                        catText = "Trắng Nhạt ";
                     }
                     percent = Math.round((1 - luminance) * 30);
                     title = "An Toàn Tuyệt Đối";
@@ -776,7 +773,7 @@
                 }
                 // 2. PASTEL XANH / XANH LƠ NHẠT (Bắt đầu phản ứng nhẹ)
                 else if ((h >= 160 && h <= 245) && (s <= 0.35) && (luminance >= 0.50)) {
-                    catText = "Màu Pastel Xanh / Xanh Lơ Nhạt";
+                    catText = "Màu Pastel Xanh ";
                     percent = Math.round(15 + (s * 50));
                     title = "An Toàn (Đã Kích Hoạt Phản Ứng)";
                     desc = "Chuyển màu Pastel xanh / xanh lơ nhạt nhẹ. Sản phẩm vẫn nằm trong giới hạn an toàn cho phép.";
