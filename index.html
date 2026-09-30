@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Phân Tích Nhãn Cảnh Báo Điều Kiện Bảo Quản Lạnh TTI</title>
+<link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Bật tính năng Dark Mode bằng class
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                    },
+                    colors: {
+                        apple: {
+                            blue: '#2997ff',
+                            grayText: '#86868b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            touch-action: manipulation;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* LIGHT MODE (Mặc định) */
+        body {
+            background-color: #f8f9fa;
+            color: #0f172a;
+        }
+
+        .apple-nav-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .apple-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .apple-card:hover {
+            border-color: rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-btn {
+            color: #64748b;
+            white-space: nowrap;
+        }
+        .tab-btn:hover {
+            color: #0f172a;
+        }
+        .tab-btn.active {
+            color: #0f172a;
+            background: rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-container {
+            background: #f1f5f9;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .inner-box {
+            background: #f1f5f9;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        /* DARK MODE (Lớp .dark ở <html>) */
+        html.dark body {
+            background-color: #000000;
+            color: #f5f5f7;
+        }
+
+        html.dark .apple-nav-glass {
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        html.dark .apple-card {
+            background: #161617;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: none;
+        }
+
+        html.dark .apple-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        html.dark .tab-btn {
+            color: #86868b;
+        }
+        html.dark .tab-btn:hover {
+            color: #ffffff;
+        }
+        html.dark .tab-btn.active {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        html.dark .nav-container {
+            background: #161617;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        html.dark .inner-box {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Spectrum Bar */
+        .spectrum-bar-container {
+            position: relative;
+            height: 24px;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, 
+                #ffffff 0%, 
+                #e2e8f0 20%, 
+                #93c5fd 40%, 
+                #2563eb 65%, 
+                #1e1b4b 85%, 
+                #09090b 100%
+            );
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.15);
+        }
+        html.dark .spectrum-bar-container {
+            border-color: rgba(255,255,255,0.15);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
+        }
+
+        .spectrum-pointer {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 12px;
+            margin-left: -6px;
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 9999px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 10;
+        }
+
+        #cropBox {
+            position: absolute;
+            border: 2px dashed #2997ff;
+            background: rgba(41, 151, 255, 0.15);
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+            cursor: move;
+            z-index: 20;
+            touch-action: none;
+        }
+        
+        .crop-handle {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: #ffffff;
+            border: 3px solid #2997ff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(0,0,0,0.5);
+            z-index: 21;
+            touch-action: none;
+        }
+        
+        .handle-tl { top: -8px; left: -8px; }
+        .handle-tr { top: -8px; right: -8px; }
+        .handle-bl { bottom: -8px; left: -8px; }
+        .handle-br { bottom: -8px; right: -8px; }
+        .handle-tm { top: -8px; left: calc(50% - 8px); }
+        .handle-bm { bottom: -8px; left: calc(50% - 8px); }
+        .handle-ml { top: calc(50% - 8px); left: -8px; }
+        .handle-mr { top: calc(50% - 8px); right: -8px; }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        html.dark ::-webkit-scrollbar-thumb { background: #333336; }
+
+        /* Animation Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+
+    <!-- NAVIGATION HEADER (Đã tối ưu gọn gàng cho điện thoại) -->
+    <header class="apple-nav-glass sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-2 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-1">
+            
+            <!-- Logo Brand -->
+            <div class="flex items-center gap-1.5 sm:gap-2.5 cursor-pointer shrink-0" onclick="switchTab('home')">
+                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+                    <i class="fa-solid fa-snowflake text-[10px] sm:text-xs"></i>
+                </div>
+                <span class="font-bold text-xs sm:text-base tracking-tight text-slate-900 dark:text-white">TTI ANALYZER</span>
+            </div>
+
+            <!-- Navigation Tabs & Theme Toggle Button -->
+            <div class="flex items-center gap-1 sm:gap-2 min-w-0">
+                <nav class="nav-container flex items-center gap-0.5 sm:gap-1 p-0.5 sm:p-1 rounded-full text-[10px] sm:text-xs font-medium overflow-hidden">
+                    <button onclick="switchTab('home')" id="tab-home" class="tab-btn active px-2 sm:px-3.5 py-1 sm:py-1.5 rounded-full transition-all duration-200">Trang chủ</button>
+                    <button onclick="switchTab('about')" id="tab-about" class="tab-btn px-2 sm:px-3.5 py-1 sm:py-1.5 rounded-full transition-all duration-200">Giới thiệu</button>
+                    <button onclick="switchTab('explore')" id="tab-explore" class="tab-btn px-2 sm:px-3.5 py-1 sm:py-1.5 rounded-full transition-all duration-200">Khám phá</button>
+                    <button onclick="switchTab('survey')" id="tab-survey" class="tab-btn px-2 sm:px-3.5 py-1 sm:py-1.5 rounded-full transition-all duration-200 flex items-center gap-1">
+                        <span>Khảo sát</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></span>
+                    </button>
+                </nav>
+
+                <!-- NÚT BẤM CHUYỂN ĐỔI GIAO DIỆN SÁNG / TỐI -->
+                <button id="themeToggleBtn" onclick="toggleTheme()" class="w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center bg-slate-200 dark:bg-white/10 text-slate-700 dark:text-amber-300 hover:scale-105 active:scale-95 transition-all shadow-sm border border-slate-300 dark:border-white/15 shrink-0" title="Chuyển chế độ Sáng / Tối">
+                    <i id="themeIcon" class="fa-solid fa-sun text-xs sm:text-sm"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- CONTAINER CHO CÁC PHÂN HỆ TAB -->
+    <div id="content-container" class="flex-grow">
+
+        <!-- ==================== TAB 1: TRANG CHỦ ==================== -->
+        <section id="sec-home" class="tab-content max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-20 flex flex-col items-center text-center">
+            
+            <div class="reveal">
+                <span class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-apple-blue mb-2 sm:mb-3 inline-block">An toàn thực phẩm thế hệ mới</span>
+                <h1 class="text-2xl sm:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight max-w-3xl mb-4 sm:mb-6">
+                    Chất lượng thực phẩm.<br/>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-300 dark:to-purple-400">Minh bạch theo thời gian thực.</span>
+                </h1>
+                
+                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-lg max-w-2xl font-normal leading-relaxed mb-6 sm:mb-10 mx-auto">
+                    Hơn 30% thực phẩm bị lãng phí do đứt gãy chuỗi lạnh. Nhãn TTI (Time-Temperature Indicator) và công nghệ phân tích ảnh số của chúng tôi giúp bạn nhận biết chính xác chất lượng bảo quản chỉ trong vài giây.
+                </p>
+
+                <div class="flex flex-wrap gap-3 sm:gap-4 justify-center mb-10 sm:mb-16">
+                    <button onclick="switchTab('survey')" class="px-5 sm:px-7 py-2.5 sm:py-3.5 bg-blue-600 hover:bg-blue-700 dark:bg-white text-white dark:text-black font-semibold rounded-full transition-all text-xs sm:text-sm shadow-xl shadow-blue-500/20 dark:shadow-white/10 flex items-center gap-2">
+                        Thử nghiệm Khảo sát TTI <i class="fa-solid fa-arrow-right text-[10px] sm:text-xs"></i>
+                    </button>
+                    <button onclick="switchTab('explore')" class="px-5 sm:px-7 py-2.5 sm:py-3.5 bg-slate-200 hover:bg-slate-300 dark:bg-white/10 text-slate-800 dark:text-white font-semibold rounded-full transition-all text-xs sm:text-sm border border-slate-300 dark:border-white/10">
+                        Khám phá
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grid Highlight -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 w-full text-left">
+                <div class="apple-card rounded-2xl sm:rounded-3xl p-5 sm:p-6 flex flex-col justify-between reveal">
+                    <i class="fa-solid fa-temperature-arrow-down text-2xl sm:text-3xl text-blue-500 mb-4 sm:mb-8"></i>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1.5 sm:mb-2">Giám sát liên tục</h3>
+                        <p class="text-xs text-slate-500 dark:text-apple-grayText leading-relaxed">TTI ghi lại toàn bộ lịch sử tích nhiệt mà nhiệt kế thông thường không thể phản ánh được.</p>
+                    </div>
+                </div>
+                <div class="apple-card rounded-2xl sm:rounded-3xl p-5 sm:p-6 flex flex-col justify-between reveal">
+                    <i class="fa-solid fa-vial-circle-check text-2xl sm:text-3xl text-emerald-500 mb-4 sm:mb-8"></i>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1.5 sm:mb-2">Không dùng điện</h3>
+                        <p class="text-xs text-slate-500 dark:text-apple-grayText leading-relaxed">Phản ứng đồng hồ Vitamin C - Iod giúp đổi màu vĩnh viễn không đảo ngược khi đứt chuỗi lạnh.</p>
+                    </div>
+                </div>
+                <div class="apple-card rounded-2xl sm:rounded-3xl p-5 sm:p-6 flex flex-col justify-between reveal">
+                    <i class="fa-solid fa-camera-retro text-2xl sm:text-3xl text-purple-500 mb-4 sm:mb-8"></i>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1.5 sm:mb-2">Số hóa bằng AI & RGB</h3>
+                        <p class="text-xs text-slate-500 dark:text-apple-grayText leading-relaxed">Trích xuất phản ứng đổi màu tem chính xác qua chỉ số độ tối D = 255 - (R+G+B)/3.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ==================== TAB 2: GIỚI THIỆU ==================== -->
+        <section id="sec-about" class="tab-content hidden max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
+            <div class="text-center mb-8 sm:mb-12 reveal">
+                <h2 class="text-xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-2 sm:mb-4">Tổng Quan Dự Án & Công Nghệ TTI</h2>
+                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-xl mx-auto">Nghiên cứu phát triển nhãn cảnh báo đứt chuỗi lạnh không dùng điện dựa trên phản ứng đồng hồ hóa học.</p>
+            </div>
+
+            <div class="apple-card rounded-2xl sm:rounded-3xl p-5 sm:p-10 mb-6 sm:mb-8 reveal">
+                <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-bullseye text-blue-500"></i> Sứ mệnh & Vấn đề nghiên cứu
+                </h3>
+                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4">
+                    Trong vận chuyển và bảo quản thực phẩm (sữa, đồ chế biến, đồ tươi), thực phẩm có thể gặp sự cố tăng nhiệt độ rồi làm lạnh lại. Nhiệt kế thông thường chỉ đo nhiệt độ tức thời tại thời điểm xem mà không ghi lại lịch sử bảo quản.
+                </p>
+                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-sm leading-relaxed">
+                    Dự án phát triển nhãn TTI dạng hai khoang độc lập, nhỏ gọn, dán ngoài bao bì giúp tích lũy tác động của thời gian và nhiệt độ. Khi xảy ra đứt chuỗi lạnh, nhãn tự động đổi màu xanh tím/xanh đen trực quan không đảo ngược.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div class="apple-card rounded-2xl sm:rounded-3xl p-5 sm:p-6 reveal">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 mb-3 sm:mb-4 text-xs sm:text-base">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <h4 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white mb-1.5 sm:mb-2">Hệ phản ứng Vitamin C - Iod</h4>
+                    <p class="text-xs text-slate-500 dark:text-apple-grayText leading-relaxed">
+                        Sử dụng Vitamin C, dung dịch Lugol/Iod, H₂O₂ 3% và Hồ tinh bột. Vitamin C đóng vai trò tạo độ trễ cảm ứng trước khi tạo màu xanh đen rõ rệt.
+                    </p>
+                </div>
+                <div class="apple-card rounded-2xl sm:rounded-3xl p-5 sm:p-6 reveal">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-500 mb-3 sm:mb-4 text-xs sm:text-base">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h4 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white mb-1.5 sm:mb-2">Thuật toán trích xuất ảnh</h4>
+                    <p class="text-xs text-slate-500 dark:text-apple-grayText leading-relaxed">
+                        Xử lý ảnh kỹ thuật số giúp trích xuất vùng màu tâm tem, tự động loại trừ nhiễu ánh sáng và tính chỉ số D = 255 - (R+G+B)/3.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== TAB 3: KHÁM PHÁ ==================== -->
+        <section id="sec-explore" class="tab-content hidden max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
+            <div class="text-center mb-8 sm:mb-12 reveal">
+                <h2 class="text-xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-2 sm:mb-3">Khám Phá Toàn Diện Về Bảo Quản Lạnh & TTI</h2>
+                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base">Tìm hiểu tác động của nhiệt độ, quy trình bảo quản tiêu chuẩn và cơ chế nhãn TTI.</p>
+            </div>
+
+            <div class="space-y-4 sm:space-y-6">
+                
+                <!-- Card 1: Nguyên nhân nhiệt tác động đến bảo quản -->
+                <div class="apple-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-center reveal">
+                    <div class="md:col-span-4 flex justify-center">
+                        <div class="w-20 h-20 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-500 text-3xl sm:text-4xl">
+                            <i class="fa-solid fa-temperature-high"></i>
+                        </div>
+                    </div>
+                    <div class="md:col-span-8">
+                        <span class="text-[10px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Lý thuyết sinh học & Hóa học</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-1 mb-2">Tại Sao Nhiệt Độ Làm Hỏng Thực Phẩm?</h3>
+                        <p class="text-xs text-slate-600 dark:text-apple-grayText leading-relaxed mb-3">
+                            Khi nhiệt độ tăng vượt mốc bảo quản tiêu chuẩn (0°C đến 4°C), các phản ứng gây hư hỏng bùng phát theo cấp số nhân:
+                        </p>
+                        <ul class="text-xs text-slate-700 dark:text-gray-300 space-y-1.5 list-disc list-inside">
+                            <li><strong>Sự gia tăng vi sinh vật:</strong> Vi khuẩn vi hiếu khí và nấm mốc tăng sinh gấp đôi sau mỗi 20 phút ở nhiệt độ môi trường (25°C - 30°C).</li>
+                            <li><strong>Tăng tốc phản ứng Enzym:</strong> Các enzym nội sinh trong thực phẩm (như lipase, protease) hoạt động mạnh làm biến tính protein và gây ôi thiu lipid.</li>
+                            <li><strong>Phản ứng oxy hóa tích lũy:</strong> Tăng nhiệt độ làm tăng tốc độ oxy hóa chất béo, làm mất màu, mất mùi và giảm giá trị dinh dưỡng.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 2: Biện pháp bảo quản lạnh đúng -->
+                <div class="apple-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-center reveal">
+                    <div class="md:col-span-8 order-2 md:order-1">
+                        <span class="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">Giải pháp vận hành</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-1 mb-2">Biện Pháp Bảo Quản Lạnh Đúng Tiêu Chuẩn</h3>
+                        <p class="text-xs text-slate-600 dark:text-apple-grayText leading-relaxed mb-3">
+                            Duy trì chuỗi lạnh liên tục (Cold Chain) đòi hỏi tuân thủ nghiêm ngặt các nguyên tắc kỹ thuật:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <div class="p-3 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                                <span class="font-bold text-cyan-600 dark:text-cyan-400 block mb-1">1. Tiền làm lạnh (Pre-cooling)</span>
+                                <span class="text-[11px] text-slate-500 dark:text-apple-grayText">Hạ nhiệt độ thực phẩm xuống ngưỡng an toàn (0°C - 4°C) trước khi đóng gói và xếp vào kho.</span>
+                            </div>
+                            <div class="p-3 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                                <span class="font-bold text-blue-600 dark:text-blue-400 block mb-1">2. Lưu thông khí lạnh</span>
+                                <span class="text-[11px] text-slate-500 dark:text-apple-grayText">Không chất hàng quá chật, để khoảng trống tối thiểu 10cm cho luồng khí lạnh tuần hoàn đều.</span>
+                            </div>
+                            <div class="p-3 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                                <span class="font-bold text-indigo-600 dark:text-indigo-400 block mb-1">3. Kiểm soát độ ẩm</span>
+                                <span class="text-[11px] text-slate-500 dark:text-apple-grayText">Duy trì độ ẩm 85% - 95% để tránh tình trạng mất nước bốc hơi làm giảm trọng lượng.</span>
+                            </div>
+                            <div class="p-3 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                                <span class="font-bold text-purple-600 dark:text-purple-400 block mb-1">4. Giám sát bằng tem TTI</span>
+                                <span class="text-[11px] text-slate-500 dark:text-apple-grayText">Dán tem TTI lên bao bì giúp minh bạch hóa lịch sử nhiệt độ tích lũy suốt chặng đường.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:col-span-4 flex justify-center order-1 md:order-2">
+                        <div class="w-20 h-20 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-500 text-3xl sm:text-4xl">
+                            <i class="fa-solid fa-snowflake"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Quy trình và các yếu tố ảnh hưởng -->
+                <div class="apple-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-center reveal">
+                    <div class="md:col-span-4 flex justify-center">
+                        <div class="w-20 h-20 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 text-3xl sm:text-4xl">
+                            <i class="fa-solid fa-diagram-project"></i>
+                        </div>
+                    </div>
+                    <div class="md:col-span-8">
+                        <span class="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">Phân tích yếu tố ảnh hưởng</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-1 mb-2">Quy Trình & Yếu Tố Tác Động Đến Bảo Quản</h3>
+                        <p class="text-xs text-slate-600 dark:text-apple-grayText leading-relaxed mb-3">
+                            Hiệu quả của quá trình bảo quản thực phẩm phụ thuộc vào 4 yếu tố then chốt:
+                        </p>
+                        <ul class="text-xs text-slate-700 dark:text-gray-300 space-y-1.5 list-disc list-inside">
+                            <li><strong>Thời gian đứt chuỗi (Time Duration):</strong> Khoảng thời gian thực phẩm tiếp xúc với nhiệt độ cao càng dài, mức độ hư hỏng càng nặng và nhãn TTI sẽ chuyển màu càng đậm.</li>
+                            <li><strong>Biên độ nhiệt độ (Temperature Spike):</strong> Sự chênh lệch nhiệt độ lớn hơn ngưỡng cho phép (như từ 5°C vọt lên 25°C) thúc đẩy tốc độ phản ứng hóa học nhanh hơn.</li>
+                            <li><strong>Chất liệu bao bì:</strong> Khả năng cách nhiệt và chống thấm khí của màng bao bì tác động trực tiếp đến tốc độ trao đổi nhiệt với môi trường bên ngoài.</li>
+                            <li><strong>Thao tác bốc xếp (Handling):</strong> Việc mở cửa kho/xe lạnh quá lâu trong quá trình giao hàng là nguyên nhân hàng đầu gây ra đứt chuỗi lạnh cục bộ.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 4: Phản ứng đồng hồ hóa học -->
+                <div class="apple-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-center reveal">
+                    <div class="md:col-span-8 order-2 md:order-1">
+                        <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Cơ chế hóa học TTI</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-1 mb-2">Phản ứng đồng hồ Vitamin C - Iod</h3>
+                        <p class="text-xs text-slate-600 dark:text-apple-grayText leading-relaxed mb-3">
+                            Phản ứng đồng hồ diễn ra qua 2 giai đoạn nối tiếp nhau cực kỳ chính xác:
+                        </p>
+                        <ul class="text-xs text-slate-700 dark:text-gray-300 space-y-1.5 list-disc list-inside">
+                            <li><strong>Giai đoạn 1 (Tạo độ trễ):</strong> H₂O₂ oxy hóa I⁻ thành I₂, nhưng Vitamin C lập tức khử I₂ về lại I⁻ làm dung dịch vẫn giữ màu trong suốt.</li>
+                            <li><strong>Giai đoạn 2 (Đổi màu vĩnh viễn):</strong> Khi Vitamin C bị tiêu thụ hết, I₂ tự do tích lũy phản ứng ngay với Hồ tinh bột tạo phức xanh đen đậm với độ tương phản cao.</li>
+                        </ul>
+                    </div>
+                    <div class="md:col-span-4 flex justify-center order-1 md:order-2">
+                        <div class="w-20 h-20 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 text-3xl sm:text-4xl">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Cấu tạo 2 khoang -->
+                <div class="apple-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-center reveal">
+                    <div class="md:col-span-4 flex justify-center">
+                        <div class="w-20 h-20 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500 text-3xl sm:text-4xl">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                    </div>
+                    <div class="md:col-span-8">
+                        <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Nguyên mẫu thực tế</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-1 mb-2">Cấu tạo Nhãn Hai Khoang Độc Lập</h3>
+                        <p class="text-xs text-slate-600 dark:text-apple-grayText leading-relaxed mb-3">
+                            Nhãn TTI gồm Khoang A (chứa Vitamin C + Iod) và Khoang B (chứa H₂O₂ + Hồ tinh bột) được cách ly tuyệt đối bởi vách ngăn mỏng.
+                        </p>
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div class="p-2.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                                <span class="font-bold text-emerald-600 dark:text-emerald-400 block">Kích hoạt dễ dàng</span>
+                                <span class="text-[10px] text-slate-500 dark:text-apple-grayText">Ấn nhẹ để 2 dung dịch phá vỡ vách ngăn và hòa trộn</span>
+                            </div>
+                            <div class="p-2.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                                <span class="font-bold text-blue-600 dark:text-blue-400 block">An toàn thực phẩm</span>
+                                <span class="text-[10px] text-slate-500 dark:text-apple-grayText">Màng PE/PET bọc kín không rò rỉ hóa chất</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: Đánh giá thực nghiệm -->
+                <div class="apple-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-center reveal">
+                    <div class="md:col-span-8 order-2 md:order-1">
+                        <span class="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">Đánh giá độ tin cậy</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-1 mb-2">Thực Nghiệm & Chu Kỳ Đứt Chuỗi Lạnh</h3>
+                        <p class="text-xs text-slate-600 dark:text-apple-grayText leading-relaxed">
+                            Nhãn được khảo sát thực nghiệm ở các mốc nhiệt độ 5°C, 15°C, 25°C, 35°C và thử nghiệm chu kỳ thay đổi nhiệt độ (5°C → 25°C → 5°C). Kết quả chứng minh nhãn giữ nguyên lịch sử nhiệt độ tích lũy với hệ số biến thiên CV ≤ 10%.
+                        </p>
+                    </div>
+                    <div class="md:col-span-4 flex justify-center order-1 md:order-2">
+                        <div class="w-20 h-20 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-500 text-3xl sm:text-4xl">
+                            <i class="fa-solid fa-flask-vial"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==================== TAB 4: KHẢO SÁT ==================== -->
+        <section id="sec-survey" class="tab-content hidden max-w-7xl mx-auto w-full px-2.5 sm:px-6 py-4 sm:py-8">
+            
+            <div class="mb-4 text-center sm:text-left reveal">
+                <h2 class="text-base sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Khảo Sát & Phân Tích Nhãn TTI</h2>
+                <p class="text-xs text-slate-500 dark:text-apple-grayText">Tải ảnh hoặc chụp nhãn TTI để AI trích xuất trạng thái tích lũy nhiệt độ.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+                <!-- LEFT COLUMN: IMAGE STAGE -->
+                <section class="lg:col-span-7 flex flex-col gap-3 reveal">
+                    
+                    <div class="apple-card rounded-2xl sm:rounded-3xl p-3 sm:p-5 flex flex-col h-[380px] sm:h-[480px] relative overflow-hidden">
+                        
+                        <div class="flex items-center justify-between mb-2 pb-2 border-b border-slate-200 dark:border-white/10 text-xs">
+                            <div class="flex items-center gap-2 font-semibold text-slate-800 dark:text-gray-200 text-xs">
+                                <i class="fa-solid fa-image text-blue-500"></i>
+                                <span>Khung hiển thị ảnh nhãn TTI</span>
+                            </div>
+
+                            <div id="zoomControls" class="flex items-center gap-1 bg-slate-200 dark:bg-black/60 p-1 rounded-xl border border-slate-300 dark:border-white/10 hidden">
+                                <button id="btnZoomOut" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center bg-white dark:bg-white/10 text-slate-800 dark:text-gray-200">
+                                    <i class="fa-solid fa-minus text-[10px] sm:text-xs"></i>
+                                </button>
+                                <span id="zoomVal" class="text-[10px] sm:text-[11px] font-mono font-bold text-blue-600 dark:text-blue-400 w-8 sm:w-10 text-center">10%</span>
+                                <button id="btnZoomIn" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center bg-white dark:bg-white/10 text-slate-800 dark:text-gray-200">
+                                    <i class="fa-solid fa-plus text-[10px] sm:text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="viewport" class="relative flex-grow bg-slate-900 rounded-2xl overflow-hidden flex items-center justify-center border border-slate-800 select-none touch-none">
+                            
+                            <div id="dropZone" class="flex flex-col items-center justify-center p-4 text-center cursor-pointer hover:bg-white/5 transition rounded-2xl w-full h-full border-2 border-dashed border-slate-700">
+                                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-2 sm:mb-3 text-xl sm:text-2xl shadow-lg">
+                                    <i class="fa-solid fa-camera"></i>
+                                </div>
+                                <h3 class="text-xs sm:text-sm font-semibold text-gray-200 mb-1">Tải ảnh hoặc Chụp nhãn TTI</h3>
+                                <p class="text-[10px] sm:text-[11px] text-gray-400 mb-3 sm:mb-4">Chụp trực diện chiếc tem màu TTI</p>
+                                <button class="px-4 sm:px-5 py-2 sm:py-2.5 bg-blue-600 text-white rounded-full text-xs font-semibold shadow-lg shadow-blue-600/30 hover:bg-blue-500 transition">
+                                    Chọn Ảnh Nhãn
+                                </button>
+                                <input type="file" id="fileInput" accept="image/*" class="hidden">
+                            </div>
+
+                            <div id="imageStage" class="absolute left-0 top-0 hidden origin-top-left cursor-grab touch-none">
+                                <img id="sourceImage" class="max-w-none block pointer-events-none" alt="Source Label" />
+
+                                <div id="cropBox" class="hidden">
+                                    <div class="crop-handle handle-tl" data-handle="tl"></div>
+                                    <div class="crop-handle handle-tr" data-handle="tr"></div>
+                                    <div class="crop-handle handle-bl" data-handle="bl"></div>
+                                    <div class="crop-handle handle-br" data-handle="br"></div>
+                                    <div class="crop-handle handle-tm" data-handle="tm"></div>
+                                    <div class="crop-handle handle-bm" data-handle="bm"></div>
+                                    <div class="crop-handle handle-ml" data-handle="ml"></div>
+                                    <div class="crop-handle handle-mr" data-handle="mr"></div>
+                                </div>
+                            </div>
+
+                            <div id="scanOverlay" class="absolute inset-0 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center gap-3 z-30 hidden px-4 text-center">
+                                <div class="relative w-12 h-12">
+                                    <div class="absolute inset-0 rounded-full border-4 border-blue-500/20"></div>
+                                    <div class="absolute inset-0 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"></div>
+                                    <i class="fa-solid fa-wand-magic-sparkles absolute inset-0 flex items-center justify-center text-blue-400 text-base"></i>
+                                </div>
+                                <p class="text-xs font-medium text-blue-300 animate-pulse">AI đang phân tích tâm màu TTI...</p>
+                            </div>
+
+                        </div>
+
+                        <!-- Mobile Controls -->
+                        <div id="mobileNudgePad" class="mt-2 grid grid-cols-2 gap-2 text-xs hidden">
+                            <div class="flex items-center justify-between bg-slate-100 dark:bg-white/5 p-1.5 rounded-xl border border-slate-200 dark:border-white/5">
+                                <span class="text-[10px] text-slate-500 dark:text-apple-grayText pl-1">Dịch chuyển:</span>
+                                <div class="flex gap-1">
+                                    <button onclick="nudgeCrop('left')" class="w-6 h-6 rounded-lg bg-white dark:bg-white/10 active:bg-blue-600 text-slate-800 dark:text-gray-200"><i class="fa-solid fa-arrow-left text-[10px]"></i></button>
+                                    <button onclick="nudgeCrop('right')" class="w-6 h-6 rounded-lg bg-white dark:bg-white/10 active:bg-blue-600 text-slate-800 dark:text-gray-200"><i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                                    <button onclick="nudgeCrop('up')" class="w-6 h-6 rounded-lg bg-white dark:bg-white/10 active:bg-blue-600 text-slate-800 dark:text-gray-200"><i class="fa-solid fa-arrow-up text-[10px]"></i></button>
+                                    <button onclick="nudgeCrop('down')" class="w-6 h-6 rounded-lg bg-white dark:bg-white/10 active:bg-blue-600 text-slate-800 dark:text-gray-200"><i class="fa-solid fa-arrow-down text-[10px]"></i></button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between bg-slate-100 dark:bg-white/5 p-1.5 rounded-xl border border-slate-200 dark:border-white/5">
+                                <span class="text-[10px] text-slate-500 dark:text-apple-grayText pl-1">Thu/Phóng:</span>
+                                <div class="flex gap-1">
+                                    <button onclick="resizeCropStep(-10)" class="w-6 h-6 rounded-lg bg-white dark:bg-white/10 active:bg-blue-600 text-slate-800 dark:text-gray-200"><i class="fa-solid fa-minus text-[10px]"></i></button>
+                                    <button onclick="resizeCropStep(10)" class="w-6 h-6 rounded-lg bg-white dark:bg-white/10 active:bg-blue-600 text-slate-800 dark:text-gray-200"><i class="fa-solid fa-plus text-[10px]"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="mt-2.5 flex flex-col gap-2 text-xs">
+                            <div class="grid grid-cols-2 gap-2">
+                                <button id="btnResetAll" onclick="resetToInitialState()" class="hidden px-3 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/20 rounded-xl font-semibold transition flex items-center justify-center gap-1.5 text-xs">
+                                    <i class="fa-solid fa-rotate-left"></i>
+                                    <span>Đổi Ảnh Mới</span>
+                                </button>
+
+                                <button id="btnAutoCrop" class="w-full px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-semibold shadow-lg shadow-blue-600/20 transition flex items-center justify-center gap-2 text-xs col-span-2">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                    <span>AI Tự Tìm Đúng Tem Màu TTI</span>
+                                </button>
+                            </div>
+
+                            <div class="flex items-center justify-between gap-1 overflow-x-auto pt-1.5 border-t border-slate-200 dark:border-white/5">
+                                <span class="text-slate-500 dark:text-apple-grayText text-[10px] shrink-0">Mẫu thử TTI:</span>
+                                <button onclick="loadPreset('safe')" class="px-2.5 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 rounded-full text-[10px] shrink-0 hover:bg-emerald-500/20">An toàn</button>
+                                <button onclick="loadPreset('warning')" class="px-2.5 py-0.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 rounded-full text-[10px] shrink-0 hover:bg-amber-500/20">Cảnh báo</button>
+                                <button onclick="loadPreset('danger')" class="px-2.5 py-0.5 bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 rounded-full text-[10px] shrink-0 hover:bg-rose-500/20">Đứt chuỗi</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- RIGHT COLUMN: RESULTS -->
+                <section class="lg:col-span-5 flex flex-col gap-3 reveal">
+
+                    <div class="apple-card rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 flex flex-col gap-2.5 overflow-hidden">
+                        <div class="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-1.5">
+                            <span class="text-xs font-semibold text-slate-800 dark:text-gray-200 flex items-center gap-1.5">
+                                <i class="fa-solid fa-crop-simple text-blue-500"></i>
+                                Vùng Tem Trích Xuất
+                            </span>
+                            <span id="cropDimensions" class="text-[10px] font-mono text-slate-500 dark:text-apple-grayText">0 x 0 px</span>
+                        </div>
+
+                        <div class="flex gap-3 items-center inner-box p-2.5 sm:p-3 rounded-2xl overflow-hidden">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 bg-black rounded-xl overflow-hidden border border-slate-300 dark:border-white/10 flex items-center justify-center shrink-0 relative shadow-inner">
+                                <canvas id="cropCanvas" class="w-full h-full object-cover"></canvas>
+                            </div>
+
+                            <div class="flex flex-col gap-0.5 min-w-0 flex-1 overflow-hidden">
+                                <div class="text-[10px] text-slate-500 dark:text-apple-grayText truncate">Màu lõi trung bình vùng chọn:</div>
+                                <div class="flex items-center gap-2">
+                                    <div id="coreColorSwatch" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg border border-slate-300 dark:border-white/20 shadow-inner bg-black shrink-0"></div>
+                                    <div class="flex flex-col min-w-0">
+                                        <span id="colorCategory" class="text-xs font-bold text-blue-600 dark:text-blue-400 truncate">Chưa xác định</span>
+                                        <span id="rgbValue" class="text-[10px] font-mono text-slate-700 dark:text-gray-300 truncate">RGB: ---</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Spectral Status Result -->
+                    <div class="apple-card rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 flex flex-col gap-2.5 sm:gap-3 flex-grow">
+                        
+                        <div class="border-b border-slate-200 dark:border-white/10 pb-1.5 flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-800 dark:text-gray-200 uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fa-solid fa-chart-line text-blue-500"></i>
+                                Kết quả phân tích màu
+                            </span>
+                        </div>
+
+                        <div id="statusBox" class="p-3 sm:p-3.5 rounded-2xl inner-box flex items-start gap-2.5 sm:gap-3 transition">
+                            <div id="statusIcon" class="text-lg sm:text-xl text-slate-400 dark:text-gray-500 mt-0.5 shrink-0">
+                                <i class="fa-solid fa-circle-question"></i>
+                            </div>
+                            <div class="flex flex-col gap-0.5">
+                                <span class="text-[9px] text-slate-500 dark:text-apple-grayText uppercase font-semibold tracking-wider">Trạng thái bảo quản:</span>
+                                <h4 id="statusTitle" class="text-xs sm:text-sm font-bold text-slate-800 dark:text-gray-200">Chưa có dữ liệu</h4>
+                                <p id="statusDesc" class="text-[10px] sm:text-xs text-slate-500 dark:text-apple-grayText leading-relaxed">Tải ảnh hoặc dùng AI tự chọn vị trí tem TTI.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-1.5 sm:gap-2 mt-1">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-semibold text-slate-700 dark:text-gray-300 text-[11px]">Vị trí quang phổ màu:</span>
+                                <span id="spectrumPercent" class="font-mono text-blue-600 dark:text-blue-400 font-bold">0%</span>
+                            </div>
+
+                            <div class="spectrum-bar-container">
+                                <div id="spectrumPointer" class="spectrum-pointer" style="left: 0%;"></div>
+                            </div>
+
+                            <div class="flex justify-between text-[9px] text-slate-500 dark:text-apple-grayText font-medium px-0.5">
+                                <span>Trắng / Xám nhạt</span>
+                                <span>Pastel / Xanh lơ</span>
+                                <span>Xanh dương</span>
+                                <span>Xanh đậm</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 mt-auto pt-1.5">
+                            <div class="inner-box p-2 sm:p-2.5 rounded-2xl flex flex-col gap-0.5">
+                                <span class="text-[9px] text-slate-500 dark:text-apple-grayText">Chỉ số độ tối D:</span>
+                                <span id="darknessIndex" class="text-xs font-bold font-mono text-slate-800 dark:text-gray-200">0.00</span>
+                            </div>
+                            <div class="inner-box p-2 sm:p-2.5 rounded-2xl flex flex-col gap-0.5">
+                                <span class="text-[9px] text-slate-500 dark:text-apple-grayText">Độ đứt chuỗi:</span>
+                                <span id="riskLevel" class="text-xs font-bold text-slate-800 dark:text-gray-200">Chưa xác định</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- FOOTER CHUẨN MỚI -->
+    <footer class="border-t border-slate-200 dark:border-white/10 py-4 sm:py-6 text-center text-xs sm:text-sm font-medium text-slate-500 dark:text-apple-grayText">
+        Phân Tích Nhãn Cảnh Báo Điều Kiện Bảo Quản Lạnh TTI
+    </footer>
+
+    <canvas id="hiddenCanvas" class="hidden"></canvas>
+
+    <script>
+        // CẤU HÌNH & XỬ LÝ THEME SÁNG / TỐI (LIGHT / DARK MODE)
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                themeIcon.className = 'fa-solid fa-moon text-xs sm:text-sm';
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeIcon.className = 'fa-solid fa-sun text-xs sm:text-sm';
+            }
+        }
+
+        function toggleTheme() {
+            const htmlEl = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+
+            if (htmlEl.classList.contains('dark')) {
+                htmlEl.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeIcon.className = 'fa-solid fa-sun text-xs sm:text-sm';
+            } else {
+                htmlEl.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.className = 'fa-solid fa-moon text-xs sm:text-sm';
+            }
+        }
+
+        // KÍCH HOẠT THEME NGAY KHI TẢI TRANG
+        initTheme();
+
+        // ANIMATION LƯỚT TỚI ĐÂU HIỆN TỚI ĐÓ (SCROLL REVEAL OBSERVER)
+        function setupScrollReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            reveals.forEach(el => observer.observe(el));
+        }
+
+        // TAB NAVIGATION LOGIC
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
+
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            document.getElementById(`sec-${tabId}`).classList.remove('hidden');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            setTimeout(setupScrollReveal, 100);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setupScrollReveal();
+        });
+
+        // TTI ANALYZER LOGIC
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const viewport = document.getElementById('viewport');
+        const imageStage = document.getElementById('imageStage');
+        const sourceImage = document.getElementById('sourceImage');
+        const cropBox = document.getElementById('cropBox');
+        const scanOverlay = document.getElementById('scanOverlay');
+        const zoomControls = document.getElementById('zoomControls');
+        const zoomVal = document.getElementById('zoomVal');
+        const btnZoomIn = document.getElementById('btnZoomIn');
+        const btnZoomOut = document.getElementById('btnZoomOut');
+        const btnResetAll = document.getElementById('btnResetAll');
+        const btnAutoCrop = document.getElementById('btnAutoCrop');
+        const mobileNudgePad = document.getElementById('mobileNudgePad');
+
+        const cropCanvas = document.getElementById('cropCanvas');
+        const cropDimensions = document.getElementById('cropDimensions');
+        const coreColorSwatch = document.getElementById('coreColorSwatch');
+        const colorCategory = document.getElementById('colorCategory');
+        const rgbValue = document.getElementById('rgbValue');
+        const darknessIndex = document.getElementById('darknessIndex');
+        const statusBox = document.getElementById('statusBox');
+        const statusIcon = document.getElementById('statusIcon');
+        const statusTitle = document.getElementById('statusTitle');
+        const statusDesc = document.getElementById('statusDesc');
+        const spectrumPointer = document.getElementById('spectrumPointer');
+        const spectrumPercent = document.getElementById('spectrumPercent');
+        const riskLevel = document.getElementById('riskLevel');
+
+        let currentZoom = 0.10;
+        let panX = 0, panY = 0;
+        let isDraggingPan = false;
+        let startPanX = 0, startPanY = 0;
+        
+        let cropState = { x: 0, y: 0, w: 0, h: 0 };
+        let isResizingCrop = false;
+        let isMovingCrop = false;
+        let currentHandle = null;
+        let dragStartX = 0, dragStartY = 0;
+        let initialCropState = {};
+
+        const hiddenCanvas = document.getElementById('hiddenCanvas');
+        const hiddenCtx = hiddenCanvas.getContext('2d', { willReadFrequently: true });
+        const cropCtx = cropCanvas.getContext('2d', { willReadFrequently: true });
+
+        function triggerHaptic() {
+            if (navigator.vibrate) navigator.vibrate(12);
+        }
+
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => { 
+            if (e.target.files.length) {
+                handleFile(e.target.files[0]); 
+            }
+        });
+
+        function handleFile(file) {
+            if (!file.type.startsWith('image/')) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                sourceImage.onload = () => {
+                    requestAnimationFrame(() => {
+                        initImageStage();
+                    });
+                };
+                sourceImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function resetToInitialState() {
+            fileInput.value = '';
+            sourceImage.src = '';
+            imageStage.classList.add('hidden');
+            cropBox.classList.add('hidden');
+            zoomControls.classList.add('hidden');
+            btnResetAll.classList.add('hidden');
+            mobileNudgePad.classList.add('hidden');
+            dropZone.classList.remove('hidden');
+
+            btnAutoCrop.classList.remove('col-span-1');
+            btnAutoCrop.classList.add('col-span-2');
+
+            cropCtx.clearRect(0, 0, cropCanvas.width, cropCanvas.height);
+            cropDimensions.textContent = "0 x 0 px";
+            coreColorSwatch.style.backgroundColor = 'transparent';
+            colorCategory.textContent = "Chưa xác định";
+            rgbValue.textContent = "RGB: ---";
+            darknessIndex.textContent = "0.00";
+
+            statusBox.className = "p-3.5 rounded-2xl inner-box flex items-start gap-3 transition";
+            statusIcon.innerHTML = `<i class="fa-solid fa-circle-question text-slate-400 dark:text-gray-500"></i>`;
+            statusTitle.textContent = "Chưa có dữ liệu";
+            statusDesc.textContent = "Tải ảnh hoặc dùng AI tự chọn vị trí tem TTI.";
+
+            spectrumPointer.style.left = "0%";
+            spectrumPercent.textContent = "0%";
+            riskLevel.textContent = "Chưa xác định";
+            riskLevel.className = "text-xs font-bold text-slate-800 dark:text-gray-200";
+        }
+
+        function initImageStage() {
+            dropZone.classList.add('hidden');
+            imageStage.classList.remove('hidden');
+            zoomControls.classList.remove('hidden');
+            btnResetAll.classList.remove('hidden');
+            mobileNudgePad.classList.remove('hidden');
+
+            btnAutoCrop.classList.remove('col-span-2');
+            btnAutoCrop.classList.add('col-span-1');
+
+            hiddenCanvas.width = sourceImage.naturalWidth;
+            hiddenCanvas.height = sourceImage.naturalHeight;
+            hiddenCtx.drawImage(sourceImage, 0, 0);
+
+            autoDetectLabelRegion();
+        }
+
+        function focusCropInViewport() {
+            const vpW = viewport.clientWidth;
+            const vpH = viewport.clientHeight;
+            if (!vpW || !vpH) return;
+
+            const isMobile = window.innerWidth < 768;
+            const maxDimension = Math.max(sourceImage.naturalWidth, sourceImage.naturalHeight);
+
+            if (isMobile || maxDimension >= 2500) {
+                currentZoom = 0.10;
+            } else {
+                currentZoom = 0.20;
+            }
+
+            const cropCenterX = cropState.x + cropState.w / 2;
+            const cropCenterY = cropState.y + cropState.h / 2;
+
+            panX = (vpW / 2) - (cropCenterX * currentZoom);
+            panY = (vpH / 2) - (cropCenterY * currentZoom);
+
+            updateTransform();
+        }
+
+        function updateTransform() {
+            imageStage.style.transform = `translate(${panX}px, ${panY}px) scale(${currentZoom})`;
+            zoomVal.textContent = `${Math.round(currentZoom * 100)}%`;
+        }
+
+        btnZoomIn.addEventListener('click', () => { currentZoom = Math.min(currentZoom + 0.05, 3.0); updateTransform(); });
+        btnZoomOut.addEventListener('click', () => { currentZoom = Math.max(currentZoom - 0.05, 0.02); updateTransform(); });
+
+        function getPointerPos(e) {
+            if (e.touches && e.touches.length > 0) {
+                return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+            return { x: e.clientX, y: e.clientY };
+        }
+
+        function handlePointerStart(e) {
+            const target = e.target;
+            const pos = getPointerPos(e);
+
+            if (target.closest('.crop-handle')) {
+                triggerHaptic();
+                isResizingCrop = true;
+                currentHandle = target.closest('.crop-handle').dataset.handle;
+                dragStartX = pos.x;
+                dragStartY = pos.y;
+                initialCropState = { ...cropState };
+            } else if (target.closest('#cropBox')) {
+                triggerHaptic();
+                isMovingCrop = true;
+                dragStartX = pos.x;
+                dragStartY = pos.y;
+                initialCropState = { ...cropState };
+            } else if (target.closest('#imageStage') || target.closest('#viewport')) {
+                isDraggingPan = true;
+                startPanX = pos.x - panX;
+                startPanY = pos.y - panY;
+            }
+        }
+
+        function handlePointerMove(e) {
+            const pos = getPointerPos(e);
+
+            if (isDraggingPan) {
+                panX = pos.x - startPanX;
+                panY = pos.y - startPanY;
+                updateTransform();
+            } else if (isMovingCrop) {
+                const dx = (pos.x - dragStartX) / currentZoom;
+                const dy = (pos.y - dragStartY) / currentZoom;
+                cropState.x = Math.max(0, Math.min(initialCropState.x + dx, sourceImage.naturalWidth - cropState.w));
+                cropState.y = Math.max(0, Math.min(initialCropState.y + dy, sourceImage.naturalHeight - cropState.h));
+                updateCropBoxUI();
+                runAIAnalysis();
+            } else if (isResizingCrop) {
+                const dx = (pos.x - dragStartX) / currentZoom;
+                const dy = (pos.y - dragStartY) / currentZoom;
+                handleCropResize(dx, dy);
+                updateCropBoxUI();
+                runAIAnalysis();
+            }
+        }
+
+        function handlePointerEnd() {
+            isDraggingPan = false;
+            isMovingCrop = false;
+            isResizingCrop = false;
+        }
+
+        viewport.addEventListener('mousedown', handlePointerStart);
+        window.addEventListener('mousemove', handlePointerMove);
+        window.addEventListener('mouseup', handlePointerEnd);
+
+        viewport.addEventListener('touchstart', handlePointerStart, { passive: false });
+        window.addEventListener('touchmove', handlePointerMove, { passive: false });
+        window.addEventListener('touchend', handlePointerEnd);
+
+        function handleCropResize(dx, dy) {
+            let { x, y, w, h } = initialCropState;
+            const minSize = 20;
+            const maxSize = Math.round(Math.min(sourceImage.naturalWidth, sourceImage.naturalHeight) * 0.6);
+
+            if (currentHandle.includes('r')) w = Math.min(maxSize, Math.max(minSize, w + dx));
+            if (currentHandle.includes('b')) h = Math.min(maxSize, Math.max(minSize, h + dy));
+            if (currentHandle.includes('l')) {
+                const newW = Math.min(maxSize, Math.max(minSize, w - dx));
+                x += (w - newW);
+                w = newW;
+            }
+            if (currentHandle.includes('t')) {
+                const newH = Math.min(maxSize, Math.max(minSize, h - dy));
+                y += (h - newH);
+                h = newH;
+            }
+
+            cropState.x = Math.max(0, x);
+            cropState.y = Math.max(0, y);
+            cropState.w = Math.min(sourceImage.naturalWidth - cropState.x, w);
+            cropState.h = Math.min(sourceImage.naturalHeight - cropState.y, h);
+        }
+
+        function updateCropBoxUI() {
+            cropBox.style.left = `${cropState.x}px`;
+            cropBox.style.top = `${cropState.y}px`;
+            cropBox.style.width = `${cropState.w}px`;
+            cropBox.style.height = `${cropState.h}px`;
+            cropDimensions.textContent = `${Math.round(cropState.w)} x ${Math.round(cropState.h)} px`;
+        }
+
+        function nudgeCrop(dir) {
+            triggerHaptic();
+            const step = Math.max(4, Math.round(cropState.w * 0.05));
+            if (dir === 'left') cropState.x = Math.max(0, cropState.x - step);
+            if (dir === 'right') cropState.x = Math.min(sourceImage.naturalWidth - cropState.w, cropState.x + step);
+            if (dir === 'up') cropState.y = Math.max(0, cropState.y - step);
+            if (dir === 'down') cropState.y = Math.min(sourceImage.naturalHeight - cropState.h, cropState.y + step);
+            updateCropBoxUI();
+            runAIAnalysis();
+        }
+
+        function resizeCropStep(delta) {
+            triggerHaptic();
+            const maxSize = Math.round(Math.min(sourceImage.naturalWidth, sourceImage.naturalHeight) * 0.6);
+            cropState.w = Math.max(20, Math.min(maxSize, cropState.w + delta));
+            cropState.h = Math.max(20, Math.min(maxSize, cropState.h + delta));
+            updateCropBoxUI();
+            runAIAnalysis();
+        }
+
+        btnAutoCrop.addEventListener('click', () => {
+            triggerHaptic();
+            scanOverlay.classList.remove('hidden');
+            setTimeout(() => {
+                autoDetectLabelRegion();
+                scanOverlay.classList.add('hidden');
+            }, 300);
+        });
+
+        function autoDetectLabelRegion() {
+            const imgW = hiddenCanvas.width;
+            const imgH = hiddenCanvas.height;
+            if (!imgW || !imgH) return;
+
+            const imgData = hiddenCtx.getImageData(0, 0, imgW, imgH).data;
+
+            const winSize = Math.max(40, Math.round(Math.min(imgW, imgH) * 0.15));
+            const step = Math.max(6, Math.round(Math.min(imgW, imgH) / 40));
+
+            let highestPriorityScore = -1;
+            let bestX = (imgW - winSize) / 2;
+            let bestY = (imgH - winSize) / 2;
+
+            for (let y = 0; y <= imgH - winSize; y += step) {
+                for (let x = 0; x <= imgW - winSize; x += step) {
+                    let scoreP1 = 0, scoreP2 = 0, scoreP3 = 0;
+                    
+                    for (let py = y; py < y + winSize; py += 6) {
+                        for (let px = x; px < x + winSize; px += 6) {
+                            const idx = (py * imgW + px) * 4;
+                            const r = imgData[idx];
+                            const g = imgData[idx + 1];
+                            const b = imgData[idx + 2];
+
+                            const hsv = rgbToHsv(r, g, b);
+                            const darkness = 1 - (r*0.299 + g*0.587 + b*0.114)/255;
+
+                            if (hsv.v > 0.88 && hsv.s < 0.10) continue;
+
+                            if (hsv.h >= 160 && hsv.h <= 265) {
+                                if (darkness > 0.55) scoreP1 += 10;
+                                else if (darkness > 0.25) scoreP2 += 5;
+                                else scoreP3 += 2;
+                            }
+                        }
+                    }
+
+                    const totalScore = scoreP1 + scoreP2 + scoreP3;
+                    if (totalScore > highestPriorityScore) {
+                        highestPriorityScore = totalScore;
+                        bestX = x;
+                        bestY = y;
+                    }
+                }
+            }
+
+            cropState = { x: bestX, y: bestY, w: winSize, h: winSize };
+            cropBox.classList.remove('hidden');
+            updateCropBoxUI();
+            
+            focusCropInViewport();
+            runAIAnalysis();
+        }
+
+        function runAIAnalysis() {
+            if (cropState.w <= 0 || cropState.h <= 0) return;
+
+            cropCanvas.width = cropState.w;
+            cropCanvas.height = cropState.h;
+
+            cropCtx.drawImage(
+                sourceImage,
+                cropState.x, cropState.y, cropState.w, cropState.h,
+                0, 0, cropState.w, cropState.h
+            );
+
+            const marginX = Math.round(cropState.w * 0.25);
+            const marginY = Math.round(cropState.h * 0.25);
+            const coreW = Math.max(1, Math.round(cropState.w * 0.5));
+            const coreH = Math.max(1, Math.round(cropState.h * 0.5));
+
+            const coreImgData = cropCtx.getImageData(marginX, marginY, coreW, coreH).data;
+
+            let sumR = 0, sumG = 0, sumB = 0, count = 0;
+
+            for (let i = 0; i < coreImgData.length; i += 4) {
+                sumR += coreImgData[i];
+                sumG += coreImgData[i + 1];
+                sumB += coreImgData[i + 2];
+                count++;
+            }
+
+            const avgR = Math.round(sumR / count);
+            const avgG = Math.round(sumG / count);
+            const avgB = Math.round(sumB / count);
+
+            coreColorSwatch.style.backgroundColor = `rgb(${avgR}, ${avgG}, ${avgB})`;
+            rgbValue.textContent = `RGB: ${avgR}, ${avgG}, ${avgB}`;
+
+            const hsv = rgbToHsv(avgR, avgG, avgB);
+            const darkness = (1 - (avgR * 0.299 + avgG * 0.587 + avgB * 0.114) / 255);
+            darknessIndex.textContent = darkness.toFixed(2);
+
+            evaluateTTIStatus(hsv, darkness, avgR, avgG, avgB);
+        }
+
+        function evaluateTTIStatus(hsv, darkness, r, g, b) {
+            let percent = 0;
+            let title = "";
+            let desc = "";
+            let statusClass = "";
+            let iconHtml = "";
+            let riskText = "";
+            let riskClass = "";
+            let catText = "";
+
+            const h = hsv.h;
+            const s = hsv.s;
+            const v = hsv.v;
+
+            let detectedInvalidColor = "";
+            const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255; 
+
+            if (s >= 0.28) {
+                if (h >= 315 || h < 10) {
+                    if (v < 0.45) detectedInvalidColor = "Nâu / Đỏ sẫm";
+                    else detectedInvalidColor = "Hồng / Tím đỏ";
+                }
+                else if (h >= 10 && h < 40) {
+                    if (v < 0.50 && s > 0.35) detectedInvalidColor = "Nâu";
+                    else detectedInvalidColor = "Đỏ / Cam";
+                }
+                else if (h >= 40 && h < 70) {
+                    detectedInvalidColor = "Vàng";
+                }
+                else if (h >= 70 && h < 155) {
+                    detectedInvalidColor = "Xanh lá";
+                }
+                else if (h >= 270 && h < 315) {
+                    detectedInvalidColor = "Hồng / Tím";
+                }
+            }
+
+            if (detectedInvalidColor !== "") {
+                catText = `Màu Không Phù Hợp (${detectedInvalidColor})`;
+                percent = 0;
+                title = "Màu Không Đúng Cấu Trúc Tem TTI";
+                desc = `Đã phát hiện màu ${detectedInvalidColor}. Vui lòng kiểm tra lại vị trí đặt khung crop vào tâm tem TTI.`;
+                statusClass = "p-3 sm:p-3.5 rounded-2xl bg-purple-500/10 border border-purple-500/30 text-purple-700 dark:text-purple-200";
+                iconHtml = `<i class="fa-solid fa-triangle-exclamation text-purple-500"></i>`;
+                riskText = "Không Xác Định";
+                riskClass = "text-xs font-bold text-purple-600 dark:text-purple-400";
+            } else {
+                if (luminance >= 0.70 && s <= 0.25) {
+                    if (s < 0.08 && luminance > 0.88) {
+                        catText = "Trắng Tinh Chuẩn";
+                    } else {
+                        catText = "Trắng Nhạt";
+                    }
+                    percent = Math.round((1 - luminance) * 30);
+                    title = "An Toàn Tuyệt Đối";
+                    desc = "Nhãn giữ nguyên sắc trắng/xám nhạt ban đầu. Điều kiện bảo quản lạnh đạt tiêu chuẩn tối ưu!";
+                    statusClass = "p-3 sm:p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300";
+                    iconHtml = `<i class="fa-solid fa-circle-check text-emerald-500"></i>`;
+                    riskText = "An Toàn (0%)";
+                    riskClass = "text-xs font-bold text-emerald-600 dark:text-emerald-400";
+                }
+                else if ((h >= 160 && h <= 245) && (s <= 0.35) && (luminance >= 0.50)) {
+                    catText = "Màu Pastel Xanh";
+                    percent = Math.round(15 + (s * 50));
+                    title = "An Toàn (Đã Kích Hoạt Phản Ứng)";
+                    desc = "Chuyển màu Pastel xanh / xanh lơ nhạt nhẹ. Sản phẩm vẫn nằm trong giới hạn an toàn cho phép.";
+                    statusClass = "p-3 sm:p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300";
+                    iconHtml = `<i class="fa-solid fa-circle-check text-emerald-500"></i>`;
+                    riskText = "An Toàn (15-30%)";
+                    riskClass = "text-xs font-bold text-emerald-600 dark:text-emerald-400";
+                }
+                else if ((h >= 170 && h <= 250) && (s > 0.35 && s <= 0.65) && (luminance >= 0.38)) {
+                    catText = "Xanh Dương Nhạt / Xanh Dương";
+                    percent = Math.round(35 + (s * 40));
+                    title = "Cảnh Báo Sớm Nhiệt Độ";
+                    desc = "Tem chuyển sang màu xanh dương. Nhiệt độ bảo quản có dấu hiệu suy giảm hoặc dao động.";
+                    statusClass = "p-3 sm:p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-800 dark:text-amber-300";
+                    iconHtml = `<i class="fa-solid fa-triangle-exclamation text-amber-500"></i>`;
+                    riskText = "Nguy Cơ Thấp";
+                    riskClass = "text-xs font-bold text-amber-600 dark:text-amber-400";
+                }
+                else if ((h >= 180 && h <= 260) && (s > 0.40 || darkness >= 0.55) && (luminance >= 0.20)) {
+                    catText = "Xanh Dương Đậm / Xanh Navy";
+                    percent = Math.round(65 + (darkness * 35));
+                    percent = Math.min(90, percent);
+                    title = "Cảnh Báo Đứt Chuỗi Lạnh";
+                    desc = "Tem đổi màu xanh đậm rõ rệt. Thực phẩm đã bị đứt chuỗi lạnh, cần kiểm tra chất lượng trước khi dùng.";
+                    statusClass = "p-3 sm:p-3.5 rounded-2xl bg-orange-500/10 border border-orange-500/30 text-orange-800 dark:text-orange-300";
+                    iconHtml = `<i class="fa-solid fa-triangle-exclamation text-orange-500"></i>`;
+                    riskText = "Đứt Chuỗi Lạnh";
+                    riskClass = "text-xs font-bold text-orange-600 dark:text-orange-400";
+                }
+                else {
+                    catText = "Xanh Đen / Tím Than Sẫm";
+                    percent = 100;
+                    title = "Hỏng Hoàn Toàn (Nguy Hiểm)";
+                    desc = "Tem chuyển sang màu xanh đen đậm hoàn toàn. Thực phẩm không còn đảm bảo chất lượng bảo quản!";
+                    statusClass = "p-3 sm:p-3.5 rounded-2xl bg-rose-500/15 border border-rose-500/40 text-rose-800 dark:text-rose-200";
+                    iconHtml = `<i class="fa-solid fa-circle-exclamation text-rose-500"></i>`;
+                    riskText = "Nguy Hiểm (100%)";
+                    riskClass = "text-xs font-bold text-rose-600 dark:text-rose-500";
+                }
+            }
+
+            colorCategory.textContent = catText;
+            spectrumPointer.style.left = `${Math.min(100, Math.max(0, percent))}%`;
+            spectrumPercent.textContent = `${percent}%`;
+
+            statusBox.className = statusClass;
+            statusIcon.innerHTML = iconHtml;
+            statusTitle.textContent = title;
+            statusDesc.textContent = desc;
+
+            riskLevel.textContent = riskText;
+            riskLevel.className = riskClass;
+        }
+
+        function rgbToHsv(r, g, b) {
+            r /= 255; g /= 255; b /= 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b);
+            let h, s, v = max;
+            const d = max - min;
+            s = max === 0 ? 0 : d / max;
+
+            if (max === min) {
+                h = 0;
+            } else {
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+                h /= 6;
+            }
+            return { h: h * 360, s: s, v: v };
+        }
+
+        function loadPreset(type) {
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = 1200; tempCanvas.height = 1200;
+            const tCtx = tempCanvas.getContext('2d');
+
+            tCtx.fillStyle = '#0f172a';
+            tCtx.fillRect(0, 0, 1200, 1200);
+
+            tCtx.fillStyle = '#ffffff';
+            tCtx.fillRect(300, 300, 600, 600);
+
+            if (type === 'safe') tCtx.fillStyle = '#e2e8f0';
+            else if (type === 'warning') tCtx.fillStyle = '#3b82f6';
+            else if (type === 'danger') tCtx.fillStyle = '#09090b';
+
+            tCtx.beginPath();
+            tCtx.arc(600, 600, 120, 0, Math.PI * 2);
+            tCtx.fill();
+
+            sourceImage.onload = () => {
+                requestAnimationFrame(() => {
+                    initImageStage();
+                });
+            };
+            sourceImage.src = tempCanvas.toDataURL();
+        }
+    </script>
+</body>
+</html>
