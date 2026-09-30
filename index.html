@@ -154,7 +154,7 @@
                         <button id="btnZoomOut" class="w-7 h-7 rounded flex items-center justify-center bg-gray-800 active:bg-blue-600 text-gray-200">
                             <i class="fa-solid fa-minus text-xs"></i>
                         </button>
-                        <span id="zoomVal" class="text-[11px] font-mono font-bold text-blue-400 w-10 text-center">100%</span>
+                        <span id="zoomVal" class="text-[11px] font-mono font-bold text-blue-400 w-10 text-center">10%</span>
                         <button id="btnZoomIn" class="w-7 h-7 rounded flex items-center justify-center bg-gray-800 active:bg-blue-600 text-gray-200">
                             <i class="fa-solid fa-plus text-xs"></i>
                         </button>
@@ -307,10 +307,10 @@
                     </div>
 
                     <div class="flex justify-between text-[9px] text-gray-400 font-medium px-0.5">
-                        <span>Trắng</span>
-                        <span>Pastel/Xanh nhạt</span>
+                        <span>Trắng / Xám nhạt</span>
+                        <span>Pastel / Xanh lơ</span>
+                        <span>Xanh dương</span>
                         <span>Xanh đậm</span>
-                        <span>Xanh đen</span>
                     </div>
                 </div>
 
@@ -363,7 +363,7 @@
         const spectrumPercent = document.getElementById('spectrumPercent');
         const riskLevel = document.getElementById('riskLevel');
 
-        let currentZoom = 1.0;
+        let currentZoom = 0.10;
         let panX = 0, panY = 0;
         let isDraggingPan = false;
         let startPanX = 0, startPanY = 0;
@@ -452,28 +452,25 @@
             autoDetectLabelRegion();
         }
 
-        /* TỰ ĐỘNG CANH GIỮA VÀ ZOMM TỐI ƯU THEO THIẾT BỊ */
+        /* THUẬT TOÁN ĐIỀU CHỈNH TỈ LỆ PHÓNG CỐ ĐỊNH CHUẨN */
         function focusCropInViewport() {
             const vpW = viewport.clientWidth;
             const vpH = viewport.clientHeight;
             if (!vpW || !vpH) return;
 
-            // Kiểm tra xem thiết bị hiện tại là Điện thoại hay Máy tính
             const isMobile = window.innerWidth < 768;
+            const maxDimension = Math.max(sourceImage.naturalWidth, sourceImage.naturalHeight);
 
-            // Tỷ lệ phóng khung crop dựa trên màn hình:
-            // - Điện thoại (Mobile): 0.70 (~70% viewport) để xem rõ
-            // - Máy tính (Desktop): 0.30 (~30% viewport) theo yêu cầu
-            const targetRatio = isMobile ? 0.70 : 0.30;
-            const targetCropDisplaySize = Math.min(vpW, vpH) * targetRatio;
+            // Đặt tỉ lệ phóng cố định theo yêu cầu:
+            // Ảnh điện thoại (độ phân giải lớn >= 2500px) hoặc Mobile -> Phóng 10% (0.10)
+            // Ảnh độ phân giải thấp trên Máy tính -> Phóng 20% (0.20)
+            if (isMobile || maxDimension >= 2500) {
+                currentZoom = 0.10;
+            } else {
+                currentZoom = 0.20;
+            }
 
-            // Tính tỷ lệ zoom tối ưu dựa vào kích thước vùng crop
-            currentZoom = targetCropDisplaySize / cropState.w;
-            
-            // Giới hạn zoom trong khoảng hợp lý
-            currentZoom = Math.max(0.05, Math.min(currentZoom, 4.0));
-
-            // Tính tọa độ pan để đưa tâm của khung crop ra ĐÚNG CHÍNH GIỮA viewport
+            // Đưa tâm của khung Crop ra đúng trung tâm viewport hiển thị
             const cropCenterX = cropState.x + cropState.w / 2;
             const cropCenterY = cropState.y + cropState.h / 2;
 
@@ -488,8 +485,8 @@
             zoomVal.textContent = `${Math.round(currentZoom * 100)}%`;
         }
 
-        btnZoomIn.addEventListener('click', () => { currentZoom = Math.min(currentZoom + 0.15, 4.0); updateTransform(); });
-        btnZoomOut.addEventListener('click', () => { currentZoom = Math.max(currentZoom - 0.15, 0.05); updateTransform(); });
+        btnZoomIn.addEventListener('click', () => { currentZoom = Math.min(currentZoom + 0.05, 3.0); updateTransform(); });
+        btnZoomOut.addEventListener('click', () => { currentZoom = Math.max(currentZoom - 0.05, 0.02); updateTransform(); });
 
         function getPointerPos(e) {
             if (e.touches && e.touches.length > 0) {
@@ -627,7 +624,6 @@
 
             const imgData = hiddenCtx.getImageData(0, 0, imgW, imgH).data;
 
-            // Đặt kích thước mặc định chuẩn của khung Crop (15% chiều nhỏ nhất ảnh)
             const winSize = Math.max(40, Math.round(Math.min(imgW, imgH) * 0.15));
             const step = Math.max(6, Math.round(Math.min(imgW, imgH) / 40));
 
@@ -651,9 +647,9 @@
 
                             if (hsv.v > 0.88 && hsv.s < 0.10) continue;
 
-                            if (hsv.h >= 170 && hsv.h <= 265) {
-                                if (darkness > 0.60) scoreP1 += 10;
-                                else if (darkness > 0.30) scoreP2 += 5;
+                            if (hsv.h >= 160 && hsv.h <= 265) {
+                                if (darkness > 0.55) scoreP1 += 10;
+                                else if (darkness > 0.25) scoreP2 += 5;
                                 else scoreP3 += 2;
                             }
                         }
@@ -672,7 +668,6 @@
             cropBox.classList.remove('hidden');
             updateCropBoxUI();
             
-            // Tự động Phóng to & Căn giữa vị trí vừa phát hiện phù hợp với từng thiết bị
             focusCropInViewport();
             runAIAnalysis();
         }
@@ -719,6 +714,7 @@
             evaluateTTIStatus(hsv, darkness, avgR, avgG, avgB);
         }
 
+        /* THUẬT TOÁN NHẬN DIỆN MÀU XANH DƯƠNG / TRẮNG / XÁM NHẠT NÂNG CẤP HOÀN THIỆN */
         function evaluateTTIStatus(hsv, darkness, r, g, b) {
             let percent = 0;
             let title = "";
@@ -739,98 +735,85 @@
             const minRGB = Math.min(r, g, b);
             const rgbDiff = maxRGB - minRGB;
 
-            if (s < 0.12 || (rgbDiff / 255) < 0.10) {
-                if (luminance >= 0.35 && luminance < 0.65) {
-                    detectedInvalidColor = "Xám thường";
-                }
-            } else {
-                if ((h >= 345 && h <= 360) || (h >= 0 && h < 15)) {
-                    if (v > 0.75) detectedInvalidColor = "Đỏ nhạt / Đỏ tươi";
-                    else if (v >= 0.40) detectedInvalidColor = "Đỏ thường";
-                    else detectedInvalidColor = "Đỏ đậm / Đỏ sẫm";
-                } else if (h >= 15 && h < 30) {
-                    if (v > 0.70 && s < 0.50) detectedInvalidColor = "Nâu nhạt / Nâu kem";
-                    else if (v >= 0.35) detectedInvalidColor = "Nâu thường";
-                    else detectedInvalidColor = "Nâu đậm / Nâu đất";
-                } else if (h >= 30 && h < 48) {
-                    if (v > 0.75) detectedInvalidColor = "Cam nhạt";
-                    else if (v >= 0.45) detectedInvalidColor = "Cam thường";
-                    else detectedInvalidColor = "Cam sẫm / Cam nâu";
-                } else if (h >= 48 && h < 75) {
-                    if (v > 0.80) detectedInvalidColor = "Vàng nhạt / Vàng chanh";
-                    else if (v >= 0.50) detectedInvalidColor = "Vàng thường";
-                    else detectedInvalidColor = "Vàng đậm / Vàng đất";
-                } else if (h >= 75 && h < 165) {
-                    if (v > 0.75) detectedInvalidColor = "Xanh lá nhạt / Xanh đọt chuối";
-                    else if (v >= 0.40) detectedInvalidColor = "Xanh lá thường";
-                    else detectedInvalidColor = "Xanh lá đậm / Xanh rêu";
-                } else if (h >= 305 && h < 345) {
-                    if (v > 0.80) detectedInvalidColor = "Hồng nhạt / Hồng phấn";
-                    else if (v >= 0.45) detectedInvalidColor = "Hồng thường";
-                    else detectedInvalidColor = "Hồng đậm / Hồng cánh sen";
-                }
+            // KIỂM TRA MÀU LOẠI TRỪ (Nóng/Nâu/Xám đậm...)
+            if (s >= 0.15 && ((h >= 0 && h < 165) || (h >= 300 && h <= 360))) {
+                if (h >= 0 && h < 15) detectedInvalidColor = "Đỏ";
+                else if (h >= 15 && h < 45) detectedInvalidColor = "Cam / Nâu";
+                else if (h >= 45 && h < 75) detectedInvalidColor = "Vàng";
+                else if (h >= 75 && h < 165) detectedInvalidColor = "Xanh lá";
+                else if (h >= 300 && h <= 360) detectedInvalidColor = "Hồng / Tím đỏ";
+            } else if (s < 0.15 && luminance < 0.28) {
+                // Xám rất đậm / Đen không phải tem TTI
+                detectedInvalidColor = "Xám đậm / Đen";
             }
 
             if (detectedInvalidColor !== "") {
                 catText = `Màu Không Phù Hợp (${detectedInvalidColor})`;
                 percent = 0;
                 title = "Màu Không Đúng Cấu Trúc Tem TTI";
-                desc = `Đây là màu ${detectedInvalidColor}. Bạn có thể đưa nhầm sản phẩm hoặc căn chỉnh sai vị trí tem TTI.`;
+                desc = `Đã phát hiện màu ${detectedInvalidColor}. Vui lòng kiểm tra lại vị trí đặt khung crop vào tâm tem TTI.`;
                 statusClass = "p-3 rounded-xl bg-purple-950/60 border border-purple-500/60 text-purple-200";
                 iconHtml = `<i class="fa-solid fa-triangle-exclamation text-purple-400"></i>`;
                 riskText = "Không Xác Định";
                 riskClass = "text-xs font-bold text-purple-400";
             } else {
-                if (darkness < 0.12 && s < 0.12) {
-                    catText = "Trắng Tinh / Sáng Chuẩn";
-                    percent = Math.round(darkness * 40);
+                // PHÂN LOẠI CÁC CẤP ĐỘ MÀU XANH / TRẮNG / XÁM NHẠT CỦA TEM TTI
+
+                // 1. TRẮNG / XÁM NHẠT DO ÁNH SÁNG (An toàn tuyệt đối)
+                if (luminance >= 0.70 && s <= 0.25) {
+                    if (s < 0.08 && luminance > 0.88) {
+                        catText = "Trắng Tinh Chuẩn";
+                    } else {
+                        catText = "Trắng / Xám Nhạt (Do Ánh Sáng)";
+                    }
+                    percent = Math.round((1 - luminance) * 30);
                     title = "An Toàn Tuyệt Đối";
-                    desc = "Nhãn giữ nguyên màu trắng chuẩn. Điều kiện bảo quản lạnh hoàn hảo!";
+                    desc = "Nhãn giữ nguyên sắc trắng/xám nhạt ban đầu. Điều kiện bảo quản lạnh đạt tiêu chuẩn tối ưu!";
                     statusClass = "p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300";
                     iconHtml = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
                     riskText = "An Toàn (0%)";
                     riskClass = "text-xs font-bold text-emerald-400";
-                } else if (darkness < 0.22 && s < 0.30) {
-                    catText = "Màu Pastel / Xanh Nhạt Phấn";
-                    percent = Math.round(10 + (darkness - 0.12) * 80);
-                    title = "An Toàn (Phản ứng nhẹ)";
-                    desc = "Nhãn ngả sang màu Pastel nhạt, sản phẩm vẫn nằm trong dải an toàn cho phép.";
+                }
+                // 2. PASTEL XANH / XANH LƠ NHẠT (Bắt đầu phản ứng nhẹ)
+                else if ((h >= 160 && h <= 245) && (s <= 0.35) && (luminance >= 0.50)) {
+                    catText = "Màu Pastel Xanh / Xanh Lơ Nhạt";
+                    percent = Math.round(15 + (s * 50));
+                    title = "An Toàn (Đã Kích Hoạt Phản Ứng)";
+                    desc = "Chuyển màu Pastel xanh / xanh lơ nhạt nhẹ. Sản phẩm vẫn nằm trong giới hạn an toàn cho phép.";
                     statusClass = "p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300";
                     iconHtml = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
-                    riskText = "An Toàn (10-20%)";
+                    riskText = "An Toàn (15-30%)";
                     riskClass = "text-xs font-bold text-emerald-400";
-                } else if (darkness < 0.38 || (h >= 170 && h <= 205 && s < 0.45)) {
-                    catText = "Xanh Trắng / Xanh Lơ Nhạt";
-                    percent = Math.round(25 + (darkness - 0.22) * 90);
-                    title = "Cảnh Báo Sớm";
-                    desc = "Nhãn chuyển màu xanh trắng/xanh lơ rõ rệt. Nhiệt độ bảo quản có dấu hiệu biến động.";
+                }
+                // 3. XANH DƯƠNG NHẠT / DƯƠNG TRUNG BÌNH (Cảnh báo sớm)
+                else if ((h >= 170 && h <= 250) && (s > 0.35 && s <= 0.65) && (luminance >= 0.38)) {
+                    catText = "Xanh Dương Nhạt / Xanh Dương";
+                    percent = Math.round(35 + (s * 40));
+                    title = "Cảnh Báo Sớm Nhiệt Độ";
+                    desc = "Tem chuyển hẳn sang màu xanh dương nhạt. Nhiệt độ bảo quản có dấu hiệu suy giảm hoặc dao động.";
                     statusClass = "p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 text-amber-300";
                     iconHtml = `<i class="fa-solid fa-triangle-exclamation text-amber-400"></i>`;
                     riskText = "Nguy Cơ Thấp";
                     riskClass = "text-xs font-bold text-amber-400";
-                } else if (darkness < 0.58 && h >= 190 && h <= 245) {
-                    catText = "Xanh Thường / Blue Tiêu Chuẩn";
-                    percent = Math.round(40 + (darkness - 0.38) * 100);
+                }
+                // 4. XANH ĐẬM / NAVY (Đứt chuỗi lạnh)
+                else if ((h >= 180 && h <= 260) && (s > 0.40 || darkness >= 0.55) && (luminance >= 0.20)) {
+                    catText = "Xanh Dương Đậm / Xanh Navy";
+                    percent = Math.round(65 + (darkness * 35));
+                    percent = Math.min(90, percent);
                     title = "Cảnh Báo Đứt Chuỗi Lạnh";
-                    desc = "Tem chuyển hẳn sang xanh dương. Chuỗi lạnh đã bị gián đoạn, cần kiểm tra chất lượng thực phẩm.";
+                    desc = "Tem đổi màu xanh đậm rõ rệt. Thực phẩm đã bị đứt chuỗi lạnh, cần kiểm tra chất lượng trước khi dùng.";
                     statusClass = "p-3 rounded-xl bg-orange-950/40 border border-orange-500/40 text-orange-300";
                     iconHtml = `<i class="fa-solid fa-triangle-exclamation text-orange-400"></i>`;
                     riskText = "Đứt Chuỗi Lạnh";
                     riskClass = "text-xs font-bold text-orange-400";
-                } else if (darkness < 0.78 && h >= 200 && h <= 255) {
-                    catText = "Xanh Đậm / Xanh Navy";
-                    percent = Math.round(60 + (darkness - 0.58) * 120);
-                    title = "Đứt Chuỗi Nghiêm Trọng";
-                    desc = "Tem hóa xanh đậm sẫm. Thực phẩm đã tiếp xúc với nhiệt độ môi trường ngoài kéo dài.";
-                    statusClass = "p-3 rounded-xl bg-rose-950/60 border border-rose-500/60 text-rose-300";
-                    iconHtml = `<i class="fa-solid fa-circle-xmark text-rose-400"></i>`;
-                    riskText = "Đứt Chuỗi Nặng";
-                    riskClass = "text-xs font-bold text-rose-400";
-                } else {
-                    catText = "Xanh Đen / Tím Than Đậm";
+                }
+                // 5. XANH ĐEN / TÍM THAN SẪM (Hỏng / Nguy hiểm)
+                else {
+                    catText = "Xanh Đen / Tím Than Sẫm";
                     percent = 100;
                     title = "Hỏng Hoàn Toàn (Nguy Hiểm)";
-                    desc = "Tem đổi sang màu xanh đen/tím sẫm hoàn toàn. Thực phẩm có thể không còn an toàn để sử dụng!";
+                    desc = "Tem chuyển sang màu xanh đen đậm hoàn toàn. Thực phẩm không còn đảm bảo chất lượng bảo quản!";
                     statusClass = "p-3 rounded-xl bg-rose-950/90 border border-rose-500/90 text-rose-200";
                     iconHtml = `<i class="fa-solid fa-circle-exclamation text-rose-500"></i>`;
                     riskText = "Nguy Hiểm (100%)";
@@ -873,24 +856,21 @@
 
         function loadPreset(type) {
             const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = 400; tempCanvas.height = 400;
+            tempCanvas.width = 1200; tempCanvas.height = 1200;
             const tCtx = tempCanvas.getContext('2d');
 
             tCtx.fillStyle = '#0f172a';
-            tCtx.fillRect(0, 0, 400, 400);
-
-            tCtx.fillStyle = '#f8fafc';
-            tCtx.fillRect(0, 0, 400, 100);
+            tCtx.fillRect(0, 0, 1200, 1200);
 
             tCtx.fillStyle = '#ffffff';
-            tCtx.fillRect(100, 120, 200, 200);
+            tCtx.fillRect(300, 300, 600, 600);
 
             if (type === 'safe') tCtx.fillStyle = '#e2e8f0';
-            else if (type === 'warning') tCtx.fillStyle = '#2563eb';
+            else if (type === 'warning') tCtx.fillStyle = '#3b82f6';
             else if (type === 'danger') tCtx.fillStyle = '#09090b';
 
             tCtx.beginPath();
-            tCtx.arc(200, 220, 40, 0, Math.PI * 2);
+            tCtx.arc(600, 600, 120, 0, Math.PI * 2);
             tCtx.fill();
 
             sourceImage.onload = () => {
