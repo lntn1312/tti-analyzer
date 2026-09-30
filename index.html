@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TTI Cold Chain Guard - Giám Sát Bảo Quản Thực Phẩm</title>
+    <title>Phân Tích Nhãn Cảnh Báo Điều Kiện Bảo Quản Lạnh TTI</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons CDN -->
@@ -137,11 +137,24 @@
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #000000; }
         ::-webkit-scrollbar-thumb { background: #333336; border-radius: 3px; }
+
+        /* Animation Lướt tới đâu hiện tới đó (Scroll Reveal) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
 
-    <!-- APPLE-STYLE NAVIGATION HEADER -->
+    <!-- NAVIGATION HEADER -->
     <header class="apple-nav-glass sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
             
@@ -153,7 +166,7 @@
                 <span class="font-semibold text-sm tracking-tight text-white">TTI Guard</span>
             </div>
 
-            <!-- Navigation Tabs (Apple Segmented Style) -->
+            <!-- Navigation Tabs -->
             <nav class="flex items-center gap-1 bg-[#161617] p-1 rounded-full border border-white/10 text-xs font-medium text-apple-grayText">
                 <button onclick="switchTab('home')" id="tab-home" class="tab-btn active px-3.5 py-1.5 rounded-full transition-all duration-200 hover:text-white">Trang chủ</button>
                 <button onclick="switchTab('about')" id="tab-about" class="tab-btn px-3.5 py-1.5 rounded-full transition-all duration-200 hover:text-white">Giới thiệu</button>
@@ -173,46 +186,49 @@
         <!-- ==================== TAB 1: TRANG CHỦ ==================== -->
         <section id="sec-home" class="tab-content max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20 flex flex-col items-center text-center">
             
-            <span class="text-xs font-semibold uppercase tracking-widest text-apple-blue mb-3">An toàn thực phẩm thế hệ mới</span>
-            <h1 class="text-3xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight max-w-3xl mb-6">
-                Chất lượng thực phẩm.<br/>
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">Minh bạch theo thời gian thực.</span>
-            </h1>
-            
-            <p class="text-apple-grayText text-base sm:text-lg max-w-2xl font-normal leading-relaxed mb-10">
-                Hơn 30% thực phẩm bị lãng phí do đứt gãy chuỗi lạnh. Nhãn TTI (Time-Temperature Indicator) và công nghệ phân tích ảnh số của chúng tôi giúp bạn nhận biết chính xác chất lượng bảo quản chỉ trong vài giây.
-            </p>
+            <div class="reveal">
+                <span class="text-xs font-semibold uppercase tracking-widest text-apple-blue mb-3 inline-block">An toàn thực phẩm thế hệ mới</span>
+                <h1 class="text-3xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight max-w-3xl mb-6">
+                    Chất lượng thực phẩm.<br/>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">Minh bạch theo thời gian thực.</span>
+                </h1>
+                
+                <p class="text-apple-grayText text-base sm:text-lg max-w-2xl font-normal leading-relaxed mb-10 mx-auto">
+                    Hơn 30% thực phẩm bị lãng phí do đứt gãy chuỗi lạnh. Nhãn TTI (Time-Temperature Indicator) và công nghệ phân tích ảnh số của chúng tôi giúp bạn nhận biết chính xác chất lượng bảo quản chỉ trong vài giây[cite: 9].
+                </p>
 
-            <div class="flex flex-wrap gap-4 justify-center mb-16">
-                <button onclick="switchTab('survey')" class="px-7 py-3.5 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition-all text-sm shadow-xl shadow-white/10">
-                    Thử nghiệm Khảo sát TTI <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
-                </button>
-                <button onclick="switchTab('explore')" class="px-7 py-3.5 apple-glass text-white font-semibold rounded-full hover:bg-white/10 transition-all text-sm">
-                    Tìm hiểu tác động
-                </button>
+                <!-- GIỮ NGUYÊN 2 NÚT BẤM -->
+                <div class="flex flex-wrap gap-4 justify-center mb-16">
+                    <button onclick="switchTab('survey')" class="px-7 py-3.5 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition-all text-sm shadow-xl shadow-white/10 flex items-center gap-2">
+                        Thử nghiệm Khảo sát TTI <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                    <button onclick="switchTab('explore')" class="px-7 py-3.5 apple-glass text-white font-semibold rounded-full hover:bg-white/10 transition-all text-sm">
+                        Tìm hiểu tác động
+                    </button>
+                </div>
             </div>
 
-            <!-- Apple Highlight Grid -->
+            <!-- Apple Highlight Grid có Animation -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left">
-                <div class="apple-card rounded-3xl p-6 flex flex-col justify-between">
+                <div class="apple-card rounded-3xl p-6 flex flex-col justify-between reveal">
                     <i class="fa-solid fa-temperature-arrow-down text-3xl text-blue-400 mb-8"></i>
                     <div>
                         <h3 class="text-lg font-bold text-white mb-2">Giám sát liên tục</h3>
-                        <p class="text-xs text-apple-grayText leading-relaxed">TTI ghi lại toàn bộ lịch sử tích nhiệt mà mắt thường hoặc hạn sử dụng cố định không thể phản ánh.</p>
+                        <p class="text-xs text-apple-grayText leading-relaxed">TTI ghi lại toàn bộ lịch sử tích nhiệt mà nhiệt kế thông thường không thể phản ánh được[cite: 9].</p>
                     </div>
                 </div>
-                <div class="apple-card rounded-3xl p-6 flex flex-col justify-between">
-                    <i class="fa-solid fa-shield-virus text-3xl text-emerald-400 mb-8"></i>
+                <div class="apple-card rounded-3xl p-6 flex flex-col justify-between reveal">
+                    <i class="fa-solid fa-vial-circle-check text-3xl text-emerald-400 mb-8"></i>
                     <div>
-                        <h3 class="text-lg font-bold text-white mb-2">Ngăn ngừa ngộ độc</h3>
-                        <p class="text-xs text-apple-grayText leading-relaxed">Cảnh báo sớm vi khuẩn phát triển khi sản phẩm trải qua vùng nhiệt độ nguy hiểm (4°C - 60°C).</p>
+                        <h3 class="text-lg font-bold text-white mb-2">Không dùng điện</h3>
+                        <p class="text-xs text-apple-grayText leading-relaxed">Phản ứng đồng hồ Vitamin C - Iod giúp đổi màu vĩnh viễn không đảo ngược khi đứt chuỗi lạnh[cite: 9].</p>
                     </div>
                 </div>
-                <div class="apple-card rounded-3xl p-6 flex flex-col justify-between">
+                <div class="apple-card rounded-3xl p-6 flex flex-col justify-between reveal">
                     <i class="fa-solid fa-camera-retro text-3xl text-purple-400 mb-8"></i>
                     <div>
-                        <h3 class="text-lg font-bold text-white mb-2">Số hóa bằng AI</h3>
-                        <p class="text-xs text-apple-grayText leading-relaxed">Trích xuất phản ứng biến màu Polymer TTI chính xác qua thuật toán xử lý vùng màu chuyên sâu.</p>
+                        <h3 class="text-lg font-bold text-white mb-2">Số hóa bằng AI & RGB</h3>
+                        <p class="text-xs text-apple-grayText leading-relaxed">Trích xuất phản ứng đổi màu tem chính xác qua chỉ số độ tối D = 255 - (R+G+B)/3[cite: 9].</p>
                     </div>
                 </div>
             </div>
@@ -220,112 +236,115 @@
         </section>
 
 
-        <!-- ==================== TAB 2: GIỚI THIỆU ==================== -->
+        <!-- ==================== TAB 2: GIỚI THIỆU (NÂNG CẤP DỮ LIỆU) ==================== -->
         <section id="sec-about" class="tab-content hidden max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-            <div class="text-center mb-12">
-                <h2 class="text-2xl sm:text-4xl font-bold text-white mb-4">Về Trang Web & Công Nghệ TTI Guard</h2>
-                <p class="text-apple-grayText text-sm sm:text-base max-w-xl mx-auto">Giải pháp số hóa nhãn chỉ thị nhiệt độ - thời gian nhằm nâng cao tiêu chuẩn an toàn chuỗi cung ứng lạnh.</p>
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-2xl sm:text-4xl font-bold text-white mb-4">Tổng Quan Dự Án & Công Nghệ TTI Guard</h2>
+                <p class="text-apple-grayText text-sm sm:text-base max-w-xl mx-auto">Nghiên cứu phát triển nhãn cảnh báo đứt chuỗi lạnh không dùng điện dựa trên phản ứng đồng hồ hóa học[cite: 9].</p>
             </div>
 
-            <div class="apple-card rounded-3xl p-6 sm:p-10 mb-8">
+            <div class="apple-card rounded-3xl p-6 sm:p-10 mb-8 reveal">
                 <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-circle-info text-blue-400"></i> Sứ mệnh dự án
+                    <i class="fa-solid fa-bullseye text-blue-400"></i> Sứ mệnh & Vấn đề nghiên cứu
                 </h3>
                 <p class="text-apple-grayText text-sm leading-relaxed mb-4">
-                    Trang web này được xây dựng như một công cụ tính toán và giám sát độc lập, giúp người tiêu dùng, nhà phân phối và đơn vị kiểm định chất lượng thực phẩm có thể đánh giá nhanh tình trạng của **nhãn TTI (Time-Temperature Indicator)**.
+                    Trong vận chuyển và bảo quản thực phẩm (sữa, đồ chế biến, đồ tươi), thực phẩm có thể gặp sự cố tăng nhiệt độ rồi làm lạnh lại[cite: 9]. Nhiệt kế thông thường chỉ đo nhiệt độ tức thời tại thời điểm xem mà không ghi lại lịch sử bảo quản[cite: 9].
                 </p>
                 <p class="text-apple-grayText text-sm leading-relaxed">
-                    Bằng việc kết hợp kỹ thuật phân tích ảnh kỹ thuật số (trích xuất HSV, độ bão hòa Saturation, chỉ số tối Darkness, Luminance), hệ thống chuyển đổi phản ứng biến màu hóa học của tem thành các con số phần trăm nguy cơ trực quan.
+                    Dự án phát triển nhãn TTI dạng hai khoang độc lập, nhỏ gọn ($40 \times 60\text{ mm}$), dán ngoài bao bì giúp tích lũy tác động của thời gian và nhiệt độ[cite: 9]. Khi xảy ra đứt chuỗi lạnh, nhãn tự động đổi màu xanh tím/xanh đen trực quan không đảo ngược[cite: 9].
                 </p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div class="apple-card rounded-3xl p-6">
+                <div class="apple-card rounded-3xl p-6 reveal">
                     <div class="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-4">
-                        <i class="fa-solid fa-bullseye"></i>
+                        <i class="fa-solid fa-flask"></i>
                     </div>
-                    <h4 class="text-base font-bold text-white mb-2">Mục tiêu</h4>
-                    <p class="text-xs text-apple-grayText leading-relaxed">Giảm thiểu rủi ro sử dụng thực phẩm biến chất, minh bạch hóa chất lượng từ nhà máy đến bàn ăn.</p>
+                    <h4 class="text-base font-bold text-white mb-2">Hệ phản ứng Vitamin C - Iod</h4>
+                    <p class="text-xs text-apple-grayText leading-relaxed">
+                        Sử dụng Vitamin C, dung dịch Lugol/Iod, H₂O₂ 3% và Hồ tinh bột[cite: 9]. Vitamin C đóng vai trò tạo độ trễ cảm ứng trước khi tạo màu xanh đen rõ rệt[cite: 9].
+                    </p>
                 </div>
-                <div class="apple-card rounded-3xl p-6">
+                <div class="apple-card rounded-3xl p-6 reveal">
                     <div class="w-10 h-10 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-4">
                         <i class="fa-solid fa-microchip"></i>
                     </div>
-                    <h4 class="text-base font-bold text-white mb-2">Thuật toán xử lý</h4>
-                    <p class="text-xs text-apple-grayText leading-relaxed">Thuật toán quét tự động vùng lõi tem, loại trừ nhiễu màu môi trường và ánh sáng lệch tông.</p>
+                    <h4 class="text-base font-bold text-white mb-2">Thuật toán trích xuất ảnh</h4>
+                    <p class="text-xs text-apple-grayText leading-relaxed">
+                        Xử lý ảnh kỹ thuật số giúp trích xuất vùng màu tâm tem, tự động loại trừ nhiễu ánh sáng và tính chỉ số $D = 255 - (R+G+B)/3$[cite: 9].
+                    </p>
                 </div>
             </div>
         </section>
 
 
-        <!-- ==================== TAB 3: KHÁM PHÁ ==================== -->
+        <!-- ==================== TAB 3: KHÁM PHÁ (BỔ SUNG BÁO CÁO KHOA HỌC) ==================== -->
         <section id="sec-explore" class="tab-content hidden max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-            <div class="text-center mb-12">
-                <h2 class="text-2xl sm:text-4xl font-bold text-white mb-3">Khám Phá Chuỗi Lạnh & Tem TTI</h2>
-                <p class="text-apple-grayText text-sm sm:text-base">Hiểu rõ nguyên nhân, tác động và giải pháp tối ưu bảo quản thực phẩm.</p>
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-2xl sm:text-4xl font-bold text-white mb-3">Khám Phá Cấu Tạo & Cơ Sở Khoa Học TTI</h2>
+                <p class="text-apple-grayText text-sm sm:text-base">Hiểu rõ thiết kế 2 khoang, cơ chế phản ứng và quy trình thực nghiệm[cite: 9].</p>
             </div>
 
-            <!-- Các thẻ khám phá -->
             <div class="space-y-6">
                 
-                <!-- Card 1 -->
-                <div class="apple-card rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <!-- Card 1: Phản ứng đồng hồ -->
+                <div class="apple-card rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center reveal">
                     <div class="md:col-span-4 flex justify-center">
-                        <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-3xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 text-4xl">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-3xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-4xl">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
                         </div>
                     </div>
                     <div class="md:col-span-8">
-                        <span class="text-[10px] font-bold text-rose-400 uppercase tracking-wider">Vấn đề cốt lõi</span>
-                        <h3 class="text-xl font-bold text-white mt-1 mb-2">Nguyên nhân đứt chuỗi lạnh</h3>
+                        <span class="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Cơ chế hóa học</span>
+                        <h3 class="text-xl font-bold text-white mt-1 mb-2">Phản ứng đồng hồ Vitamin C - Iod</h3>
                         <p class="text-xs text-apple-grayText leading-relaxed mb-3">
-                            Chuỗi lạnh (Cold Chain) bị đứt gãy do nhiều nguyên nhân: sự cố tủ đông trong vận chuyển, mở cửa kho lạnh thường xuyên, hoặc thực phẩm lưu kho ở nhiệt độ phòng trong quá trình bốc xếp.
+                            Phản ứng gồm 2 giai đoạn nối tiếp nhau[cite: 9]:
                         </p>
                         <ul class="text-xs text-gray-300 space-y-1 list-disc list-inside">
-                            <li>Nhiệt độ tăng kích thích vi khuẩn gia tăng theo cấp số nhân.</li>
-                            <li>Làm mất màu, giảm giá trị dinh dưỡng và gây biến chất protein.</li>
+                            <li><strong>Giai đoạn 1:</strong> $\text{H}_2\text{O}_2$ oxi hóa $\text{I}^-$ thành $\text{I}_2$, nhưng Vitamin C lập tức khử $\text{I}_2$ về $\text{I}^-$ làm chưa có màu xuất hiện[cite: 9].</li>
+                            <li><strong>Giai đoạn 2:</strong> Khi Vitamin C bị tiêu thụ cạn, $\text{I}_2$ tích lũy phản ứng ngay với Hồ tinh bột tạo phức xanh đen đậm đậm độ tương phản cao[cite: 9].</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="apple-card rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <!-- Card 2: Thiết kế 2 khoang -->
+                <div class="apple-card rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center reveal">
                     <div class="md:col-span-8 order-2 md:order-1">
-                        <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Hiệu quả thực tế</span>
-                        <h3 class="text-xl font-bold text-white mt-1 mb-2">Khi bảo quản đúng tiêu chuẩn</h3>
+                        <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Nguyên mẫu thực tế</span>
+                        <h3 class="text-xl font-bold text-white mt-1 mb-2">Cấu tạo Nhãn Hai Khoang Độc Lập</h3>
                         <p class="text-xs text-apple-grayText leading-relaxed mb-3">
-                            Khi chuỗi lạnh được duy trì liên tục từ -18°C (đồ đông lạnh) hoặc 2°C - 4°C (đồ tươi sống), giá trị dinh dưỡng và cấu trúc thực phẩm được giữ nguyên trọn vẹn.
+                            Nhãn được thiết kế gồm Khoang A (chứa Vitamin C + Iod) và Khoang B (chứa $\text{H}_2\text{O}_2$ + Hồ tinh bột) cách ly tuyệt đối bằng đường ngăn mỏng[cite: 9].
                         </p>
                         <div class="grid grid-cols-2 gap-2 text-xs">
                             <div class="p-2.5 rounded-2xl bg-white/5 border border-white/5">
-                                <span class="font-bold text-emerald-400 block">+300%</span>
-                                <span class="text-[10px] text-apple-grayText">Kéo dài thời hạn tươi</span>
+                                <span class="font-bold text-emerald-400 block">Kích hoạt dễ dàng</span>
+                                <span class="text-[10px] text-apple-grayText">Ấn nhẹ để 2 dung dịch tràn qua nhau[cite: 9]</span>
                             </div>
                             <div class="p-2.5 rounded-2xl bg-white/5 border border-white/5">
-                                <span class="font-bold text-blue-400 block">100%</span>
-                                <span class="text-[10px] text-apple-grayText">An toàn vi sinh vật</span>
+                                <span class="font-bold text-blue-400 block">An toàn thực phẩm</span>
+                                <span class="text-[10px] text-apple-grayText">Màng PE/PET bọc kín hóa chất[cite: 9]</span>
                             </div>
                         </div>
                     </div>
                     <div class="md:col-span-4 flex justify-center order-1 md:order-2">
                         <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-3xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-4xl">
-                            <i class="fa-solid fa-leaf"></i>
+                            <i class="fa-solid fa-layer-group"></i>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card 3 -->
-                <div class="apple-card rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <!-- Card 3: Đánh giá thực nghiệm -->
+                <div class="apple-card rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center reveal">
                     <div class="md:col-span-4 flex justify-center">
-                        <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-3xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-4xl">
-                            <i class="fa-solid fa-vial"></i>
+                        <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-3xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-4xl">
+                            <i class="fa-solid fa-flask-vial"></i>
                         </div>
                     </div>
                     <div class="md:col-span-8">
-                        <span class="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Cơ chế tem TTI</span>
-                        <h3 class="text-xl font-bold text-white mt-1 mb-2">Nguyên lý biến đổi màu TTI</h3>
+                        <span class="text-[10px] font-bold text-purple-400 uppercase tracking-wider">Đánh giá độ tin cậy</span>
+                        <h3 class="text-xl font-bold text-white mt-1 mb-2">Thực Nghiệm & Chu kỳ Đứt Chuỗi Lạnh</h3>
                         <p class="text-xs text-apple-grayText leading-relaxed">
-                            Nhãn TTI dựa trên sự trùng hợp Polymer hoặc phản ứng enzym tự nhiên. Khi nhiệt độ tăng quá ngưỡng bảo quản, tốc độ phản ứng hóa học tăng lên làm tem đổi màu từ **Trắng/Xám nhạt $\rightarrow$ Pastel Xanh $\rightarrow$ Xanh Dương $\rightarrow$ Xanh Đậm/Đen**.
+                            Nhãn được khảo sát ở các mốc $5^\circ\text{C}, 15^\circ\text{C}, 25^\circ\text{C}, 35^\circ\text{C}$ và thử nghiệm chu kỳ $5^\circ\text{C} \rightarrow 25^\circ\text{C} \rightarrow 5^\circ\text{C}$ để chứng minh tính lưu giữ lịch sử nhiệt độ tích lũy không đảo ngược với hệ số biến thiên $\text{CV} \le 10\%$[cite: 9].
                         </p>
                     </div>
                 </div>
@@ -334,18 +353,18 @@
         </section>
 
 
-        <!-- ==================== TAB 4: KHẢO SÁT (CODE GỐC TTICROP/ANALYZE) ==================== -->
+        <!-- ==================== TAB 4: KHẢO SÁT (ANALYZER STAGE) ==================== -->
         <section id="sec-survey" class="tab-content hidden max-w-7xl mx-auto w-full px-2.5 sm:px-6 py-4 sm:py-8">
             
-            <div class="mb-4 text-center sm:text-left">
+            <div class="mb-4 text-center sm:text-left reveal">
                 <h2 class="text-lg sm:text-2xl font-bold text-white tracking-tight">Khảo Sát & Phân Tích Nhãn TTI</h2>
-                <p class="text-xs text-apple-grayText">Tải ảnh hoặc chụp nhãn TTI để AI phân tích trạng thái nhiệt độ tích lũy.</p>
+                <p class="text-xs text-apple-grayText">Tải ảnh hoặc chụp nhãn TTI để AI trích xuất trạng thái tích lũy nhiệt độ[cite: 9].</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
 
-                <!-- LEFT COLUMN: IMAGE / CROP STAGE -->
-                <section class="lg:col-span-7 flex flex-col gap-3">
+                <!-- LEFT COLUMN: IMAGE STAGE -->
+                <section class="lg:col-span-7 flex flex-col gap-3 reveal">
                     
                     <div class="apple-card rounded-3xl p-3 sm:p-5 flex flex-col h-[480px] relative overflow-hidden">
                         
@@ -453,7 +472,7 @@
                 </section>
 
                 <!-- RIGHT COLUMN: RESULTS -->
-                <section class="lg:col-span-5 flex flex-col gap-3">
+                <section class="lg:col-span-5 flex flex-col gap-3 reveal">
 
                     <div class="apple-card rounded-3xl p-4 flex flex-col gap-3 overflow-hidden">
                         <div class="flex items-center justify-between border-b border-white/10 pb-2">
@@ -523,7 +542,7 @@
 
                         <div class="grid grid-cols-2 gap-2 mt-auto pt-2">
                             <div class="bg-black/50 p-2.5 rounded-2xl border border-white/5 flex flex-col gap-0.5">
-                                <span class="text-[9px] text-apple-grayText">Độ tối chỉ số D:</span>
+                                <span class="text-[9px] text-apple-grayText">Chỉ số độ tối D:</span>
                                 <span id="darknessIndex" class="text-xs font-bold font-mono text-gray-200">0.00</span>
                             </div>
                             <div class="bg-black/50 p-2.5 rounded-2xl border border-white/5 flex flex-col gap-0.5">
@@ -542,33 +561,46 @@
 
     </div>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-white/10 py-6 text-center text-xs text-apple-grayText">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <span>© 2026 TTI Guard System. Thiết kế tối giản chuẩn Apple UI/UX.</span>
-            <div class="flex gap-4">
-                <a href="#" class="hover:text-white transition">Bảo mật</a>
-                <a href="#" class="hover:text-white transition">Điều khoản</a>
-                <a href="#" class="hover:text-white transition">Trợ giúp</a>
-            </div>
-        </div>
+    <!-- FOOTER MỚI (ĐÚNG THEO YÊU CẦU) -->
+    <footer class="border-t border-white/10 py-6 text-center text-sm font-medium text-apple-grayText">
+        Phân Tích Nhãn Cảnh Báo Điều Kiện Bảo Quản Lạnh TTI
     </footer>
 
     <canvas id="hiddenCanvas" class="hidden"></canvas>
 
     <script>
+        // ANIMATION LƯỚT TỚI ĐÂU HIỆN TỚI ĐÓ (SCROLL REVEAL OBSERVER)
+        function setupScrollReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            reveals.forEach(el => observer.observe(el));
+        }
+
         // TAB NAVIGATION LOGIC
         function switchTab(tabId) {
-            // Unactive all tabs
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
 
-            // Active clicked tab
             document.getElementById(`tab-${tabId}`).classList.add('active');
             document.getElementById(`sec-${tabId}`).classList.remove('hidden');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Re-trigger scroll reveal cho tab mới
+            setTimeout(setupScrollReveal, 100);
         }
+
+        // INITIALIZE ANIMATION ON LOAD
+        window.addEventListener('DOMContentLoaded', () => {
+            setupScrollReveal();
+        });
 
         // TTI ANALYZER LOGIC
         const dropZone = document.getElementById('dropZone');
@@ -1001,7 +1033,7 @@
                     }
                     percent = Math.round((1 - luminance) * 30);
                     title = "An Toàn Tuyệt Đối";
-                    desc = "Nhãn giữ nguyên sắc trắng/xám nhạt ban đầu. Điều kiện bảo quản lạnh đạt tiêu chuẩn tối ưu!";
+                    desc = "Nhãn giữ nguyên sắc trắng/xám nhạt ban đầu. Điều kiện bảo quản lạnh đạt tiêu chuẩn tối ưu![cite: 9]";
                     statusClass = "p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300";
                     iconHtml = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
                     riskText = "An Toàn (0%)";
@@ -1011,7 +1043,7 @@
                     catText = "Màu Pastel Xanh";
                     percent = Math.round(15 + (s * 50));
                     title = "An Toàn (Đã Kích Hoạt Phản Ứng)";
-                    desc = "Chuyển màu Pastel xanh / xanh lơ nhạt nhẹ. Sản phẩm vẫn nằm trong giới hạn an toàn cho phép.";
+                    desc = "Chuyển màu Pastel xanh / xanh lơ nhạt nhẹ. Sản phẩm vẫn nằm trong giới hạn an toàn cho phép[cite: 9].";
                     statusClass = "p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300";
                     iconHtml = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
                     riskText = "An Toàn (15-30%)";
@@ -1021,7 +1053,7 @@
                     catText = "Xanh Dương Nhạt / Xanh Dương";
                     percent = Math.round(35 + (s * 40));
                     title = "Cảnh Báo Sớm Nhiệt Độ";
-                    desc = "Tem chuyển hẳn sang màu xanh dương nhạt. Nhiệt độ bảo quản có dấu hiệu suy giảm hoặc dao động.";
+                    desc = "Tem chuyển sang màu xanh dương. Nhiệt độ bảo quản có dấu hiệu suy giảm hoặc dao động[cite: 9].";
                     statusClass = "p-3.5 rounded-2xl bg-amber-950/40 border border-amber-500/40 text-amber-300";
                     iconHtml = `<i class="fa-solid fa-triangle-exclamation text-amber-400"></i>`;
                     riskText = "Nguy Cơ Thấp";
@@ -1032,7 +1064,7 @@
                     percent = Math.round(65 + (darkness * 35));
                     percent = Math.min(90, percent);
                     title = "Cảnh Báo Đứt Chuỗi Lạnh";
-                    desc = "Tem đổi màu xanh đậm rõ rệt. Thực phẩm đã bị đứt chuỗi lạnh, cần kiểm tra chất lượng trước khi dùng.";
+                    desc = "Tem đổi màu xanh đậm rõ rệt. Thực phẩm đã bị đứt chuỗi lạnh, cần kiểm tra chất lượng trước khi dùng[cite: 9].";
                     statusClass = "p-3.5 rounded-2xl bg-orange-950/40 border border-orange-500/40 text-orange-300";
                     iconHtml = `<i class="fa-solid fa-triangle-exclamation text-orange-400"></i>`;
                     riskText = "Đứt Chuỗi Lạnh";
@@ -1042,7 +1074,7 @@
                     catText = "Xanh Đen / Tím Than Sẫm";
                     percent = 100;
                     title = "Hỏng Hoàn Toàn (Nguy Hiểm)";
-                    desc = "Tem chuyển sang màu xanh đen đậm hoàn toàn. Thực phẩm không còn đảm bảo chất lượng bảo quản!";
+                    desc = "Tem chuyển sang màu xanh đen đậm hoàn toàn. Thực phẩm không còn đảm bảo chất lượng bảo quản![cite: 9]";
                     statusClass = "p-3.5 rounded-2xl bg-rose-950/90 border border-rose-500/90 text-rose-200";
                     iconHtml = `<i class="fa-solid fa-circle-exclamation text-rose-500"></i>`;
                     riskText = "Nguy Hiểm (100%)";
