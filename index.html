@@ -644,10 +644,10 @@
                             </div>
                         </div>
 
-                        <!-- ĐÃ SỬA: Nền khung ảnh thích ứng sáng/tối chuẩn thay vì quá đen -->
-                        <div id="viewport" class="relative flex-grow bg-slate-100 dark:bg-slate-900 rounded-2xl overflow-hidden flex items-center justify-center border border-slate-200 dark:border-slate-800 select-none touch-none">
+                        <!-- CÂN BẰNG NỀN LIGHT/DARK MODE CHO KHUNG VIỆWPORT -->
+                        <div id="viewport" class="relative flex-grow bg-slate-200/60 dark:bg-slate-900/80 rounded-2xl overflow-hidden flex items-center justify-center border border-slate-300 dark:border-slate-800 select-none touch-none">
                             
-                            <div id="dropZone" class="flex flex-col items-center justify-center p-4 text-center cursor-pointer hover:bg-slate-200/50 dark:hover:bg-white/5 transition rounded-2xl w-full h-full border-2 border-dashed border-slate-300 dark:border-slate-700">
+                            <div id="dropZone" class="flex flex-col items-center justify-center p-4 text-center cursor-pointer hover:bg-slate-300/40 dark:hover:bg-white/5 transition rounded-2xl w-full h-full border-2 border-dashed border-slate-400/60 dark:border-slate-700">
                                 <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 dark:text-blue-400 mb-3 text-xl sm:text-3xl shadow-lg">
                                     <i class="fa-solid fa-camera"></i>
                                 </div>
@@ -744,8 +744,8 @@
                         </div>
 
                         <div class="flex gap-3 items-center inner-box p-2.5 sm:p-3 rounded-2xl overflow-hidden">
-                            <!-- ĐÃ SỬA: Nền khung xem trước không bị đen tuyền mặc định -->
-                            <div class="w-16 h-16 sm:w-20 sm:h-20 bg-slate-200 dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-300 dark:border-white/10 flex items-center justify-center shrink-0 relative shadow-inner">
+                            <!-- Nền Khung Xem Trước Tương Thích Chuẩn Cả Sáng/Tối -->
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 bg-slate-200/80 dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-300 dark:border-white/10 flex items-center justify-center shrink-0 relative shadow-inner">
                                 <canvas id="cropCanvas" class="w-full h-full object-cover"></canvas>
                             </div>
 
@@ -772,8 +772,8 @@
                             </span>
                         </div>
 
-                        <!-- ĐÃ SỬA: Nền box trạng thái hài hòa, không bị xám đen chìm -->
-                        <div id="statusBox" class="p-3 sm:p-3.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-start gap-2.5 sm:gap-3 transition">
+                        <!-- Cân bằng nền Box Trạng Thái -->
+                        <div id="statusBox" class="p-3 sm:p-3.5 rounded-2xl bg-slate-100/90 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-start gap-2.5 sm:gap-3 transition">
                             <div id="statusIcon" class="text-lg sm:text-xl text-slate-400 dark:text-gray-500 mt-0.5 shrink-0">
                                 <i class="fa-solid fa-circle-question"></i>
                             </div>
@@ -984,7 +984,7 @@
             rgbValue.textContent = "RGB: ---";
             darknessIndex.textContent = "0.00";
 
-            statusBox.className = "p-3 sm:p-3.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-start gap-2.5 sm:gap-3 transition";
+            statusBox.className = "p-3 sm:p-3.5 rounded-2xl bg-slate-100/90 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-start gap-2.5 sm:gap-3 transition";
             statusIcon.innerHTML = `<i class="fa-solid fa-circle-question text-slate-400 dark:text-gray-500"></i>`;
             statusTitle.textContent = "Chưa có dữ liệu";
             statusDesc.textContent = "Tải ảnh hoặc dùng AI tự chọn vị trí tem TTI.";
