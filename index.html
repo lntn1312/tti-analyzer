@@ -51,7 +51,6 @@
     
     <!-- KaTeX CDN cho hiển thị công thức toán học sắc nét -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
@@ -267,7 +266,7 @@
 
             <!-- Navigation Tabs & Theme Toggle Button -->
             <div class="flex items-center gap-1 sm:gap-2 min-w-0">
-                <nav class="nav-container flex items-center gap-0.5 sm:gap-1 p-0.5 sm:p-1 rounded-full text-[10px] sm:text-xs font-medium overflow-hidden shadow-inner">
+                <nav class="nav-container flex items-center gap-0.5 sm:gap-1 p-0.5 sm:p-1 rounded-full text-[10px] sm:text-xs font-medium overflow-x-auto shadow-inner no-scrollbar">
                     <button onclick="switchTab('home')" id="tab-home" class="tab-btn active px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full">Trang chủ</button>
                     <button onclick="switchTab('about')" id="tab-about" class="tab-btn px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full">Giới thiệu</button>
                     <button onclick="switchTab('explore')" id="tab-explore" class="tab-btn px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full">Khám phá</button>
@@ -297,7 +296,7 @@
                 <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-72 sm:w-96 h-72 sm:h-96 bg-gradient-to-tr from-blue-500/20 via-indigo-500/20 to-cyan-400/20 rounded-full animate-glow pointer-events-none -z-10"></div>
 
                 <span class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-apple-blue mb-3 inline-block px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20">An toàn thực phẩm thế hệ mới</span>
-                <h1 class="text-3xl sm:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight max-w-4xl mb-4 sm:mb-6">
+                <h1 class="text-3xl sm:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight max-w-4xl mb-4 sm:mb-6 break-words">
                     Chất lượng thực phẩm.<br/>
                     <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 dark:from-blue-400 dark:via-indigo-300 dark:to-purple-400">Minh bạch theo thời gian thực.</span>
                 </h1>
@@ -329,7 +328,7 @@
                 </div>
             </div>
 
-            <!-- Banner Minh Họa Động Phong Cách Apple (Sửa triệt để box đen) -->
+            <!-- Banner Minh Họa Động Phong Cách Apple -->
             <div class="w-full mb-12 sm:mb-16 reveal">
                 <div class="apple-card rounded-3xl p-6 sm:p-10 text-left relative overflow-hidden bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-900 text-white border border-blue-500/20 shadow-2xl">
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10">
@@ -429,7 +428,7 @@
                     Thuật toán phân tích số hóa sử dụng mô hình màu RGB để tính toán <strong>Chỉ số độ tối chuẩn hóa $D$</strong> (nhận giá trị từ $0.000$ đến $1.000$) theo công thức toán học:
                 </p>
 
-                <div class="p-4 sm:p-5 rounded-2xl bg-blue-500/5 dark:bg-white/5 border border-blue-500/20 text-center font-bold text-blue-600 dark:text-blue-400 text-sm sm:text-xl mb-6">
+                <div class="p-4 sm:p-5 rounded-2xl bg-blue-500/5 dark:bg-white/5 border border-blue-500/20 text-center font-bold text-blue-600 dark:text-blue-400 text-sm sm:text-xl mb-6 overflow-x-auto">
                     $$D = 1 - \frac{R + G + B}{3 \times 255}$$
                 </div>
 
