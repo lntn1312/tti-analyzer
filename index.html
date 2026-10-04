@@ -55,6 +55,19 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
     <style>
+        /* CHỐNG CUỘN NGANG TOÀN TRANG TRÊN ĐIỆN THOẠI */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden !important;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
             touch-action: manipulation;
@@ -313,19 +326,6 @@
                         Khám phá công nghệ
                     </button>
                 </div>
-
-                <!-- Quick Navigation Table of Contents -->
-                <div class="w-full max-w-3xl mb-12 p-4 rounded-2xl bg-slate-100/80 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-left text-xs sm:text-sm">
-                    <span class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 mb-2">
-                        <i class="fa-solid fa-list-ul text-blue-500"></i> Mục lục hệ thống:
-                    </span>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-slate-600 dark:text-slate-300">
-                        <a href="javascript:void(0)" onclick="switchTab('home')" class="hover:text-blue-500 flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px]"></i> Trang chủ</a>
-                        <a href="javascript:void(0)" onclick="switchTab('about')" class="hover:text-blue-500 flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px]"></i> Giới thiệu dự án</a>
-                        <a href="javascript:void(0)" onclick="switchTab('explore')" class="hover:text-blue-500 flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px]"></i> Khám phá tri thức</a>
-                        <a href="javascript:void(0)" onclick="switchTab('survey')" class="hover:text-blue-500 flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px]"></i> Phân tích Khảo sát</a>
-                    </div>
-                </div>
             </div>
 
             <!-- Banner Minh Họa Động Phong Cách Apple -->
@@ -336,7 +336,7 @@
                             <span class="text-[10px] font-bold text-cyan-400 uppercase tracking-widest px-2.5 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30">Giải pháp toàn diện Chuỗi Lạnh</span>
                             <h2 class="text-xl sm:text-3xl font-bold tracking-tight text-white">Số hóa giám sát nhiệt độ với độ chính xác cao</h2>
                             <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
-                                Nhãn TTI dạng hai khoang phản ứng tích tụ toàn bộ tác động của thời gian và nhiệt độ trong quá trình vận chuyển. Khi phát hiện biến đổi màu sắc, thuật toán trích xuất chỉ số độ tối $D$ giúp đưa ra quyết định chính xác cho an toàn thực phẩm.
+                                Nhãn TTI dạng hai khoang phản ứng tích tụ toàn bộ tác động của thời gian và nhiệt độ trong quá trình vận chuyển. Khi phát hiện biến đổi màu sắc, thuật toán trích xuất chỉ số độ tối giúp đưa ra quyết định chính xác cho an toàn thực phẩm.
                             </p>
                             <div class="grid grid-cols-2 gap-4 pt-2">
                                 <div class="p-3 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md">
@@ -387,8 +387,8 @@
                         <i class="fa-solid fa-camera-retro"></i>
                     </div>
                     <div>
-                        <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-white mb-2">Số hóa AI & Thuật toán $D$</h3>
-                        <p class="text-xs sm:text-sm text-slate-500 dark:text-apple-grayText leading-relaxed">Trích xuất mức độ đứt chuỗi qua chỉ số độ tối chuẩn hóa $D = 1 - \frac{R+G+B}{3 \times 255}$, giúp minh bạch hóa dữ liệu đánh giá trên điện thoại thông minh.</p>
+                        <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-white mb-2">Số hóa AI & Thuật toán độ tối</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-apple-grayText leading-relaxed">Trích xuất mức độ đứt chuỗi qua chỉ số độ tối chuẩn hóa $D$, giúp minh bạch hóa dữ liệu đánh giá trên điện thoại thông minh.</p>
                     </div>
                 </div>
             </div>
