@@ -318,7 +318,7 @@
                             <span class="text-[10px] font-bold text-cyan-400 uppercase tracking-widest px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">Giải pháp toàn diện Chuỗi Lạnh</span>
                             <h2 class="text-xl sm:text-3xl font-bold tracking-tight text-white">Số hóa giám sát nhiệt độ với độ chính xác cao</h2>
                             <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                                Nhãn TTI dạng hai khoang phản ứng tích tụ toàn bộ tác động của thời gian và nhiệt độ trong quá trình vận chuyển. Khi phát hiện biến đổi màu sắc, thuật toán trích xuất chỉ số độ tối $D$ giúp đưa ra quyết định chính xác cho an toàn thực phẩm.
+                                Nhãn TTI dạng hai khoang phản ứng tích tụ toàn bộ tác động của thời gian và nhiệt độ trong quá trình vận chuyển. Khi phát hiện biến đổi màu sắc, thuật toán trích xuất chỉ số độ tối D giúp đưa ra quyết định chính xác cho an toàn thực phẩm.
                             </p>
                             <div class="grid grid-cols-2 gap-4 pt-2">
                                 <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
@@ -370,7 +370,7 @@
                     </div>
                     <div>
                         <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-white mb-2">Số hóa AI & Thuật toán D</h3>
-                        <p class="text-xs sm:text-sm text-slate-500 dark:text-apple-grayText leading-relaxed">Trích xuất mức độ đứt chuỗi qua chỉ số độ tối $D = 255 - (R+G+B)/3$, giúp minh bạch hóa dữ liệu đánh giá trên điện thoại thông minh.</p>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-apple-grayText leading-relaxed">Trích xuất mức độ đứt chuỗi qua chỉ số độ tối D = 255 - (R+G+B)/3, giúp minh bạch hóa dữ liệu đánh giá trên điện thoại thông minh.</p>
                     </div>
                 </div>
             </div>
@@ -401,17 +401,17 @@
                 </div>
             </div>
 
-            <!-- Card MỚI: Bổ sung giải thích chi tiết Chỉ số độ tối D -->
+            <!-- Card Bổ sung giải thích chi tiết Chỉ số độ tối D -->
             <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-10 mb-8 sm:mb-10 border-l-4 border-l-blue-500 reveal">
                 <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
                     <i class="fa-solid fa-calculator text-blue-500"></i> Ý Nghĩa Chỉ Số Độ Tối D Trong Phân Tích Màu
                 </h3>
                 <p class="text-xs sm:text-base text-slate-600 dark:text-apple-grayText leading-relaxed mb-4">
-                    Thuật toán phân tích số hóa sử dụng mô hình màu RGB để tính toán <strong>Chỉ số độ tối $D$</strong> theo công thức toán học:
+                    Thuật toán phân tích số hóa sử dụng mô hình màu RGB để tính toán <strong>Chỉ số độ tối D</strong> theo công thức toán học:
                 </p>
 
                 <div class="p-4 sm:p-5 rounded-2xl bg-blue-500/5 dark:bg-white/5 border border-blue-500/20 text-center font-mono font-bold text-blue-600 dark:text-blue-400 text-sm sm:text-lg mb-6">
-                    $D = 255 - \frac{R + G + B}{3}$
+                    D = 255 - (R + G + B) / 3
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
@@ -420,7 +420,7 @@
                             <i class="fa-solid fa-arrow-down-short-wide"></i> Khi Chỉ Số D Càng Bé (Gần 0)
                         </div>
                         <p class="text-slate-600 dark:text-apple-grayText leading-relaxed">
-                            Màu sắc của tâm nhãn nằm ở tông <strong>Trắng hoặc Xám nhạt</strong>. Các giá trị $R, G, B$ đều ở mức cao (gần 255). Điều này phản ánh phản ứng đồng hồ chưa xảy ra hoặc mới ở giai đoạn đầu, thực phẩm được bảo quản liên tục trong điều kiện lạnh an toàn đạt tiêu chuẩn.
+                            Màu sắc của tâm nhãn nằm ở tông <strong>Trắng hoặc Xám nhạt</strong>. Các giá trị R, G, B đều ở mức cao (gần 255). Điều này phản ánh phản ứng đồng hồ chưa xảy ra hoặc mới ở giai đoạn đầu, thực phẩm được bảo quản liên tục trong điều kiện lạnh an toàn đạt tiêu chuẩn.
                         </p>
                     </div>
 
@@ -429,7 +429,7 @@
                             <i class="fa-solid fa-arrow-up-wide-short"></i> Khi Chỉ Số D Càng Lớn (Tiến về 255)
                         </div>
                         <p class="text-slate-600 dark:text-apple-grayText leading-relaxed">
-                            Màu sắc của tâm nhãn chuyển đậm dần sang <strong>Xanh Navy, Xanh Tím rồi đến Xanh Đen sẫm</strong>. Giá trị $R, G, B$ giảm mạnh. Điều này chứng tỏ phản ứng đồng hồ đã hoàn tất do nhiệt độ tích lũy cao, xác nhận sản phẩm đã bị <strong>đứt chuỗi lạnh nghiêm trọng</strong> và chất lượng bị suy giảm.
+                            Màu sắc của tâm nhãn chuyển đậm dần sang <strong>Xanh Navy, Xanh Tím rồi đến Xanh Đen sẫm</strong>. Giá trị R, G, B giảm mạnh. Điều này chứng tỏ phản ứng đồng hồ đã hoàn tất do nhiệt độ tích lũy cao, xác nhận sản phẩm đã bị <strong>đứt chuỗi lạnh nghiêm trọng</strong> và chất lượng bị suy giảm.
                         </p>
                     </div>
                 </div>
@@ -555,8 +555,8 @@
                             Phản ứng đồng hồ diễn ra qua 2 giai đoạn nối tiếp nhau cực kỳ chính xác:
                         </p>
                         <ul class="text-xs sm:text-sm text-slate-700 dark:text-gray-300 space-y-2 list-disc list-inside">
-                            <li><strong>Giai đoạn 1 (Tạo độ trễ):</strong> $H_2O_2$ oxy hóa $I^-$ thành $I_2$, nhưng Vitamin C lập tức khử $I_2$ về lại $I^-$ làm dung dịch vẫn giữ màu trong suốt.</li>
-                            <li><strong>Giai đoạn 2 (Đổi màu vĩnh viễn):</strong> Khi Vitamin C bị tiêu thụ hết, $I_2$ tự do tích lũy phản ứng ngay với Hồ tinh bột tạo phức xanh đen đậm với độ tương phản cao.</li>
+                            <li><strong>Giai đoạn 1 (Tạo độ trễ):</strong> H₂O₂ oxy hóa I⁻ thành I₂, nhưng Vitamin C lập tức khử I₂ về lại I⁻ làm dung dịch vẫn giữ màu trong suốt.</li>
+                            <li><strong>Giai đoạn 2 (Đổi màu vĩnh viễn):</strong> Khi Vitamin C bị tiêu thụ hết, I₂ tự do tích lũy phản ứng ngay với Hồ tinh bột tạo phức xanh đen đậm với độ tương phản cao.</li>
                         </ul>
                     </div>
                     <div class="md:col-span-4 flex justify-center order-1 md:order-2">
@@ -577,7 +577,7 @@
                         <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Nguyên mẫu thực tế</span>
                         <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mt-1 mb-3">Cấu tạo Nhãn Hai Khoang Độc Lập</h3>
                         <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-4">
-                            Nhãn TTI gồm Khoang A (chứa Vitamin C + Iod) và Khoang B (chứa $H_2O_2$ + Hồ tinh bột) được cách ly tuyệt đối bởi vách ngăn mỏng.
+                            Nhãn TTI gồm Khoang A (chứa Vitamin C + Iod) và Khoang B (chứa H₂O₂ + Hồ tinh bột) được cách ly tuyệt đối bởi vách ngăn mỏng.
                         </p>
                         <div class="grid grid-cols-2 gap-3 text-xs sm:text-sm">
                             <div class="p-3 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
