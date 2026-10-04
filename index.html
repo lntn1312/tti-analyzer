@@ -49,7 +49,7 @@
     <!-- Font Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- KaTeX CDN cho hiển thị công thức toán học sắc nét -->
+    <!-- KaTeX CDN cho hiển thị công thức D duy nhất -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
@@ -388,7 +388,7 @@
                     </div>
                     <div>
                         <h3 class="text-base sm:text-xl font-bold text-slate-900 dark:text-white mb-2">Số hóa AI & Thuật toán độ tối</h3>
-                        <p class="text-xs sm:text-sm text-slate-500 dark:text-apple-grayText leading-relaxed">Trích xuất mức độ đứt chuỗi qua chỉ số độ tối chuẩn hóa $D$, giúp minh bạch hóa dữ liệu đánh giá trên điện thoại thông minh.</p>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-apple-grayText leading-relaxed">Trích xuất mức độ đứt chuỗi qua chỉ số độ tối chuẩn hóa D, giúp minh bạch hóa dữ liệu đánh giá trên điện thoại thông minh.</p>
                     </div>
                 </div>
             </div>
@@ -414,7 +414,7 @@
                         Trong vận chuyển và lưu trữ thực phẩm nhạy cảm nhiệt (như sữa tươi, hải sản, vắc-xin, thực phẩm chế biến sẵn), nhiệt độ môi trường thường xảy ra hiện tượng biến đổi cục bộ do quá trình bốc xếp hàng, hỏng hóc thiết bị làm lạnh hoặc vận chuyển chặng cuối. Nhiệt kế truyền thống chỉ đo nhiệt độ tại một thời điểm nhất định mà hoàn toàn không tích lũy được quãng thời gian sản phẩm bị tăng nhiệt.
                     </p>
                     <p>
-                        Dự án nghiên cứu giải pháp chế tạo nhãn TTI (Time-Temperature Indicator) dạng hai khoang độc lập, nhỏ gọn, chi phí thấp dán trực tiếp ngoài bao bì. Nhãn tự động ghi lại lịch sử tích nhiệt liên tục thông qua sự đổi màu vĩnh viễn không thể đảo ngược từ trắng/xám nhạt sang xanh tím/xanh đen đậm khi có hiện tượng đứt chuỗi lạnh.
+                        Dự án nghiên cứu giải pháp chế tạo nhãn TTI dạng hai khoang độc lập, nhỏ gọn, chi phí thấp dán trực tiếp ngoài bao bì. Nhãn tự động ghi lại lịch sử tích nhiệt liên tục thông qua sự đổi màu vĩnh viễn không thể đảo ngược từ trắng/xám nhạt sang xanh tím/xanh đen đậm khi có hiện tượng đứt chuỗi lạnh.
                     </p>
                 </div>
             </div>
@@ -422,10 +422,10 @@
             <!-- Card Bổ sung giải thích chi tiết Chỉ số độ tối D chuẩn hóa -->
             <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-10 mb-8 sm:mb-10 border-l-4 border-l-blue-500 reveal">
                 <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
-                    <i class="fa-solid fa-calculator text-blue-500"></i> Ý Nghĩa Chỉ Số Độ Tối $D$ Trong Phân Tích Màu
+                    <i class="fa-solid fa-calculator text-blue-500"></i> Ý Nghĩa Chỉ Số Độ Tối D Trong Phân Tích Màu
                 </h3>
                 <p class="text-xs sm:text-base text-slate-600 dark:text-apple-grayText leading-relaxed mb-4">
-                    Thuật toán phân tích số hóa sử dụng mô hình màu RGB để tính toán <strong>Chỉ số độ tối chuẩn hóa $D$</strong> (nhận giá trị từ $0.000$ đến $1.000$) theo công thức toán học:
+                    Thuật toán phân tích số hóa sử dụng mô hình màu RGB để tính toán <strong>Chỉ số độ tối chuẩn hóa D</strong> (nhận giá trị từ 0.000 đến 1.000) theo công thức toán học:
                 </p>
 
                 <div class="p-4 sm:p-5 rounded-2xl bg-blue-500/5 dark:bg-white/5 border border-blue-500/20 text-center font-bold text-blue-600 dark:text-blue-400 text-sm sm:text-xl mb-6 overflow-x-auto">
@@ -435,7 +435,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
                     <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
                         <div class="font-bold text-emerald-700 dark:text-emerald-400 text-sm sm:text-base mb-1.5 flex items-center gap-2">
-                            <i class="fa-solid fa-arrow-down-short-wide"></i> Khi Chỉ Số $D \to 0$ (Gần 0)
+                            <i class="fa-solid fa-arrow-down-short-wide"></i> Khi Chỉ Số D tiến về 0 (Gần 0)
                         </div>
                         <p class="text-slate-600 dark:text-apple-grayText leading-relaxed">
                             Màu sắc của tâm nhãn nằm ở tông <strong>Trắng hoặc Xám nhạt</strong>. Các giá trị R, G, B đều ở mức cao (gần 255). Điều này phản ánh phản ứng đồng hồ chưa xảy ra hoặc mới ở giai đoạn đầu, thực phẩm được bảo quản liên tục trong điều kiện lạnh an toàn đạt tiêu chuẩn.
@@ -444,7 +444,7 @@
 
                     <div class="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20">
                         <div class="font-bold text-rose-700 dark:text-rose-400 text-sm sm:text-base mb-1.5 flex items-center gap-2">
-                            <i class="fa-solid fa-arrow-up-wide-short"></i> Khi Chỉ Số $D \to 1$ (Tiến về 1.000)
+                            <i class="fa-solid fa-arrow-up-wide-short"></i> Khi Chỉ Số D tiến về 1 (Tiến về 1.000)
                         </div>
                         <p class="text-slate-600 dark:text-apple-grayText leading-relaxed">
                             Màu sắc của tâm nhãn chuyển đậm dần sang <strong>Xanh Navy, Xanh Tím rồi đến Xanh Đen sẫm</strong>. Giá trị R, G, B giảm mạnh về gần 0. Điều này chứng tỏ phản ứng đồng hồ đã hoàn tất do nhiệt độ tích lũy cao, xác nhận sản phẩm đã bị <strong>đứt chuỗi lạnh nghiêm trọng</strong> và chất lượng bị suy giảm.
@@ -461,7 +461,7 @@
                     </div>
                     <h4 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">Hệ phản ứng Vitamin C - Iodine</h4>
                     <p class="text-xs sm:text-sm text-slate-500 dark:text-apple-grayText leading-relaxed">
-                        Sử dụng Vitamin C, dung dịch Lugol/Iodine, $\text{H}_2\text{O}_2\text{ 3\%}$ và Hồ tinh bột. Vitamin C đóng vai trò chất khử tạo độ trễ cảm ứng trước khi tạo màu xanh đen rõ rệt với hồ tinh bột.
+                        Sử dụng Vitamin C, dung dịch Lugol/Iodine, H2O2 3% và Hồ tinh bột. Vitamin C đóng vai trò chất khử tạo độ trễ cảm ứng trước khi tạo màu xanh đen rõ rệt với hồ tinh bột.
                     </p>
                 </div>
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 reveal">
@@ -498,10 +498,10 @@
                         <span class="text-[10px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Lý thuyết sinh học & Hóa học</span>
                         <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mt-1 mb-3">Tại Sao Nhiệt Độ Làm Hỏng Thực Phẩm?</h3>
                         <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-4">
-                            Khi nhiệt độ tăng vượt mốc bảo quản tiêu chuẩn ($0^\circ\text{C}$ đến $4^\circ\text{C}$), các phản ứng gây hư hỏng bùng phát theo cấp số nhân:
+                            Khi nhiệt độ tăng vượt mốc bảo quản tiêu chuẩn (0°C đến 4°C), các phản ứng gây hư hỏng bùng phát theo cấp số nhân:
                         </p>
                         <ul class="text-xs sm:text-sm text-slate-700 dark:text-gray-300 space-y-2 list-disc list-inside">
-                            <li><strong>Sự gia tăng vi sinh vật:</strong> Vi khuẩn vi hiếu khí và nấm mốc tăng sinh gấp đôi sau mỗi 20 phút ở nhiệt độ môi trường ($25^\circ\text{C} - 30^\circ\text{C}$).</li>
+                            <li><strong>Sự gia tăng vi sinh vật:</strong> Vi khuẩn vi hiếu khí và nấm mốc tăng sinh gấp đôi sau mỗi 20 phút ở nhiệt độ môi trường (25°C - 30°C).</li>
                             <li><strong>Tăng tốc phản ứng Enzym:</strong> Các enzym nội sinh trong thực phẩm (như lipase, protease) hoạt động mạnh làm biến tính protein và gây ôi thiu lipid.</li>
                             <li><strong>Phản ứng oxy hóa tích lũy:</strong> Tăng nhiệt độ làm tăng tốc độ oxy hóa chất béo, làm mất màu, mất mùi và giảm giá trị dinh dưỡng.</li>
                         </ul>
@@ -519,7 +519,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
                             <div class="p-3.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
                                 <span class="font-bold text-cyan-600 dark:text-cyan-400 block mb-1">1. Tiền làm lạnh (Pre-cooling)</span>
-                                <span class="text-xs text-slate-500 dark:text-apple-grayText">Hạ nhiệt độ thực phẩm xuống ngưỡng an toàn ($0^\circ\text{C} - 4^\circ\text{C}$) trước khi đóng gói và xếp vào kho.</span>
+                                <span class="text-xs text-slate-500 dark:text-apple-grayText">Hạ nhiệt độ thực phẩm xuống ngưỡng an toàn (0°C - 4°C) trước khi đóng gói và xếp vào kho.</span>
                             </div>
                             <div class="p-3.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
                                 <span class="font-bold text-blue-600 dark:text-blue-400 block mb-1">2. Lưu thông khí lạnh</span>
@@ -557,7 +557,7 @@
                         </p>
                         <ul class="text-xs sm:text-sm text-slate-700 dark:text-gray-300 space-y-2 list-disc list-inside">
                             <li><strong>Thời gian đứt chuỗi (Time Duration):</strong> Khoảng thời gian thực phẩm tiếp xúc với nhiệt độ cao càng dài, mức độ hư hỏng càng nặng và nhãn TTI sẽ chuyển màu càng đậm.</li>
-                            <li><strong>Biên độ nhiệt độ (Temperature Spike):</strong> Sự chênh lệch nhiệt độ lớn hơn ngưỡng cho phép (như từ $4^\circ\text{C}$ vọt lên $25^\circ\text{C}$) thúc đẩy tốc độ phản ứng hóa học nhanh hơn.</li>
+                            <li><strong>Biên độ nhiệt độ (Temperature Spike):</strong> Sự chênh lệch nhiệt độ lớn hơn ngưỡng cho phép (như từ 4°C vọt lên 25°C) thúc đẩy tốc độ phản ứng hóa học nhanh hơn.</li>
                             <li><strong>Chất liệu bao bì:</strong> Khả năng cách nhiệt và chống thấm khí của màng bao bì tác động trực tiếp đến tốc độ trao đổi nhiệt với môi trường bên ngoài.</li>
                             <li><strong>Thao tác bốc xếp (Handling):</strong> Việc mở cửa kho/xe lạnh quá lâu trong quá trình giao hàng là nguyên nhân hàng đầu gây ra đứt chuỗi lạnh cục bộ.</li>
                         </ul>
@@ -573,8 +573,8 @@
                             Phản ứng đồng hồ diễn ra qua 2 giai đoạn nối tiếp nhau cực kỳ chính xác:
                         </p>
                         <ul class="text-xs sm:text-sm text-slate-700 dark:text-gray-300 space-y-2 list-disc list-inside">
-                            <li><strong>Giai đoạn 1 (Tạo độ trễ):</strong> $\text{H}_2\text{O}_2$ oxy hóa $\text{I}^-$ thành $\text{I}_2$, nhưng Vitamin C lập tức khử $\text{I}_2$ về lại $\text{I}^-$ làm dung dịch vẫn giữ màu trong suốt.</li>
-                            <li><strong>Giai đoạn 2 (Đổi màu vĩnh viễn):</strong> Khi Vitamin C bị tiêu thụ hết, $\text{I}_2$ tự do tích lũy phản ứng ngay với Hồ tinh bột tạo phức xanh đen đậm với độ tương phản cao.</li>
+                            <li><strong>Giai đoạn 1 (Tạo độ trễ):</strong> H2O2 oxy hóa I- thành I2, nhưng Vitamin C lập tức khử I2 về lại I- làm dung dịch vẫn giữ màu trong suốt.</li>
+                            <li><strong>Giai đoạn 2 (Đổi màu vĩnh viễn):</strong> Khi Vitamin C bị tiêu thụ hết, I2 tự do tích lũy phản ứng ngay với Hồ tinh bột tạo phức xanh đen đậm với độ tương phản cao.</li>
                         </ul>
                     </div>
                     <div class="md:col-span-4 flex justify-center order-1 md:order-2">
@@ -595,7 +595,7 @@
                         <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Nguyên mẫu thực tế</span>
                         <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mt-1 mb-3">Cấu tạo Nhãn Hai Khoang Độc Lập</h3>
                         <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-4">
-                            Nhãn TTI gồm Khoang A (chứa Vitamin C + Iodine) và Khoang B (chứa $\text{H}_2\text{O}_2\text{ 3\%}$ + Hồ tinh bột) được cách ly tuyệt đối bởi vách ngăn mỏng.
+                            Nhãn TTI gồm Khoang A (chứa Vitamin C + Iodine) và Khoang B (chứa H2O2 3% + Hồ tinh bột) được cách ly tuyệt đối bởi vách ngăn mỏng.
                         </p>
                         <div class="grid grid-cols-2 gap-3 text-xs sm:text-sm">
                             <div class="p-3 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
@@ -616,7 +616,7 @@
                         <span class="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">Đánh giá độ tin cậy</span>
                         <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mt-1 mb-3">Thực Nghiệm & Chu Kỳ Đứt Chuỗi Lạnh</h3>
                         <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed">
-                            Nhãn được khảo sát thực nghiệm ở các mốc nhiệt độ $4^\circ\text{C}, 15^\circ\text{C}, 25^\circ\text{C}, 35^\circ\text{C}$ và thử nghiệm chu kỳ thay đổi nhiệt độ ($4^\circ\text{C} \to 25^\circ\text{C} \to 4^\circ\text{C}$). Kết quả chứng minh nhãn giữ nguyên lịch sử nhiệt độ tích lũy với hệ số biến thiên $\text{CV} \le 10\%$.
+                            Nhãn được khảo sát thực nghiệm ở các mốc nhiệt độ 4°C, 15°C, 25°C, 35°C và thử nghiệm chu kỳ thay đổi nhiệt độ (4°C chuyển sang 25°C rồi chuyển sang 4°C). Kết quả chứng minh nhãn giữ nguyên lịch sử nhiệt độ tích lũy với hệ số biến thiên CV <= 10%.
                         </p>
                     </div>
                     <div class="md:col-span-4 flex justify-center order-1 md:order-2">
