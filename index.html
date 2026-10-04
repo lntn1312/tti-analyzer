@@ -267,7 +267,7 @@
 
     <!-- NAVIGATION HEADER -->
     <header class="apple-nav-glass sticky top-0 z-50 transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-1">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-1">
             
             <!-- Logo Brand -->
             <div class="flex items-center gap-2 cursor-pointer shrink-0 group" onclick="switchTab('home')">
@@ -280,10 +280,22 @@
             <!-- Navigation Tabs & Theme Toggle Button -->
             <div class="flex items-center gap-1 sm:gap-2 min-w-0">
                 <nav class="nav-container flex items-center gap-0.5 sm:gap-1 p-0.5 sm:p-1 rounded-full text-[10px] sm:text-xs font-medium overflow-x-auto shadow-inner no-scrollbar">
-                    <button onclick="switchTab('home')" id="tab-home" class="tab-btn active px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full">Trang chủ</button>
-                    <button onclick="switchTab('about')" id="tab-about" class="tab-btn px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full">Giới thiệu</button>
-                    <button onclick="switchTab('explore')" id="tab-explore" class="tab-btn px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full">Khám phá</button>
-                    <button onclick="switchTab('survey')" id="tab-survey" class="tab-btn px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full flex items-center gap-1">
+                    <button onclick="switchTab('home')" id="tab-home" class="tab-btn active px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">Trang chủ</button>
+                    <button onclick="switchTab('about')" id="tab-about" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">Giới thiệu</button>
+                    <button onclick="switchTab('explore')" id="tab-explore" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">Khám phá</button>
+                    <button onclick="switchTab('map')" id="tab-map" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full flex items-center gap-1">
+                        <i class="fa-solid fa-map-location-dot text-blue-500"></i>
+                        <span>Bản đồ HCMC</span>
+                    </button>
+                    <button onclick="switchTab('economy')" id="tab-economy" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full flex items-center gap-1">
+                        <i class="fa-solid fa-chart-pie text-emerald-500"></i>
+                        <span>Kinh tế & Scale</span>
+                    </button>
+                    <button onclick="switchTab('lab')" id="tab-lab" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full flex items-center gap-1">
+                        <i class="fa-solid fa-flask text-purple-500"></i>
+                        <span>Thực nghiệm R&D</span>
+                    </button>
+                    <button onclick="switchTab('survey')" id="tab-survey" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full flex items-center gap-1">
                         <span>Khảo sát</span>
                         <span class="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0 animate-ping"></span>
                     </button>
@@ -322,8 +334,8 @@
                     <button onclick="switchTab('survey')" class="px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 dark:bg-white text-white dark:text-black font-semibold rounded-full transition-all text-xs sm:text-sm shadow-xl shadow-blue-500/25 dark:shadow-white/10 flex items-center gap-2 hover:scale-105 active:scale-95">
                         Thử nghiệm Khảo sát TTI <i class="fa-solid fa-arrow-right text-[10px] sm:text-xs"></i>
                     </button>
-                    <button onclick="switchTab('explore')" class="px-6 sm:px-8 py-3 sm:py-4 bg-slate-200 hover:bg-slate-300 dark:bg-white/10 text-slate-800 dark:text-white font-semibold rounded-full transition-all text-xs sm:text-sm border border-slate-300 dark:border-white/10 hover:scale-105 active:scale-95">
-                        Khám phá công nghệ
+                    <button onclick="switchTab('map')" class="px-6 sm:px-8 py-3 sm:py-4 bg-slate-200 hover:bg-slate-300 dark:bg-white/10 text-slate-800 dark:text-white font-semibold rounded-full transition-all text-xs sm:text-sm border border-slate-300 dark:border-white/10 hover:scale-105 active:scale-95">
+                        Xem Bản Đồ TP.HCM
                     </button>
                 </div>
             </div>
@@ -435,7 +447,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
                     <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
                         <div class="font-bold text-emerald-700 dark:text-emerald-400 text-sm sm:text-base mb-1.5 flex items-center gap-2">
-                            <i class="fa-solid fa-arrow-down-short-wide"></i> Khi Chỉ Số D tiến về 0,000 (≈ 0)
+                            <i class="fa-solid fa-arrow-down-short-wide"></i> Khi Chỉ Số D tiến về 0,000 ( ≈ 0 )
                         </div>
                         <p class="text-slate-600 dark:text-apple-grayText leading-relaxed">
                             Màu sắc của tâm nhãn nằm ở tông <strong>Trắng hoặc Xám nhạt</strong>. Các giá trị R, G, B đều ở mức cao (gần 255). Điều này phản ánh phản ứng đồng hồ chưa xảy ra hoặc mới ở giai đoạn đầu, thực phẩm được bảo quản liên tục trong điều kiện lạnh an toàn đạt tiêu chuẩn.
@@ -444,7 +456,7 @@
 
                     <div class="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20">
                         <div class="font-bold text-rose-700 dark:text-rose-400 text-sm sm:text-base mb-1.5 flex items-center gap-2">
-                            <i class="fa-solid fa-arrow-up-wide-short"></i> Khi Chỉ Số D tiến về 1,000 (≈ 1)
+                            <i class="fa-solid fa-arrow-up-wide-short"></i> Khi Chỉ Số D tiến về 1,000 ( ≈ 1 )
                         </div>
                         <p class="text-slate-600 dark:text-apple-grayText leading-relaxed">
                             Màu sắc của tâm nhãn chuyển đậm dần sang <strong>Xanh Navy, Xanh Tím rồi đến Xanh Đen sẫm</strong>. Giá trị R, G, B giảm mạnh về gần 0. Điều này chứng tỏ phản ứng đồng hồ đã hoàn tất do nhiệt độ tích lũy cao, xác nhận sản phẩm đã bị <strong>đứt chuỗi lạnh nghiêm trọng</strong> và chất lượng bị suy giảm.
@@ -542,95 +554,220 @@
                     </div>
                 </div>
 
-                <!-- Card 3: Quy trình và các yếu tố ảnh hưởng -->
-                <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center reveal">
-                    <div class="md:col-span-4 flex justify-center">
-                        <div class="w-24 h-24 sm:w-36 sm:h-36 rounded-3xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 text-4xl sm:text-5xl shadow-inner">
-                            <i class="fa-solid fa-diagram-project"></i>
-                        </div>
-                    </div>
-                    <div class="md:col-span-8">
-                        <span class="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">Phân tích yếu tố tác động</span>
-                        <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mt-1 mb-3">Quy Trình & Yếu Tố Tác Động Đến Bảo Quản</h3>
-                        <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-4">
-                            Hiệu quả của quá trình bảo quản thực phẩm phụ thuộc vào 4 yếu tố then chốt:
-                        </p>
-                        <ul class="text-xs sm:text-sm text-slate-700 dark:text-gray-300 space-y-2 list-disc list-inside">
-                            <li><strong>Thời gian đứt chuỗi (Time Duration):</strong> Khoảng thời gian thực phẩm tiếp xúc với nhiệt độ cao càng dài, mức độ hư hỏng càng nặng và nhãn TTI sẽ chuyển màu càng đậm.</li>
-                            <li><strong>Biên độ nhiệt độ (Temperature Spike):</strong> Sự chênh lệch nhiệt độ lớn hơn ngưỡng cho phép (như từ 4°C vọt lên 25°C) thúc đẩy tốc độ phản ứng hóa học nhanh hơn.</li>
-                            <li><strong>Chất liệu bao bì:</strong> Khả năng cách nhiệt và chống thấm khí của màng bao bì tác động trực tiếp đến tốc độ trao đổi nhiệt với môi trường bên ngoài.</li>
-                            <li><strong>Thao tác bốc xếp (Handling):</strong> Việc mở cửa kho/xe lạnh quá lâu trong quá trình giao hàng là nguyên nhân hàng đầu gây ra đứt chuỗi lạnh cục bộ.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Card 4: Cơ chế phản ứng đồng hồ Vitamin C - Iodine -->
-                <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center reveal">
-                    <div class="md:col-span-8 order-2 md:order-1">
-                        <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Cơ chế hóa học TTI</span>
-                        <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mt-1 mb-3">Phản ứng đồng hồ Vitamin C - Iodine</h3>
-                        <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-4">
-                            Phản ứng đồng hồ diễn ra qua 2 giai đoạn nối tiếp nhau cực kỳ chính xác:
-                        </p>
-                        <ul class="text-xs sm:text-sm text-slate-700 dark:text-gray-300 space-y-2 list-disc list-inside">
-                            <li><strong>Giai đoạn 1 (Tạo độ trễ):</strong> H₂O₂ oxy hóa I⁻ thành I₂, nhưng Vitamin C lập tức khử I₂ về lại I⁻ làm dung dịch vẫn giữ màu trong suốt.</li>
-                            <li><strong>Giai đoạn 2 (Đổi màu vĩnh viễn):</strong> Khi Vitamin C bị tiêu thụ hết, I2 tự do tích lũy phản ứng ngay với Hồ tinh bột tạo phức xanh đen đậm với độ tương phản cao.</li>
-                        </ul>
-                    </div>
-                    <div class="md:col-span-4 flex justify-center order-1 md:order-2">
-                        <div class="w-24 h-24 sm:w-36 sm:h-36 rounded-3xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 text-4xl sm:text-5xl shadow-inner">
-                            <i class="fa-solid fa-clock-rotate-left"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 5: Cấu tạo 2 khoang -->
-                <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center reveal">
-                    <div class="md:col-span-4 flex justify-center">
-                        <div class="w-24 h-24 sm:w-36 sm:h-36 rounded-3xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500 text-4xl sm:text-5xl shadow-inner">
-                            <i class="fa-solid fa-layer-group"></i>
-                        </div>
-                    </div>
-                    <div class="md:col-span-8">
-                        <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Nguyên mẫu thực tế</span>
-                        <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mt-1 mb-3">Cấu tạo Nhãn Hai Khoang Độc Lập</h3>
-                        <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-4">
-                            Nhãn TTI gồm Khoang A (chứa Vitamin C + Iodine) và Khoang B (chứa H₂O₂ 3% + Hồ tinh bột) được cách ly tuyệt đối bởi vách ngăn mỏng.
-                        </p>
-                        <div class="grid grid-cols-2 gap-3 text-xs sm:text-sm">
-                            <div class="p-3 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
-                                <span class="font-bold text-emerald-600 dark:text-emerald-400 block mb-1">Kích hoạt dễ dàng</span>
-                                <span class="text-xs text-slate-500 dark:text-apple-grayText">Ấn nhẹ để 2 dung dịch phá vỡ vách ngăn và hòa trộn</span>
-                            </div>
-                            <div class="p-3 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
-                                <span class="font-bold text-blue-600 dark:text-blue-400 block mb-1">An toàn thực phẩm</span>
-                                <span class="text-xs text-slate-500 dark:text-apple-grayText">Màng PE/PET bọc kín không rò rỉ hóa chất</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 6: Đánh giá thực nghiệm -->
-                <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center reveal">
-                    <div class="md:col-span-8 order-2 md:order-1">
-                        <span class="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">Đánh giá độ tin cậy</span>
-                        <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mt-1 mb-3">Thực Nghiệm & Chu Kỳ Đứt Chuỗi Lạnh</h3>
-                        <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed">
-                            Nhãn được khảo sát thực nghiệm ở các mốc nhiệt độ 4°C, 15°C, 25°C, 35°C và thử nghiệm chu kỳ thay đổi nhiệt độ (4°C chuyển sang 25°C rồi chuyển sang 4°C). Kết quả chứng minh nhãn giữ nguyên lịch sử nhiệt độ tích lũy với hệ số biến thiên CV ≤ 10%.
-                        </p>
-                    </div>
-                    <div class="md:col-span-4 flex justify-center order-1 md:order-2">
-                        <div class="w-24 h-24 sm:w-36 sm:h-36 rounded-3xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-500 text-4xl sm:text-5xl shadow-inner">
-                            <i class="fa-solid fa-flask-vial"></i>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </section>
 
 
-        <!-- ==================== TAB 4: KHẢO SÁT ==================== -->
+        <!-- ==================== TAB 4: BẢN ĐỒ SỐ HÓA CHUỖI LẠNH HCMC (NEW) ==================== -->
+        <section id="sec-map" class="tab-content hidden max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
+            <div class="text-center mb-10 sm:mb-14 reveal">
+                <span class="text-[10px] font-bold text-blue-600 dark:text-apple-blue uppercase tracking-widest px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-3 inline-block">Hệ thống giám sát đô thị thông minh</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-3">Bản Đồ Số Hóa Chuỗi Lạnh Đô Thị (HCMC Dashboard)</h2>
+                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Giám sát các "điểm nóng" chuỗi cung ứng thực phẩm tươi sống theo thời gian thực tại TP.HCM qua định vị quét tem TTI.</p>
+            </div>
+
+            <!-- Interactive Google Maps Integration Frame -->
+            <div class="apple-card rounded-3xl p-4 sm:p-6 mb-8 reveal">
+                <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Luồng Vận Chuyển & Trạm Giám Sát Thời Gian Thực</h3>
+                    </div>
+                    <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">Trạng thái: Trực tuyến (Live Feed)</span>
+                </div>
+
+                <!-- Google Maps Embed Trực Tiếp -->
+                <div class="w-full h-80 sm:h-[450px] rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 relative shadow-inner">
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125405.67919864215!2d106.60273760205081!3d10.776530000000008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529292e8d3dd1%3A0xf15f5aad773c112!2sHo%20Chi%20Minh%20City%2C%20Vietnam!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Các Điểm Nóng & Luồng Vận Chuyển Chi Tiết -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="apple-card rounded-2xl p-6 reveal">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold mb-4">
+                        <i class="fa-solid fa-cow"></i>
+                    </div>
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-2">Vùng Sữa Tươi Củ Chi</h4>
+                    <p class="text-xs text-slate-600 dark:text-apple-grayText leading-relaxed mb-3">
+                        Kiểm soát nhiệt độ sữa tươi nguyên liệu ngay tại trạm thu mua Củ Chi trước khi chuyển về các nhà máy chế biến nội đô.
+                    </p>
+                    <span class="text-[10px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 font-semibold border border-emerald-500/20">Đạt chuẩn &lt; 4°C</span>
+                </div>
+
+                <div class="apple-card rounded-2xl p-6 reveal">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold mb-4">
+                        <i class="fa-solid fa-carrot"></i>
+                    </div>
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-2">Rau Củ Từ Đà Lạt - Chợ Hóc Môn / Thủ Đức</h4>
+                    <p class="text-xs text-slate-600 dark:text-apple-grayText leading-relaxed mb-3">
+                        Giám sát chuỗi cung ứng rau củ vượt đèo về chợ đầu mối lớn tại TP.HCM. Quét tem TTI tại cổng chợ để phát hiện xe chở bị hỏng lạnh.
+                    </p>
+                    <span class="text-[10px] px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-600 font-semibold border border-amber-500/20">Cảnh báo dao động nhẹ</span>
+                </div>
+
+                <div class="apple-card rounded-2xl p-6 reveal">
+                    <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center font-bold mb-4">
+                        <i class="fa-solid fa-fish"></i>
+                    </div>
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-2">Hải Sản Cảng Cát Lái - Chợ Bình Điền</h4>
+                    <p class="text-xs text-slate-600 dark:text-apple-grayText leading-relaxed mb-3">
+                        Theo dõi luồng vận chuyển hải sản đông lạnh từ cảng biển về chợ đầu mối Bình Điền. Dữ liệu D đẩy tức thì lên Dashboard cơ quan quản lý.
+                    </p>
+                    <span class="text-[10px] px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-600 font-semibold border border-rose-500/20">Điểm nóng cần lưu ý</span>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== TAB 5: BÀI TOÁN KINH TẾ & SCALE (NEW) ==================== -->
+        <section id="sec-economy" class="tab-content hidden max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
+            <div class="text-center mb-10 sm:mb-14 reveal">
+                <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-3 inline-block">Hiệu quả tài chính & Thương mại hóa</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-3">Bài Toán Kinh Tế & Tiềm Năng Ứng Dụng Tại TP.HCM</h2>
+                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Phân tích chi phí - lợi ích (Cost-Benefit) và tiềm năng tiết kiệm hàng chục tỷ đồng lãng phí thực phẩm mỗi năm.</p>
+            </div>
+
+            <!-- Bảng So Sánh Chi Phí -->
+            <div class="apple-card rounded-3xl p-6 sm:p-8 mb-8 reveal">
+                <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-scale-balanced text-emerald-500"></i> So Sánh Chi Phí: Nhãn TTI Không Dùng Điện vs Datalogger Điện Tử
+                </h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <thead>
+                            <tr class="border-b border-slate-200 dark:border-white/10 text-slate-400">
+                                <th class="py-3 px-4 font-bold">Tiêu chí so sánh</th>
+                                <th class="py-3 px-4 font-bold text-emerald-600 dark:text-emerald-400">Nhãn TTI Không Dùng Điện (Dự án)</th>
+                                <th class="py-3 px-4 font-bold text-rose-500">Thiết bị Datalogger Điện Tử</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-white/5 text-slate-700 dark:text-gray-300">
+                            <tr>
+                                <td class="py-3.5 px-4 font-semibold">Chi phí đầu tư mỗi đơn vị</td>
+                                <td class="py-3.5 px-4 text-emerald-600 dark:text-emerald-400 font-bold">Vài trăm đến 1.500 VNĐ / tem</td>
+                                <td class="py-3.5 px-4 text-rose-500 font-bold">200.000đ - 1.500.000 VNĐ / thiết bị</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3.5 px-4 font-semibold">Khả năng dán trên từng sản phẩm</td>
+                                <td class="py-3.5 px-4">Dán trực tiếp lên từng bao bì sản phẩm (Unit-level packaging)</td>
+                                <td class="py-3.5 px-4">Chỉ gắn được cho nguyên thùng/container lớn do giá đắt</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3.5 px-4 font-semibold">Nguồn điện & Bảo trì</td>
+                                <td class="py-3.5 px-4 font-bold text-emerald-600">Hoàn toàn thụ động, không cần pin/điện</td>
+                                <td class="py-3.5 px-4">Dùng pin lithium, cần thu hồi và sạc định kỳ</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3.5 px-4 font-semibold">Khả năng minh bạch cho người tiêu dùng</td>
+                                <td class="py-3.5 px-4">Người mua quét ảnh bằng điện thoại là biết ngay độ an toàn</td>
+                                <td class="py-3.5 px-4">Người tiêu dùng cuối không thể tự đọc dữ liệu</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Điểm Nhấn Tiết Kiệm Tại TP.HCM -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="apple-card rounded-3xl p-6 sm:p-8 reveal flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-500 flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-store"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Quy Mô Hệ Thống Bán Lẻ TP.HCM</h4>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-4">
+                            Thành phố Hồ Chí Minh hiện có hơn <strong>250 siêu thị lớn</strong> (Co.opmart, Lotte Mart, AEON, Emart...) và hàng nghìn cửa hàng tiện lợi, chuỗi bách hóa (WinMart, Bách Hóa Xanh, Circle K...).
+                        </p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-blue-500/5 border border-blue-500/20">
+                        <span class="text-xs font-bold text-blue-600 dark:text-blue-400 block mb-1">Độ phủ tiềm năng:</span>
+                        <span class="text-xs text-slate-500 dark:text-apple-grayText">Hàng triệu sản phẩm thực phẩm tươi sống lưu thông mỗi ngày cần giải pháp giám sát chi phí thấp.</span>
+                    </div>
+                </div>
+
+                <div class="apple-card rounded-3xl p-6 sm:p-8 reveal flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-piggy-bank"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Tiết Kiệm Hàng Chục Tỷ Đồng</h4>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-4">
+                            Việc ứng dụng nhãn TTI giúp phát hiện sớm thực phẩm suy giảm chất lượng trước khi hỏng nặng, giúp giảm thiểu đáng kể lượng thực phẩm bị tiêu hủy lãng phí, tiết kiệm <strong>hàng chục đến hàng trăm tỷ đồng mỗi năm</strong> cho các nhà phân phối và người tiêu dùng.
+                        </p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/20">
+                        <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 block mb-1">Hiệu quả kinh tế kép:</span>
+                        <span class="text-xs text-slate-500 dark:text-apple-grayText">Vừa bảo vệ sức khỏe cộng đồng, vừa tối ưu hóa chi phí vận hành chuỗi cung ứng đô thị.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== TAB 6: NHẬT KÝ THỰC NGHIỆM & R&D LAB NOTES (NEW) ==================== -->
+        <section id="sec-lab" class="tab-content hidden max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
+            <div class="text-center mb-10 sm:mb-14 reveal">
+                <span class="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 mb-3 inline-block">Minh chứng khoa học thực tế</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-3">Nhật Ký Thực Nghiệm & Hình Ảnh R&D Lab</h2>
+                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Tư liệu thực tế từ phòng thí nghiệm của nhóm tác giả: Quá trình pha chế hóa chất, thử nghiệm màu và ép màng nhãn hai khoang.</p>
+            </div>
+
+            <!-- Grid Hình Ảnh Thực Nghiệm -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="apple-card rounded-3xl p-4 reveal">
+                    <div class="w-full h-48 rounded-2xl bg-slate-200 dark:bg-slate-800 overflow-hidden mb-4 relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-purple-600/20"></div>
+                        <i class="fa-solid fa-vial text-4xl text-blue-500"></i>
+                        <span class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/60 text-white text-[10px] font-mono">Lab Photo 01</span>
+                    </div>
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-1">Pha Chế Vitamin C & Iodine</h4>
+                    <p class="text-xs text-slate-500 dark:text-apple-grayText leading-relaxed">Chuẩn bị nồng độ dung dịch chuẩn để tạo thời gian trễ chính xác cho đồng hồ phản ứng nhiệt độ.</p>
+                </div>
+
+                <div class="apple-card rounded-3xl p-4 reveal">
+                    <div class="w-full h-48 rounded-2xl bg-slate-200 dark:bg-slate-800 overflow-hidden mb-4 relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-600/20 to-cyan-600/20"></div>
+                        <i class="fa-solid fa-flask-vial text-4xl text-emerald-500"></i>
+                        <span class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/60 text-white text-[10px] font-mono">Lab Photo 02</span>
+                    </div>
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-1">Hồ Tinh Bột & H₂O₂ 3%</h4>
+                    <p class="text-xs text-slate-500 dark:text-apple-grayText leading-relaxed">Thử nghiệm phản ứng tạo phức màu xanh đen đặc trưng khi hoàn tất giai đoạn khử của Vitamin C.</p>
+                </div>
+
+                <div class="apple-card rounded-3xl p-4 reveal">
+                    <div class="w-full h-48 rounded-2xl bg-slate-200 dark:bg-slate-800 overflow-hidden mb-4 relative flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-purple-600/20 to-pink-600/20"></div>
+                        <i class="fa-solid fa-layer-group text-4xl text-purple-500"></i>
+                        <span class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/60 text-white text-[10px] font-mono">Lab Photo 03</span>
+                    </div>
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-1">Ép Màng Nhãn Hai Khoang</h4>
+                    <p class="text-xs text-slate-500 dark:text-apple-grayText leading-relaxed">Hoàn thiện nguyên mẫu tem dán thực tế với vách ngăn dễ kích hoạt bằng tay trước khi dán lên sản phẩm.</p>
+                </div>
+            </div>
+
+            <!-- Lời Nhắn Đến Ban Giám Khảo -->
+            <div class="apple-card rounded-3xl p-6 sm:p-8 reveal border-l-4 border-l-purple-500 text-left">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-award text-purple-500"></i> Cam Kết Từ Nhóm Nghiên Cứu
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed">
+                    Sản phẩm không chỉ dừng lại ở lý thuyết mô phỏng mà đã được chế tạo thành công thành nguyên mẫu vật lý hoàn chỉnh, sẵn sàng thử nghiệm diện rộng tại các kho lạnh và hệ thống phân phối thực phẩm tại TP.HCM.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ==================== TAB 7: KHẢO SÁT ==================== -->
         <section id="sec-survey" class="tab-content hidden max-w-7xl mx-auto w-full px-3 sm:px-6 py-4 sm:py-8">
             
             <div class="mb-4 text-center sm:text-left reveal">
