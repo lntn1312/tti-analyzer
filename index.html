@@ -1288,7 +1288,6 @@
         };
 
         function selectMapRegion(regionKey) {
-            // Đổi trạng thái viền các ô bản đồ phụ
             document.querySelectorAll('.map-box-item').forEach(el => {
                 el.classList.remove('border-blue-500', 'border-2');
                 el.classList.add('border-2', 'border-transparent');
@@ -1302,7 +1301,6 @@
             const data = regionMapData[regionKey];
             if (!data) return;
 
-            // Cập nhật hộp thông tin bản đồ phụ
             document.getElementById('infoTitle').textContent = data.title;
             document.getElementById('infoSubtitle').textContent = data.subtitle;
             document.getElementById('infoPercent').textContent = data.percent;
@@ -1310,14 +1308,12 @@
             document.getElementById('subItem2').textContent = data.sub2;
             document.getElementById('subItem3').textContent = data.sub3;
 
-            // Cập nhật 4 khối thẻ bên dưới (đồng bộ hóa theo yêu cầu)
             document.getElementById('cardIcon1').innerHTML = data.card.icon;
             document.getElementById('cardTitle1').textContent = data.card.title;
             document.getElementById('cardDesc1').textContent = data.card.desc;
             document.getElementById('cardBadge1').textContent = data.card.badge;
             document.getElementById('cardBadge1').className = data.card.badgeClass;
 
-            // Cập nhật thẻ 2 và 3 với dữ liệu ngữ cảnh phù hợp
             document.getElementById('cardTitle2').textContent = `Quy Trình Kiểm Soát Tại ${data.title.split('(')[0]}`;
             document.getElementById('cardDesc2').textContent = `Theo dõi sát sao thông số tích lũy nhiệt độ qua nhãn TTI, đảm bảo thực phẩm không bị suy giảm chất lượng trong suốt quá trình lưu kho và giao thương.`;
             document.getElementById('cardBadge2').textContent = `Trạng thái: ${data.percent}`;
@@ -1327,7 +1323,6 @@
             document.getElementById('cardBadge3').textContent = `Live Sync 24/7`;
         }
 
-        // Mặc định chọn Bình Điền khi load
         window.addEventListener('DOMContentLoaded', () => {
             selectMapRegion('binhdien');
         });
@@ -1452,16 +1447,41 @@
             }
         });
 
+        // TỐI ƯU CHO DI ĐỘNG: Tự động nén ảnh chụp từ camera có kích thước quá lớn để chống tràn RAM
         function handleFile(file) {
             if (!file.type.startsWith('image/')) return;
             const reader = new FileReader();
             reader.onload = (e) => {
-                sourceImage.onload = () => {
-                    requestAnimationFrame(() => {
-                        initImageStage();
-                    });
+                const img = new Image();
+                img.onload = () => {
+                    const MAX_DIMENSION = 1200;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
+                        if (width > height) {
+                            height = Math.round((height * MAX_DIMENSION) / width);
+                            width = MAX_DIMENSION;
+                        } else {
+                            width = Math.round((width * MAX_DIMENSION) / height);
+                            height = MAX_DIMENSION;
+                        }
+                    }
+
+                    const tempC = document.createElement('canvas');
+                    tempC.width = width;
+                    tempC.height = height;
+                    const tCtx = tempC.getContext('2d');
+                    tCtx.drawImage(img, 0, 0, width, height);
+
+                    sourceImage.onload = () => {
+                        requestAnimationFrame(() => {
+                            initImageStage();
+                        });
+                    };
+                    sourceImage.src = tempC.toDataURL('image/jpeg', 0.85);
                 };
-                sourceImage.src = e.target.result;
+                img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
@@ -1520,13 +1540,7 @@
             if (!vpW || !vpH) return;
 
             const isMobile = window.innerWidth < 768;
-            const maxDimension = Math.max(sourceImage.naturalWidth, sourceImage.naturalHeight);
-
-            if (isMobile || maxDimension >= 2500) {
-                currentZoom = 0.10;
-            } else {
-                currentZoom = 0.20;
-            }
+            currentZoom = isMobile ? 0.15 : 0.25;
 
             const cropCenterX = cropState.x + cropState.w / 2;
             const cropCenterY = cropState.y + cropState.h / 2;
