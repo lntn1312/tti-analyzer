@@ -742,8 +742,10 @@
                 <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Tự tạo bản đồ TP.HCM vector độc quyền, đồng bộ tương tác sáng bừng vùng trọng điểm và làm mờ xám các khu vực còn lại.</p>
             </div>
 
+            <!-- BỐ CỤC 2 CỘT: BẢN ĐỒ SVG TỰ TẠO TP.HCM (60%) + BẢN ĐỒ PHỤ BOX XANH PASTEL TƯƠNG TÁC (40%) -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8 reveal">
                 
+                <!-- Cột Trái: Bản đồ SVG Tự Thiết Kế TP.HCM (Nền Trắng Nhạt Be / Ranh giới rõ nét) -->
                 <div class="lg:col-span-7 apple-card rounded-3xl p-4 sm:p-5 flex flex-col justify-between">
                     <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
                         <div class="flex items-center gap-2">
@@ -753,18 +755,27 @@
                         <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">Interactive SVG Map</span>
                     </div>
 
+                    <!-- KHUNG SVG MAP THỦ CÔNG ĐỘC QUYỀN VỚI NỀN TRẮNG NHẠT - BE & RANH GIỚI SẮC NÉT -->
                     <div class="w-full h-72 sm:h-[380px] rounded-2xl bg-[#f4f2ee] dark:bg-slate-950 overflow-hidden border border-slate-300 dark:border-slate-800 relative shadow-inner flex items-center justify-center p-2 transition-colors duration-500">
                         <svg viewBox="0 0 600 450" class="w-full h-full drop-shadow-md" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Nền tổng thể bản đồ TP.HCM (Trắng nhạt / be) -->
                             <rect width="600" height="450" fill="#f8f6f0" rx="16" class="dark:fill-[#090d16] transition-colors duration-500"/>
                             
+                            <!-- Ranh giới các vùng/quận huyện giả lập dạng mảng bản đồ địa lý -->
+                            <!-- Khu vực phía Bắc / Củ Chi -->
                             <path d="M 50,20 L 320,20 L 300,160 L 120,170 Z" fill="#e8e4dc" stroke="#cbd5e1" stroke-width="1.5" class="dark:fill-[#131b2e] dark:stroke-[#334155]"/>
+                            <!-- Khu vực Tây Bắc / Hóc Môn - Quận 12 -->
                             <path d="M 120,170 L 300,160 L 290,260 L 150,270 Z" fill="#eeeae2" stroke="#cbd5e1" stroke-width="1.5" class="dark:fill-[#172033] dark:stroke-[#334155]"/>
+                            <!-- Khu vực Đông / Thủ Đức - Quận 9 cũ -->
                             <path d="M 320,20 L 520,60 L 530,280 L 300,260 Z" fill="#e2ded6" stroke="#cbd5e1" stroke-width="1.5" class="dark:fill-[#0f172a] dark:stroke-[#334155]"/>
+                            <!-- Khu vực Nam / Bình Chánh - Quận 8 - Nhà Bè -->
                             <path d="M 150,270 L 300,260 L 530,280 L 480,430 L 180,430 Z" fill="#eae6de" stroke="#cbd5e1" stroke-width="1.5" class="dark:fill-[#111827] dark:stroke-[#334155]"/>
 
+                            <!-- Đường sông Sài Gòn & Nhà Bè uốn lượn xuyên suốt thành phố -->
                             <path d="M 140,20 Q 230,160 300,250 T 480,430" stroke="#93c5fd" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.7"/>
                             <path d="M 300,250 Q 360,290 440,270" stroke="#93c5fd" stroke-width="7" fill="none" stroke-linecap="round" opacity="0.7"/>
 
+                            <!-- 1. CỦ CHI HUB (Phía Bắc) -->
                             <g id="svg-region-cuchi" class="map-region-node" onclick="selectMapRegion('cuchi')">
                                 <ellipse cx="180" cy="90" rx="65" ry="45" fill="#10b981" fill-opacity="0.25" stroke="#10b981" stroke-width="2.5"/>
                                 <circle cx="180" cy="90" r="10" class="animate-ping" fill="#10b981" opacity="0.6"/>
@@ -772,6 +783,7 @@
                                 <text x="180" y="148" fill="#0f172a" class="dark:fill-white font-bold" font-size="11" text-anchor="middle">Củ Chi Hub (Sữa)</text>
                             </g>
 
+                            <!-- 2. CHỢ HÓC MÔN (Phía Tây Bắc) -->
                             <g id="svg-region-hocmon" class="map-region-node" onclick="selectMapRegion('hocmon')">
                                 <ellipse cx="230" cy="180" rx="55" ry="35" fill="#f59e0b" fill-opacity="0.25" stroke="#f59e0b" stroke-width="2.5"/>
                                 <circle cx="230" cy="180" r="10" class="animate-ping" fill="#f59e0b" opacity="0.6"/>
@@ -779,6 +791,7 @@
                                 <text x="230" y="230" fill="#0f172a" class="dark:fill-white font-bold" font-size="11" text-anchor="middle">Chợ Hóc Môn</text>
                             </g>
 
+                            <!-- 3. CHỢ THỦ ĐỨC (Phía Đông) -->
                             <g id="svg-region-thuduc" class="map-region-node" onclick="selectMapRegion('thuduc')">
                                 <ellipse cx="420" cy="170" rx="60" ry="40" fill="#06b6d4" fill-opacity="0.25" stroke="#06b6d4" stroke-width="2.5"/>
                                 <circle cx="420" cy="170" r="10" class="animate-ping" fill="#06b6d4" opacity="0.6"/>
@@ -786,6 +799,7 @@
                                 <text x="420" y="225" fill="#0f172a" class="dark:fill-white font-bold" font-size="11" text-anchor="middle">Chợ Thủ Đức</text>
                             </g>
 
+                            <!-- 4. CHỢ BÌNH ĐIỀN (Phía Nam - Quận 8) -->
                             <g id="svg-region-binhdien" class="map-region-node highlighted" onclick="selectMapRegion('binhdien')">
                                 <ellipse cx="300" cy="340" rx="65" ry="45" fill="#3b82f6" fill-opacity="0.35" stroke="#3b82f6" stroke-width="3"/>
                                 <circle cx="300" cy="340" r="12" class="animate-ping" fill="#3b82f6" opacity="0.7"/>
@@ -800,6 +814,7 @@
                     </div>
                 </div>
 
+                <!-- Cột Phải: Bản đồ phụ BOX XANH DƯƠNG PASTEL (4 Ô địa điểm bấm vào) -->
                 <div class="lg:col-span-5 rounded-3xl p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 shadow-lg">
                     <div class="absolute -top-12 -right-12 w-48 h-48 bg-blue-400/10 rounded-full blur-3xl pointer-events-none"></div>
                     
@@ -815,6 +830,7 @@
                         </p>
                     </div>
 
+                    <!-- 4 Ô địa điểm tương tác bấm -->
                     <div class="grid grid-cols-2 gap-2 my-2">
                         <div id="box-binhdien" onclick="selectMapRegion('binhdien')" class="map-box-item p-3 rounded-2xl bg-white dark:bg-slate-900 border-2 border-blue-500 cursor-pointer shadow-sm transition">
                             <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
@@ -845,6 +861,7 @@
                         </div>
                     </div>
 
+                    <!-- Hộp hiển thị thông tin địa điểm và 3 mục bổ trợ chữ rõ ràng -->
                     <div id="mapRegionInfo" class="p-4 rounded-2xl bg-white/95 dark:bg-slate-900/95 border border-blue-300 dark:border-blue-800 shadow-inner mt-2">
                         <div class="flex items-center justify-between mb-1">
                             <span id="infoTitle" class="text-xs sm:text-sm font-bold text-blue-600 dark:text-blue-400">Chợ Đầu Mối Bình Điền (Quận 8)</span>
@@ -852,6 +869,7 @@
                         </div>
                         <div class="text-xs text-slate-700 dark:text-gray-200 font-medium mb-3" id="infoSubtitle">Trung tâm mua bán hải sản & thịt tươi sống lớn nhất TPHCM</div>
                         
+                        <!-- 3 mục bổ trợ cho địa điểm được chọn (chữ to rõ, không quá nhỏ) -->
                         <div class="grid grid-cols-3 gap-2 text-[11px] text-slate-700 dark:text-gray-200 border-t border-blue-100 dark:border-blue-900 pt-2.5">
                             <div class="p-2 rounded-xl bg-blue-500/10 dark:bg-white/5 border border-blue-500/20">
                                 <span class="block font-bold text-blue-600 dark:text-blue-400 mb-1 text-[11px]">1. Nhiệt độ chuẩn</span>
@@ -872,6 +890,7 @@
 
             </div>
 
+            <!-- 4 Khối Thẻ Chi Tiết Dưới Bản Đồ (Thay đổi tương ứng theo ô được chọn) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="apple-card rounded-2xl p-6 reveal">
                     <div id="cardIcon1" class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold mb-4 text-lg">
@@ -907,6 +926,7 @@
                 </div>
             </div>
         </section>
+
 
 
         <!-- ==================== TAB 5: BÀI TOÁN KINH TẾ & SCALE ==================== -->
