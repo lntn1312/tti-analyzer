@@ -284,7 +284,7 @@
                     <button onclick="switchTab('about')" id="tab-about" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">ℹ️  Giới thiệu</button>
                     <button onclick="switchTab('explore')" id="tab-explore" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">🧭 Khám phá</button>
                     <button onclick="switchTab('map')" id="tab-map" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">
-                        <span>🗺️ Bản đồ HCMC</span>
+                        <span>🗺️️ Bản đồ HCMC</span>
                     </button>
                     <button onclick="switchTab('economy')" id="tab-economy" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">
                         <span>📈 Kinh tế & Scale</span>
@@ -447,7 +447,7 @@
                             <i class="fa-solid fa-arrow-down-short-wide"></i> Khi Chỉ Số D tiến về 0,000 ( ≈ 0 )
                         </div>
                         <p class="text-slate-600 dark:text-apple-grayText leading-relaxed">
-                            Màu sắc của tâm nhãn nằm ở tông <strong>Trắng hoặc Xám nhạt</strong>. Các giá trị R, G, B đều ở mức cao (gần 255). Điều này phản ánh phản ứng đồng hồ chưa xảy ra hoặc mới ở giai đoạn đầu, thực phẩm được bảo quản liên tục trong điều kiện lạnh an toàn đạt tiêu chuẩn.
+                            Màu sắc của tâm nhãn nằm ở tông <strong>Tr trắng hoặc Xám nhạt</strong>. Các giá trị R, G, B đều ở mức cao (gần 255). Điều này phản ánh phản ứng đồng hồ chưa xảy ra hoặc mới ở giai đoạn đầu, thực phẩm được bảo quản liên tục trong điều kiện lạnh an toàn đạt tiêu chuẩn.
                         </p>
                     </div>
 
@@ -486,16 +486,38 @@
         </section>
 
 
-        <!-- ==================== TAB 3: KHÁM PHÁ ==================== -->
+        <!-- ==================== TAB 3: KHÁM PHÁ (ĐÃ THÊM MỤC CẤU TẠO TTI) ==================== -->
         <section id="sec-explore" class="tab-content hidden max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
             <div class="text-center mb-10 sm:mb-14 reveal">
                 <span class="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-3 inline-block">Tri thức & Ứng dụng thực tiễn</span>
                 <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-3">Khám Phá Toàn Diện Về Bảo Quản Lạnh & TTI</h2>
-                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Tìm hiểu tác động sinh hóa của nhiệt độ, tiêu chuẩn chuỗi lạnh và cấu tạo chi tiết của tem TTI.</p>
+                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Tìm hiểu cấu tạo chi tiết tem TTI, tác động sinh hóa của nhiệt độ và tiêu chuẩn chuỗi lạnh.</p>
             </div>
 
             <div class="space-y-6 sm:space-y-8">
                 
+                <!-- Card MỚI: Cấu tạo chi tiết của tem TTI (Được thêm theo yêu cầu) -->
+                <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center reveal border-l-4 border-l-blue-500">
+                    <div class="md:col-span-4 flex justify-center">
+                        <div class="w-24 h-24 sm:w-36 sm:h-36 rounded-3xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 text-4xl sm:text-5xl shadow-inner">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                    </div>
+                    <div class="md:col-span-8">
+                        <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Cấu trúc công nghệ vật lý</span>
+                        <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mt-1 mb-3">Cấu Tạo Chi Tiết Của Tem TTI Hai Khoang</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-4">
+                            Tem cảnh báo thời gian - nhiệt độ (TTI) được thiết kế dạng thông minh nhiều lớp bóc dán trực tiếp trên bao bì thực phẩm, bao gồm các thành phần cốt lõi sau:
+                        </p>
+                        <ul class="text-xs sm:text-sm text-slate-700 dark:text-gray-300 space-y-2.5 list-disc list-inside">
+                            <li><strong>Khoang chứa chất hoạt hóa (Active Chamber):</strong> Chứa dung dịch hỗn hợp chất khử Vitamin C và chất xúc tác được cách ly an toàn trước khi kích hoạt.</li>
+                            <li><strong>Khoang phản ứng màu tâm (Indicator Core):</strong> Chứa màng hồ tinh bột kết hợp dung dịch Iodine. Đây là vùng hiển thị trung tâm sẽ chuyển màu trực quan.</li>
+                            <li><strong>Vách ngăn kích hoạt cơ học (Activation Barrier):</strong> Lớp màng mỏng ngăn cách hai khoang, cho phép người dùng ấn nhẹ bằng tay để bắt đầu quá trình ghi nhận nhiệt độ trước khi đưa vào vận chuyển.</li>
+                            <li><strong>Lớp màng bảo vệ trong suốt chống UV:</strong> Bảo vệ phản ứng hóa học khỏi tác động của ánh sáng ngoại vi và hơi ẩm bên ngoài môi trường kho lạnh.</li>
+                        </ul>
+                    </div>
+                </div>
+
                 <!-- Card 1: Nguyên nhân nhiệt tác động đến bảo quản -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center reveal">
                     <div class="md:col-span-4 flex justify-center">
@@ -555,7 +577,7 @@
         </section>
 
 
-        <!-- ==================== TAB 4: BẢN ĐỒ SỐ HÓA CHUỖI LẠNH HCMC (NEW) ==================== -->
+        <!-- ==================== TAB 4: BẢN ĐỒ SỐ HÓA CHUỖI LẠNH HCMC ==================== -->
         <section id="sec-map" class="tab-content hidden max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
             <div class="text-center mb-10 sm:mb-14 reveal">
                 <span class="text-[10px] font-bold text-blue-600 dark:text-apple-blue uppercase tracking-widest px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-3 inline-block">Hệ thống giám sát đô thị thông minh</span>
@@ -625,7 +647,7 @@
         </section>
 
 
-        <!-- ==================== TAB 5: BÀI TOÁN KINH TẾ & SCALE (NEW) ==================== -->
+        <!-- ==================== TAB 5: BÀI TOÁN KINH TẾ & SCALE ==================== -->
         <section id="sec-economy" class="tab-content hidden max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
             <div class="text-center mb-10 sm:mb-14 reveal">
                 <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-3 inline-block">Hiệu quả tài chính & Thương mại hóa</span>
@@ -711,7 +733,7 @@
         </section>
 
 
-        <!-- ==================== TAB 6: NHẬT KÝ THỰC NGHIỆM & R&D LAB NOTES (NEW) ==================== -->
+        <!-- ==================== TAB 6: NHẬT KÝ THỰC NGHIỆM & R&D LAB NOTES ==================== -->
         <section id="sec-lab" class="tab-content hidden max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
             <div class="text-center mb-10 sm:mb-14 reveal">
                 <span class="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 mb-3 inline-block">Minh chứng khoa học thực tế</span>
