@@ -28,7 +28,6 @@
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'float': 'float 6s ease-in-out infinite',
                         'glow': 'glow 3s ease-in-out infinite alternate',
-                        'radar-ping': 'radarPing 2.5s cubic-bezier(0, 0, 0.2, 1) infinite',
                     },
                     keyframes: {
                         float: {
@@ -38,10 +37,6 @@
                         glow: {
                             '0%': { opacity: '0.4', filter: 'blur(20px)' },
                             '100%': { opacity: '0.8', filter: 'blur(35px)' },
-                        },
-                        radarPing: {
-                            '0%': { transform: 'scale(0.8)', opacity: '0.9' },
-                            '100%': { transform: 'scale(2.4)', opacity: '0' },
                         }
                     }
                 }
@@ -716,7 +711,7 @@
                 <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Giám sát dữ liệu công khai cập nhật online hằng ngày trên toàn mạng internet và các điểm nóng thời gian thực tại TP.HCM.</p>
             </div>
 
-            <!-- BỐ CỤC 2 CỘT: GOOGLE MAPS TOÀN CẢNH HCMC (60%) + BẢN ĐỒ PHỤ BOX XANH PASTEL TƯƠNG TÁC 4 ĐỊA ĐIỂM ĐÔNG DÂN (40%) -->
+            <!-- BỐ CỤC 2 CỘT: GOOGLE MAPS TOÀN CẢNH HCMC (60%) + BẢN ĐỒ PHỤ BOX XANH PASTEL TƯƠNG TÁC BẤM VÀO 4 Ô ĐỊA ĐIỂM (40%) -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8 reveal">
                 
                 <!-- Cột Trái: Google Map toàn cảnh TP.HCM (~60% tương đương 7/12 cột) -->
@@ -741,7 +736,7 @@
                     </div>
                 </div>
 
-                <!-- Cột Phải: Bản đồ phụ BOX XANH DƯƠNG PASTEL (4 Địa điểm trao đổi, mua bán, sản xuất đông dân nhất TPHCM) -->
+                <!-- Cột Phải: Bản đồ phụ BOX XANH DƯƠNG PASTEL (4 Ô địa điểm bấm vào) -->
                 <div class="lg:col-span-5 rounded-3xl p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 shadow-lg">
                     <div class="absolute -top-12 -right-12 w-48 h-48 bg-blue-400/10 rounded-full blur-3xl pointer-events-none"></div>
                     
@@ -750,65 +745,65 @@
                             <span class="text-xs font-bold text-blue-600 dark:text-blue-300 uppercase tracking-widest flex items-center gap-2">
                                 <i class="fa-solid fa-map-location-dot"></i> 4 Tâm Điểm Thực Phẩm Đông Dân TPHCM
                             </span>
-                            <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-300 border border-blue-500/20">Bấm/Rê để xem</span>
+                            <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-300 border border-blue-500/20">Bấm vào ô để xem</span>
                         </div>
                         <p class="text-[11px] text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
-                            Bấm vào các địa điểm trọng điểm dưới đây để xem thông tin tổng quan kèm 3 mục bổ trợ chi tiết:
+                            Bấm chọn các ô địa điểm bên dưới để đồng bộ toàn bộ hệ thống thông tin chi tiết:
                         </p>
                     </div>
 
-                    <!-- 4 Địa điểm tương tác -->
+                    <!-- 4 Ô địa điểm tương tác bấm -->
                     <div class="grid grid-cols-2 gap-2 my-2">
-                        <div onmouseenter="showMapRegion('binhdien')" onclick="showMapRegion('binhdien')" class="p-3 rounded-2xl bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-900 cursor-pointer hover:border-blue-500 transition shadow-sm">
+                        <div id="box-binhdien" onclick="selectMapRegion('binhdien')" class="map-box-item p-3 rounded-2xl bg-white dark:bg-slate-900 border-2 border-blue-500 cursor-pointer shadow-sm transition">
                             <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
                                 <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span> Chợ Bình Điền
                             </div>
-                            <div class="text-[10px] text-slate-500 dark:text-apple-grayText mt-0.5">Đầu mối hải sản & thịt lớn nhất</div>
+                            <div class="text-[10px] text-slate-500 dark:text-apple-grayText mt-0.5">Hải sản & thịt lớn nhất</div>
                         </div>
 
-                        <div onmouseenter="showMapRegion('thuduc')" onclick="showMapRegion('thuduc')" class="p-3 rounded-2xl bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-900 cursor-pointer hover:border-blue-500 transition shadow-sm">
+                        <div id="box-thuduc" onclick="selectMapRegion('thuduc')" class="map-box-item p-3 rounded-2xl bg-white dark:bg-slate-900 border-2 border-transparent cursor-pointer shadow-sm transition">
                             <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span> Chợ Thủ Đức
+                                <span class="w-2 h-2 rounded-full bg-cyan-500"></span> Chợ Thủ Đức
                             </div>
-                            <div class="text-[10px] text-slate-500 dark:text-apple-grayText mt-0.5">Đầu mối rau củ miền Đông</div>
+                            <div class="text-[10px] text-slate-500 dark:text-apple-grayText mt-0.5">Rau củ miền Đông</div>
                         </div>
 
-                        <div onmouseenter="showMapRegion('hocmon')" onclick="showMapRegion('hocmon')" class="p-3 rounded-2xl bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-900 cursor-pointer hover:border-blue-500 transition shadow-sm">
+                        <div id="box-hocmon" onclick="selectMapRegion('hocmon')" class="map-box-item p-3 rounded-2xl bg-white dark:bg-slate-900 border-2 border-transparent cursor-pointer shadow-sm transition">
                             <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span> Chợ Hóc Môn
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span> Chợ Hóc Môn
                             </div>
-                            <div class="text-[10px] text-slate-500 dark:text-apple-grayText mt-0.5">Đầu mối nông sản Tây Bắc</div>
+                            <div class="text-[10px] text-slate-500 dark:text-apple-grayText mt-0.5">Nông sản Tây Bắc</div>
                         </div>
 
-                        <div onmouseenter="showMapRegion('cuchi')" onclick="showMapRegion('cuchi')" class="p-3 rounded-2xl bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-900 cursor-pointer hover:border-blue-500 transition shadow-sm">
+                        <div id="box-cuchi" onclick="selectMapRegion('cuchi')" class="map-box-item p-3 rounded-2xl bg-white dark:bg-slate-900 border-2 border-transparent cursor-pointer shadow-sm transition">
                             <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Củ Chi Hub
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Củ Chi Hub
                             </div>
                             <div class="text-[10px] text-slate-500 dark:text-apple-grayText mt-0.5">Sản xuất sữa & nguyên liệu</div>
                         </div>
                     </div>
 
-                    <!-- Hộp hiển thị thông tin địa điểm và 3 mục bổ trợ bên dưới -->
-                    <div id="mapRegionInfo" class="p-3.5 rounded-2xl bg-white/90 dark:bg-slate-900/90 border border-blue-300 dark:border-blue-800 shadow-inner mt-2">
+                    <!-- Hộp hiển thị thông tin địa điểm và 3 mục bổ trợ chữ rõ ràng -->
+                    <div id="mapRegionInfo" class="p-4 rounded-2xl bg-white/95 dark:bg-slate-900/95 border border-blue-300 dark:border-blue-800 shadow-inner mt-2">
                         <div class="flex items-center justify-between mb-1">
-                            <span id="infoTitle" class="text-xs font-bold text-blue-600 dark:text-blue-400">Vui lòng bấm vào 1 trong 4 địa điểm ở trên</span>
-                            <span id="infoPercent" class="text-xs font-mono font-bold text-emerald-600">---</span>
+                            <span id="infoTitle" class="text-xs sm:text-sm font-bold text-blue-600 dark:text-blue-400">Chợ Đầu Mối Bình Điền (Quận 8)</span>
+                            <span id="infoPercent" class="text-xs font-mono font-bold text-emerald-600">97.8% Chuẩn</span>
                         </div>
-                        <div class="text-[11px] text-slate-600 dark:text-gray-300 font-semibold mb-2" id="infoSubtitle">---</div>
+                        <div class="text-xs text-slate-700 dark:text-gray-200 font-medium mb-3" id="infoSubtitle">Trung tâm mua bán hải sản & thịt tươi sống lớn nhất TPHCM</div>
                         
-                        <!-- 3 mục bổ trợ cho địa điểm được chọn -->
-                        <div class="grid grid-cols-3 gap-1.5 text-[9px] text-slate-600 dark:text-gray-300 mt-2 border-t border-blue-100 dark:border-blue-900 pt-2">
-                            <div class="p-1.5 rounded-xl bg-blue-500/5 dark:bg-white/5 border border-blue-500/10">
-                                <span class="block font-bold text-blue-600 dark:text-blue-400 mb-0.5">1. Nhiệt độ / Tiêu chuẩn</span>
-                                <span id="subItem1" class="text-[9px] leading-tight block">---</span>
+                        <!-- 3 mục bổ trợ cho địa điểm được chọn (chữ to rõ, không quá nhỏ) -->
+                        <div class="grid grid-cols-3 gap-2 text-[11px] text-slate-700 dark:text-gray-200 border-t border-blue-100 dark:border-blue-900 pt-2.5">
+                            <div class="p-2 rounded-xl bg-blue-500/10 dark:bg-white/5 border border-blue-500/20">
+                                <span class="block font-bold text-blue-600 dark:text-blue-400 mb-1 text-[11px]">1. Nhiệt độ chuẩn</span>
+                                <span id="subItem1" class="text-xs leading-snug block font-semibold">0.5°C - 2.8°C</span>
                             </div>
-                            <div class="p-1.5 rounded-xl bg-blue-500/5 dark:bg-white/5 border border-blue-500/10">
-                                <span class="block font-bold text-emerald-600 dark:text-emerald-400 mb-0.5">2. Lượng giao thương</span>
-                                <span id="subItem2" class="text-[9px] leading-tight block">---</span>
+                            <div class="p-2 rounded-xl bg-emerald-500/10 dark:bg-white/5 border border-emerald-500/20">
+                                <span class="block font-bold text-emerald-600 dark:text-emerald-400 mb-1 text-[11px]">2. Giao thương</span>
+                                <span id="subItem2" class="text-xs leading-snug block font-semibold">&gt;2.500 tấn/đêm</span>
                             </div>
-                            <div class="p-1.5 rounded-xl bg-blue-500/5 dark:bg-white/5 border border-blue-500/10">
-                                <span class="block font-bold text-purple-600 dark:text-purple-400 mb-0.5">3. Trạng thái TTI</span>
-                                <span id="subItem3" class="text-[9px] leading-tight block">---</span>
+                            <div class="p-2 rounded-xl bg-purple-500/10 dark:bg-white/5 border border-purple-500/20">
+                                <span class="block font-bold text-purple-600 dark:text-purple-400 mb-1 text-[11px]">3. Trạng thái TTI</span>
+                                <span id="subItem3" class="text-xs leading-snug block font-semibold">Quét tự động cổng xe</span>
                             </div>
                         </div>
                     </div>
@@ -817,39 +812,39 @@
 
             </div>
 
-            <!-- Các Điểm Nóng & Luồng Vận Chuyển Chi Tiết -->
+            <!-- 4 Khối Thẻ Chi Tiết Dưới Bản Đồ (Thay đổi tương ứng theo ô được chọn) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="apple-card rounded-2xl p-6 reveal">
-                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold mb-4">
+                    <div id="cardIcon1" class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold mb-4 text-lg">
                         <i class="fa-solid fa-fish"></i>
                     </div>
-                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-2">Chợ Đầu Mối Bình Điền (Quận 8)</h4>
-                    <p class="text-xs text-slate-600 dark:text-apple-grayText leading-relaxed mb-3">
+                    <h4 id="cardTitle1" class="text-base font-bold text-slate-900 dark:text-white mb-2">Chợ Đầu Mối Bình Điền (Quận 8)</h4>
+                    <p id="cardDesc1" class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-3">
                         Trung tâm mua bán hải sản đông lạnh và thịt tươi sống lớn nhất TPHCM, phục vụ lượng tiêu thụ khổng lồ cho hàng triệu cư dân đô thị mỗi đêm.
                     </p>
-                    <span class="text-[10px] px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-600 font-semibold border border-rose-500/20">Điểm nóng giám sát chuỗi lạnh</span>
+                    <span id="cardBadge1" class="text-[11px] px-3 py-1 rounded-full bg-rose-500/10 text-rose-600 font-semibold border border-rose-500/20 inline-block">Điểm nóng giám sát chuỗi lạnh</span>
                 </div>
 
                 <div class="apple-card rounded-2xl p-6 reveal">
-                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold mb-4">
-                        <i class="fa-solid fa-carrot"></i>
+                    <div id="cardIcon2" class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold mb-4 text-lg">
+                        <i class="fa-solid fa-temperature-arrow-down"></i>
                     </div>
-                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-2">Chợ Đầu Mối Thủ Đức & Hóc Môn</h4>
-                    <p class="text-xs text-slate-600 dark:text-apple-grayText leading-relaxed mb-3">
-                        Hai đại lộ giao thương nông sản và rau củ quả tươi sống hàng đầu từ các tỉnh miền Đông và Tây Nguyên đổ về các khu vực đông dân cư nội đô.
+                    <h4 id="cardTitle2" class="text-base font-bold text-slate-900 dark:text-white mb-2">Điều Kiện Bảo Quản & Vận Hành</h4>
+                    <p id="cardDesc2" class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-3">
+                        Duy trì nghiêm ngặt dải nhiệt độ chuẩn từ kho lạnh trung chuyển đến xe tải phân phối chặng cuối, ngăn chặn tuyệt đối hiện tượng sốc nhiệt.
                     </p>
-                    <span class="text-[10px] px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-600 font-semibold border border-amber-500/20">Kiểm tra tem TTI liên tục</span>
+                    <span id="cardBadge2" class="text-[11px] px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 font-semibold border border-amber-500/20 inline-block">Kiểm tra tem TTI liên tục</span>
                 </div>
 
                 <div class="apple-card rounded-2xl p-6 reveal">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold mb-4">
-                        <i class="fa-solid fa-cow"></i>
+                    <div id="cardIcon3" class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold mb-4 text-lg">
+                        <i class="fa-solid fa-shield-halved"></i>
                     </div>
-                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-2">Củ Chi Hub Sản Xuất & Chăn Nuôi</h4>
-                    <p class="text-xs text-slate-600 dark:text-apple-grayText leading-relaxed mb-3">
-                        Vùng trọng điểm sản xuất nông nghiệp và thu mua sữa tươi nguyên liệu lớn nhất ngoại thành, cung cấp nguồn thực phẩm thiết yếu sạch cho toàn thành phố.
+                    <h4 id="cardTitle3" class="text-base font-bold text-slate-900 dark:text-white mb-2">Mức Độ An Toàn & Minh Bạch</h4>
+                    <p id="cardDesc3" class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-3">
+                        Ứng dụng nhãn TTI hai khoang kết hợp trích xuất ảnh kỹ thuật số giúp người tiêu dùng kiểm tra độ an toàn sản phẩm dưới 3 giây.
                     </p>
-                    <span class="text-[10px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 font-semibold border border-emerald-500/20">Đạt chuẩn bảo quản &lt; 4°C</span>
+                    <span id="cardBadge3" class="text-[11px] px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 font-semibold border border-emerald-500/20 inline-block">Đạt chuẩn kiểm định đô thị</span>
                 </div>
             </div>
         </section>
@@ -1228,56 +1223,113 @@
             document.getElementById('tti-display-icon').className = `text-xl ${info.color}`;
         }
 
-        // Dữ liệu 4 địa điểm trao đổi, mua bán, sản xuất thực phẩm nhiệt đông dân nhất TPHCM kèm 3 mục bổ trợ
+        // Dữ liệu 4 địa điểm tương tác bấm và đồng bộ 4 khối thẻ bên dưới
         const regionMapData = {
             binhdien: {
                 title: "Chợ Đầu Mối Bình Điền (Quận 8)",
                 subtitle: "Trung tâm mua bán hải sản & thịt tươi sống lớn nhất TPHCM",
                 percent: "97.8% Chuẩn",
-                sub1: "Nhiệt độ: 0.5°C - 2.8°C (Đạt chuẩn đông lạnh/mát)",
-                sub2: "Giao thương: >2.500 tấn hải sản/đêm",
-                sub3: "TTI Check: Quét tự động tại cổng xe lạnh"
+                sub1: "0.5°C - 2.8°C",
+                sub2: ">2.500 tấn/đêm",
+                sub3: "Quét tự động cổng xe",
+                card: {
+                    icon: '<i class="fa-solid fa-fish"></i>',
+                    title: "Chợ Đầu Mối Bình Điền (Quận 8)",
+                    desc: "Trung tâm mua bán hải sản đông lạnh và thịt tươi sống lớn nhất TPHCM, phục vụ lượng tiêu thụ khổng lồ cho hàng triệu cư dân đô thị mỗi đêm.",
+                    badge: "Điểm nóng giám sát chuỗi lạnh",
+                    badgeClass: "text-[11px] px-3 py-1 rounded-full bg-rose-500/10 text-rose-600 font-semibold border border-rose-500/20 inline-block"
+                }
             },
             thuduc: {
                 title: "Chợ Đầu Mối Thủ Đức (Thành phố Thủ Đức)",
                 subtitle: "Trung tâm phân phối rau củ quả & nông sản miền Đông",
                 percent: "98.2% Chuẩn",
-                sub1: "Nhiệt độ: 3.5°C - 5.2°C (Hàng mát ngắn ngày)",
-                sub2: "Giao thương: >3.500 tấn nông sản/ngày",
-                sub3: "TTI Check: Kiểm soát sốc nhiệt vượt đèo"
+                sub1: "3.5°C - 5.2°C",
+                sub2: ">3.500 tấn/ngày",
+                sub3: "Kiểm soát sốc nhiệt",
+                card: {
+                    icon: '<i class="fa-solid fa-carrot"></i>',
+                    title: "Chợ Đầu Mối Thủ Đức (Thành phố Thủ Đức)",
+                    desc: "Trung tâm phân phối rau củ quả và nông sản miền Đông lớn nhất, tiếp nhận lượng hàng hóa khổng lồ cung cấp cho toàn thành phố.",
+                    badge: "Kiểm tra tem TTI liên tục",
+                    badgeClass: "text-[11px] px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 font-semibold border border-amber-500/20 inline-block"
+                }
             },
             hocmon: {
                 title: "Chợ Đầu Mối Hóc Môn (Huyện Hóc Môn)",
                 subtitle: "Đầu mối cung ứng thực phẩm gia súc & nông sản Tây Bắc",
                 percent: "98.5% Chuẩn",
-                sub1: "Nhiệt độ: 2.0°C - 4.0°C (Bảo quản thịt/rau)",
-                sub2: "Giao thương: ~2.000 tấn thực phẩm/ngày",
-                sub3: "TTI Check: Theo dõi thời gian tích nhiệt bốc dỡ"
+                sub1: "2.0°C - 4.0°C",
+                sub2: "~2.000 tấn/ngày",
+                sub3: "Theo dõi tích nhiệt bốc dỡ",
+                card: {
+                    icon: '<i class="fa-solid fa-basket-shopping"></i>',
+                    title: "Chợ Đầu Mối Hóc Môn (Huyện Hóc Môn)",
+                    desc: "Đầu mối cung ứng thịt gia súc và nông sản huyết mạch vùng Tây Bắc TP.HCM, đảm bảo phân phối an toàn cho dân cư khu vực ngoại thành.",
+                    badge: "Giám sát chuỗi cung ứng ổn định",
+                    badgeClass: "text-[11px] px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 font-semibold border border-blue-500/20 inline-block"
+                }
             },
             cuchi: {
                 title: "Củ Chi Hub Sản Xuất & Trạm Sữa (Huyện Củ Chi)",
                 subtitle: "Vùng chăn nuôi, sản xuất sữa tươi & nguyên liệu sạch",
                 percent: "99.4% Chuẩn",
-                sub1: "Nhiệt độ: < 4°C (Kiểm soát nguyên liệu tại trạm)",
-                sub2: "Giao thương: ~120.000 lít sữa & nông sản/ngày",
-                sub3: "TTI Check: Kích hoạt nhãn hai khoang từ nguồn"
+                sub1: "< 4.0°C",
+                sub2: "~120.000 lít/ngày",
+                sub3: "Kích hoạt nhãn từ nguồn",
+                card: {
+                    icon: '<i class="fa-solid fa-cow"></i>',
+                    title: "Củ Chi Hub Sản Xuất & Trạm Sữa (Huyện Củ Chi)",
+                    desc: "Vùng trọng điểm sản xuất nông nghiệp và thu mua sữa tươi nguyên liệu lớn nhất ngoại thành, cung cấp nguồn thực phẩm thiết yếu sạch.",
+                    badge: "Đạt chuẩn bảo quản < 4°C",
+                    badgeClass: "text-[11px] px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 font-semibold border border-emerald-500/20 inline-block"
+                }
             }
         };
 
-        function showMapRegion(regionKey) {
+        function selectMapRegion(regionKey) {
+            // Đổi trạng thái viền các ô bản đồ phụ
+            document.querySelectorAll('.map-box-item').forEach(el => {
+                el.classList.remove('border-blue-500', 'border-2');
+                el.classList.add('border-2', 'border-transparent');
+            });
+            const activeBox = document.getElementById(`box-${regionKey}`);
+            if (activeBox) {
+                activeBox.classList.remove('border-transparent');
+                activeBox.classList.add('border-blue-500', 'border-2');
+            }
+
             const data = regionMapData[regionKey];
             if (!data) return;
+
+            // Cập nhật hộp thông tin bản đồ phụ
             document.getElementById('infoTitle').textContent = data.title;
             document.getElementById('infoSubtitle').textContent = data.subtitle;
             document.getElementById('infoPercent').textContent = data.percent;
             document.getElementById('subItem1').textContent = data.sub1;
             document.getElementById('subItem2').textContent = data.sub2;
             document.getElementById('subItem3').textContent = data.sub3;
+
+            // Cập nhật 4 khối thẻ bên dưới (đồng bộ hóa theo yêu cầu)
+            document.getElementById('cardIcon1').innerHTML = data.card.icon;
+            document.getElementById('cardTitle1').textContent = data.card.title;
+            document.getElementById('cardDesc1').textContent = data.card.desc;
+            document.getElementById('cardBadge1').textContent = data.card.badge;
+            document.getElementById('cardBadge1').className = data.card.badgeClass;
+
+            // Cập nhật thẻ 2 và 3 với dữ liệu ngữ cảnh phù hợp
+            document.getElementById('cardTitle2').textContent = `Quy Trình Kiểm Soát Tại ${data.title.split('(')[0]}`;
+            document.getElementById('cardDesc2').textContent = `Theo dõi sát sao thông số tích lũy nhiệt độ qua nhãn TTI, đảm bảo thực phẩm không bị suy giảm chất lượng trong suốt quá trình lưu kho và giao thương.`;
+            document.getElementById('cardBadge2').textContent = `Trạng thái: ${data.percent}`;
+
+            document.getElementById('cardTitle3').textContent = `Hiệu Quả Số Hóa & An Toàn`;
+            document.getElementById('cardDesc3').textContent = `Dữ liệu cập nhật trực tuyến về hệ thống quản lý đô thị giúp cơ quan chức năng và người dân kiểm tra nhanh chóng qua điện thoại.`;
+            document.getElementById('cardBadge3').textContent = `Live Sync 24/7`;
         }
 
-        // Mặc định hiển thị Chợ Bình Điền khi load
+        // Mặc định chọn Bình Điền khi load
         window.addEventListener('DOMContentLoaded', () => {
-            showMapRegion('binhdien');
+            selectMapRegion('binhdien');
         });
 
         function initTheme() {
