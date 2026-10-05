@@ -72,7 +72,7 @@
             touch-action: manipulation;
             -webkit-font-smoothing: antialiased;
             transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            background-color: #fcfbf9;
+            background-color: #fcfbf9; /* Trắng nhạt be sang trọng */
             color: #1c1c1e;
         }
 
@@ -111,7 +111,7 @@
         }
 
         .nav-container, .inner-box {
-            background: #f4f2ee;
+            background: #f4f2ee; /* Be nhạt ấm áp */
             border: 1px solid rgba(0, 0, 0, 0.06);
         }
 
@@ -157,6 +157,7 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
+        /* SVG Map Custom Interactive Styles (Be/Trắng nền, ranh giới rõ nét) */
         .map-region-node {
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -202,6 +203,41 @@
             border-color: #2997ff !important;
             background-color: rgba(41, 151, 255, 0.15) !important;
             box-shadow: 0 0 0 4px rgba(41, 151, 255, 0.2);
+        }
+
+        .spectrum-bar-container {
+            position: relative;
+            height: 24px;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, 
+                #ffffff 0%, 
+                #e2e8f0 20%, 
+                #93c5fd 40%, 
+                #2563eb 65%, 
+                #1e1b4b 85%, 
+                #09090b 100%
+            );
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.15);
+        }
+        html.dark .spectrum-bar-container {
+            border-color: rgba(255,255,255,0.15);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
+        }
+
+        .spectrum-pointer {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 12px;
+            margin-left: -6px;
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-radius: 9999px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+            transition: left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 10;
         }
 
         #cropBox {
@@ -283,17 +319,16 @@
             </div>
 
             <div class="flex items-center gap-1 sm:gap-2 min-w-0">
-                <!-- Thanh tab công cụ tối giản: Trang chủ - Khảo sát TTI - Thêm -->
-                <nav class="nav-container flex items-center gap-0.5 sm:gap-1 p-0.5 sm:p-1 rounded-full text-[10px] sm:text-xs font-medium overflow-x-auto shadow-inner no-scrollbar">
+                <!-- THANH TAB CÔNG CỤ TỐI GIẢN CHỈ CÒN: TRANG CHỦ - KHẢO SÁT TTI - THÊM -->
+                <nav class="nav-container flex items-center gap-0.5 sm:gap-1 p-0.5 sm:p-1 rounded-full text-[10px] sm:text-xs font-medium shadow-inner">
                     <button onclick="switchTab('home')" id="tab-home" class="tab-btn active px-3 sm:px-4 py-1 sm:py-1.5 rounded-full">🏠 Trang chủ</button>
                     <button onclick="switchTab('survey')" id="tab-survey" class="tab-btn px-3 sm:px-4 py-1 sm:py-1.5 rounded-full flex items-center gap-1">
                         <span>📋 Khảo sát TTI</span>
                         <span class="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0 animate-ping"></span>
                     </button>
-                    <!-- Nút Thêm để bật Sidebar bên phải -->
-                    <button onclick="toggleSidebar()" id="btn-more-menu" class="tab-btn px-3 sm:px-4 py-1 sm:py-1.5 rounded-full flex items-center gap-1.5 font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
-                        <span>➕ Thêm</span>
-                        <i class="fa-solid fa-bars text-[10px]"></i>
+                    <button onclick="toggleMoreMenu()" id="tab-more-trigger" class="tab-btn px-3 sm:px-4 py-1 sm:py-1.5 rounded-full flex items-center gap-1.5 font-semibold text-blue-600 dark:text-blue-400">
+                        <span>Thêm</span>
+                        <i class="fa-solid fa-chevron-down text-[9px] transition-transform duration-300" id="moreIcon"></i>
                     </button>
                 </nav>
 
@@ -305,48 +340,40 @@
         </div>
     </header>
 
-    <!-- SIDEBAR ẨN BÊN PHẢI (NHÔ RA KHI BẤM CHỮ THÊM) -->
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 transition-opacity duration-300 opacity-0 pointer-events-none" onclick="toggleSidebar()"></div>
-    <aside id="rightSidebar" class="fixed top-0 right-0 bottom-0 w-80 sm:w-96 bg-white dark:bg-[#161617] border-l border-slate-200 dark:border-white/10 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
-        <div class="p-4 sm:p-5 flex items-center justify-between border-b border-slate-200 dark:border-white/10">
-            <div class="flex items-center gap-2">
-                <div class="w-7 h-7 rounded-full bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold">
-                    <i class="fa-solid fa-bars-staggered text-xs"></i>
-                </div>
-                <h3 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white">Danh Mục</h3>
-            </div>
-            <button onclick="toggleSidebar()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 flex items-center justify-center text-slate-500 dark:text-gray-300 hover:scale-105 transition">
-                <i class="fa-solid fa-xmark text-sm"></i>
+    <!-- SIDEBAR / THANH TAB NHÔ RA TỪ PHẢI MÀN HÌNH KHI BẤM CHỮ "THÊM" -->
+    <div id="moreSidebarOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleMoreMenu()"></div>
+    <div id="moreSidebar" class="fixed top-0 right-0 h-full w-72 sm:w-80 bg-white dark:bg-[#161617] border-l border-slate-200 dark:border-white/10 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col p-6">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-white/10 mb-6">
+            <span class="font-bold text-sm sm:text-base text-slate-900 dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-bars-staggered text-blue-500"></i> Các Mục Khác
+            </span>
+            <button onclick="toggleMoreMenu()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 flex items-center justify-center text-slate-600 dark:text-gray-300 hover:scale-110 transition">
+                <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
 
-        <div class="flex-grow overflow-y-auto p-4 space-y-2 text-xs sm:text-sm">
-            <button onclick="switchTabFromSidebar('about')" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-slate-100 dark:hover:bg-white/5 flex items-center gap-3 text-slate-700 dark:text-gray-200 font-medium transition">
-                <span class="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center"><i class="fa-solid fa-circle-info"></i></span>
-                <span>Giới thiệu dự án</span>
+        <div class="flex flex-col gap-2.5 overflow-y-auto flex-grow">
+            <button onclick="switchTabFromSidebar('about')" id="tab-about" class="tab-btn text-left px-4 py-3 rounded-2xl flex items-center gap-3 text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-white/5 font-medium transition">
+                <i class="fa-solid fa-circle-info w-5 text-blue-500"></i> ℹ Giới thiệu
             </button>
-            <button onclick="switchTabFromSidebar('explore')" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-slate-100 dark:hover:bg-white/5 flex items-center gap-3 text-slate-700 dark:text-gray-200 font-medium transition">
-                <span class="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center"><i class="fa-solid fa-compass"></i></span>
-                <span>Khám phá cơ chế TTI</span>
+            <button onclick="switchTabFromSidebar('explore')" id="tab-explore" class="tab-btn text-left px-4 py-3 rounded-2xl flex items-center gap-3 text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-white/5 font-medium transition">
+                <i class="fa-solid fa-compass w-5 text-cyan-500"></i> 🧭 Khám phá
             </button>
-            <button onclick="switchTabFromSidebar('map')" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-slate-100 dark:hover:bg-white/5 flex items-center gap-3 text-slate-700 dark:text-gray-200 font-medium transition">
-                <span class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center"><i class="fa-solid fa-map"></i></span>
-                <span>Bản đồ số hóa HCMC</span>
+            <button onclick="switchTabFromSidebar('map')" id="tab-map" class="tab-btn text-left px-4 py-3 rounded-2xl flex items-center gap-3 text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-white/5 font-medium transition">
+                <i class="fa-solid fa-map-location-dot w-5 text-emerald-500"></i> 🗺 Bản đồ HCMC
             </button>
-            <button onclick="switchTabFromSidebar('economy')" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-slate-100 dark:hover:bg-white/5 flex items-center gap-3 text-slate-700 dark:text-gray-200 font-medium transition">
-                <span class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center"><i class="fa-solid fa-chart-line"></i></span>
-                <span>Kinh tế & Scale</span>
+            <button onclick="switchTabFromSidebar('economy')" id="tab-economy" class="tab-btn text-left px-4 py-3 rounded-2xl flex items-center gap-3 text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-white/5 font-medium transition">
+                <i class="fa-solid fa-chart-line w-5 text-amber-500"></i> 📈 Kinh tế & Scale
             </button>
-            <button onclick="switchTabFromSidebar('lab')" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-slate-100 dark:hover:bg-white/5 flex items-center gap-3 text-slate-700 dark:text-gray-200 font-medium transition">
-                <span class="w-8 h-8 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center"><i class="fa-solid fa-flask"></i></span>
-                <span>Nhật kí nghiên cứu</span>
+            <button onclick="switchTabFromSidebar('lab')" id="tab-lab" class="tab-btn text-left px-4 py-3 rounded-2xl flex items-center gap-3 text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-white/5 font-medium transition">
+                <i class="fa-solid fa-flask w-5 text-purple-500"></i> 🧪 Thực nghiệm R&D
             </button>
         </div>
 
-        <div class="p-4 border-t border-slate-200 dark:border-white/10 text-center text-[10px] text-slate-400">
-            TTI Analyzer System • Ho Chi Minh City
+        <div class="pt-4 border-t border-slate-200 dark:border-white/10 text-[11px] text-slate-400 text-center">
+            TTI Analyzer System © 2026
         </div>
-    </aside>
+    </div>
 
     <!-- CONTAINER CHO CÁC PHÂN HỆ TAB -->
     <div id="content-container" class="flex-grow">
@@ -371,8 +398,8 @@
                     <button onclick="switchTab('survey')" class="px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 dark:bg-white text-white dark:text-black font-semibold rounded-full transition-all text-xs sm:text-sm shadow-xl shadow-blue-500/25 dark:shadow-white/10 flex items-center gap-2 hover:scale-105 active:scale-95">
                         Thử nghiệm Khảo sát TTI <i class="fa-solid fa-arrow-right text-[10px] sm:text-xs"></i>
                     </button>
-                    <button onclick="toggleSidebar()" class="px-6 sm:px-8 py-3 sm:py-4 bg-slate-200 hover:bg-slate-300 dark:bg-white/10 text-slate-800 dark:text-white font-semibold rounded-full transition-all text-xs sm:text-sm border border-slate-300 dark:border-white/10 hover:scale-105 active:scale-95 flex items-center gap-2">
-                        <span>Khám phá thêm</span> <i class="fa-solid fa-compass text-[10px] sm:text-xs"></i>
+                    <button onclick="openMoreAndSelect('explore')" class="px-6 sm:px-8 py-3 sm:py-4 bg-slate-200 hover:bg-slate-300 dark:bg-white/10 text-slate-800 dark:text-white font-semibold rounded-full transition-all text-xs sm:text-sm border border-slate-300 dark:border-white/10 hover:scale-105 active:scale-95 flex items-center gap-2">
+                        <span>Khám phá tem ngay</span> <i class="fa-solid fa-compass text-[10px] sm:text-xs"></i>
                     </button>
                 </div>
             </div>
@@ -531,6 +558,7 @@
 
             <div class="space-y-6 sm:space-y-8">
                 
+                <!-- 1. TƯƠNG TÁC CẤU TẠO NHÃN TTI -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 reveal border-l-4 border-l-blue-500">
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 text-lg">
@@ -581,6 +609,7 @@
                     </div>
                 </div>
 
+                <!-- ẢNH ĐƯỢC CHÈN: cautructem.jpg -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 reveal overflow-hidden text-center">
                     <div class="w-full h-64 sm:h-80 rounded-2xl bg-slate-200 dark:bg-slate-800 overflow-hidden relative flex items-center justify-center border border-slate-300 dark:border-white/10 shadow-inner">
                         <img src="./cautructem.jpg" alt="Cấu trúc chi tiết nhãn TTI" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'400\'><rect width=\'100%\' height=\'100%\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2394a3b8\' font-size=\'20\' font-family=\'sans-serif\'>Hình ảnh: cautructem.jpg (Chèn tệp vào cùng thư mục)</text></svg>';">
@@ -588,6 +617,7 @@
                     <p class="text-xs text-slate-500 dark:text-apple-grayText mt-3 font-medium">Hình ảnh thực tế cấu tạo tem TTI.</p>
                 </div>
 
+                <!-- 2. TÁC ĐỘNG CỦA NHIỆT ĐỘ ĐẾN BẢO QUẢN THỰC PHẨM -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 reveal border-l-4 border-l-rose-500">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-10 h-10 rounded-2xl bg-rose-500/10 text-rose-500 flex items-center justify-center text-lg">
@@ -617,6 +647,7 @@
                     </div>
                 </div>
 
+                <!-- 3. CÁCH BẢO QUẢN ĐÚNG TIÊU CHUẨN -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 reveal border-l-4 border-l-emerald-500">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-lg">
@@ -679,6 +710,7 @@
                     </div>
                 </div>
 
+                <!-- ẢNH ĐƯỢC CHÈN: spdonglanh.jpg -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 reveal overflow-hidden text-center">
                     <div class="w-full h-64 sm:h-80 rounded-2xl bg-slate-200 dark:bg-slate-800 overflow-hidden relative flex items-center justify-center border border-slate-300 dark:border-white/10 shadow-inner">
                         <img src="./spdonglanh.jpg" alt="Sản phẩm bảo quản lạnh chuẩn" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'400\'><rect width=\'100%\' height=\'100%\' fill=\'%230f172a\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2394a3b8\' font-size=\'20\' font-family=\'sans-serif\'>Hình ảnh: spdonglanh.jpg (Chèn tệp vào cùng thư mục)</text></svg>';">
@@ -742,10 +774,9 @@
                 <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Tự tạo bản đồ TP.HCM vector độc quyền, đồng bộ tương tác sáng bừng vùng trọng điểm và làm mờ xám các khu vực còn lại.</p>
             </div>
 
-            <!-- BỐ CỤC 2 CỘT: BẢN ĐỒ SVG TỰ TẠO TP.HCM (60%) + BẢN ĐỒ PHỤ BOX XANH PASTEL TƯƠNG TÁC (40%) -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8 reveal">
                 
-                <!-- Cột Trái: Bản đồ SVG Tự Thiết Kế TP.HCM (Nền Trắng Nhạt Be / Ranh giới rõ nét) -->
+                <!-- Cột Trái: Bản đồ SVG Tự Thiết Kế TP.HCM -->
                 <div class="lg:col-span-7 apple-card rounded-3xl p-4 sm:p-5 flex flex-col justify-between">
                     <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
                         <div class="flex items-center gap-2">
@@ -755,27 +786,19 @@
                         <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">Interactive SVG Map</span>
                     </div>
 
-                    <!-- KHUNG SVG MAP THỦ CÔNG ĐỘC QUYỀN VỚI NỀN TRẮNG NHẠT - BE & RANH GIỚI SẮC NÉT -->
                     <div class="w-full h-72 sm:h-[380px] rounded-2xl bg-[#f4f2ee] dark:bg-slate-950 overflow-hidden border border-slate-300 dark:border-slate-800 relative shadow-inner flex items-center justify-center p-2 transition-colors duration-500">
                         <svg viewBox="0 0 600 450" class="w-full h-full drop-shadow-md" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Nền tổng thể bản đồ TP.HCM (Trắng nhạt / be) -->
                             <rect width="600" height="450" fill="#f8f6f0" rx="16" class="dark:fill-[#090d16] transition-colors duration-500"/>
                             
-                            <!-- Ranh giới các vùng/quận huyện giả lập dạng mảng bản đồ địa lý -->
-                            <!-- Khu vực phía Bắc / Củ Chi -->
                             <path d="M 50,20 L 320,20 L 300,160 L 120,170 Z" fill="#e8e4dc" stroke="#cbd5e1" stroke-width="1.5" class="dark:fill-[#131b2e] dark:stroke-[#334155]"/>
-                            <!-- Khu vực Tây Bắc / Hóc Môn - Quận 12 -->
                             <path d="M 120,170 L 300,160 L 290,260 L 150,270 Z" fill="#eeeae2" stroke="#cbd5e1" stroke-width="1.5" class="dark:fill-[#172033] dark:stroke-[#334155]"/>
-                            <!-- Khu vực Đông / Thủ Đức - Quận 9 cũ -->
                             <path d="M 320,20 L 520,60 L 530,280 L 300,260 Z" fill="#e2ded6" stroke="#cbd5e1" stroke-width="1.5" class="dark:fill-[#0f172a] dark:stroke-[#334155]"/>
-                            <!-- Khu vực Nam / Bình Chánh - Quận 8 - Nhà Bè -->
                             <path d="M 150,270 L 300,260 L 530,280 L 480,430 L 180,430 Z" fill="#eae6de" stroke="#cbd5e1" stroke-width="1.5" class="dark:fill-[#111827] dark:stroke-[#334155]"/>
 
-                            <!-- Đường sông Sài Gòn & Nhà Bè uốn lượn xuyên suốt thành phố -->
                             <path d="M 140,20 Q 230,160 300,250 T 480,430" stroke="#93c5fd" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.7"/>
                             <path d="M 300,250 Q 360,290 440,270" stroke="#93c5fd" stroke-width="7" fill="none" stroke-linecap="round" opacity="0.7"/>
 
-                            <!-- 1. CỦ CHI HUB (Phía Bắc) -->
+                            <!-- 1. CỦ CHI HUB -->
                             <g id="svg-region-cuchi" class="map-region-node" onclick="selectMapRegion('cuchi')">
                                 <ellipse cx="180" cy="90" rx="65" ry="45" fill="#10b981" fill-opacity="0.25" stroke="#10b981" stroke-width="2.5"/>
                                 <circle cx="180" cy="90" r="10" class="animate-ping" fill="#10b981" opacity="0.6"/>
@@ -783,7 +806,7 @@
                                 <text x="180" y="148" fill="#0f172a" class="dark:fill-white font-bold" font-size="11" text-anchor="middle">Củ Chi Hub (Sữa)</text>
                             </g>
 
-                            <!-- 2. CHỢ HÓC MÔN (Phía Tây Bắc) -->
+                            <!-- 2. CHỢ HÓC MÔN -->
                             <g id="svg-region-hocmon" class="map-region-node" onclick="selectMapRegion('hocmon')">
                                 <ellipse cx="230" cy="180" rx="55" ry="35" fill="#f59e0b" fill-opacity="0.25" stroke="#f59e0b" stroke-width="2.5"/>
                                 <circle cx="230" cy="180" r="10" class="animate-ping" fill="#f59e0b" opacity="0.6"/>
@@ -791,7 +814,7 @@
                                 <text x="230" y="230" fill="#0f172a" class="dark:fill-white font-bold" font-size="11" text-anchor="middle">Chợ Hóc Môn</text>
                             </g>
 
-                            <!-- 3. CHỢ THỦ ĐỨC (Phía Đông) -->
+                            <!-- 3. CHỢ THỦ ĐỨC -->
                             <g id="svg-region-thuduc" class="map-region-node" onclick="selectMapRegion('thuduc')">
                                 <ellipse cx="420" cy="170" rx="60" ry="40" fill="#06b6d4" fill-opacity="0.25" stroke="#06b6d4" stroke-width="2.5"/>
                                 <circle cx="420" cy="170" r="10" class="animate-ping" fill="#06b6d4" opacity="0.6"/>
@@ -799,7 +822,7 @@
                                 <text x="420" y="225" fill="#0f172a" class="dark:fill-white font-bold" font-size="11" text-anchor="middle">Chợ Thủ Đức</text>
                             </g>
 
-                            <!-- 4. CHỢ BÌNH ĐIỀN (Phía Nam - Quận 8) -->
+                            <!-- 4. CHỢ BÌNH ĐIỀN -->
                             <g id="svg-region-binhdien" class="map-region-node highlighted" onclick="selectMapRegion('binhdien')">
                                 <ellipse cx="300" cy="340" rx="65" ry="45" fill="#3b82f6" fill-opacity="0.35" stroke="#3b82f6" stroke-width="3"/>
                                 <circle cx="300" cy="340" r="12" class="animate-ping" fill="#3b82f6" opacity="0.7"/>
@@ -814,7 +837,7 @@
                     </div>
                 </div>
 
-                <!-- Cột Phải: Bản đồ phụ BOX XANH DƯƠNG PASTEL (4 Ô địa điểm bấm vào) -->
+                <!-- Cột Phải: Bản đồ phụ BOX XANH DƯƠNG PASTEL -->
                 <div class="lg:col-span-5 rounded-3xl p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 shadow-lg">
                     <div class="absolute -top-12 -right-12 w-48 h-48 bg-blue-400/10 rounded-full blur-3xl pointer-events-none"></div>
                     
@@ -823,14 +846,13 @@
                             <span class="text-xs font-bold text-blue-600 dark:text-blue-300 uppercase tracking-widest flex items-center gap-2">
                                 <i class="fa-solid fa-map-location-dot"></i> 4 Tâm Điểm Thực Phẩm Đông Dân TPHCM
                             </span>
-                            <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-300 border border-blue-500/20">Bấm vào ô để sáng bản đồ</span>
+                            <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-300 border border-blue-500/20">Bấm ô để sáng bản đồ</span>
                         </div>
                         <p class="text-[11px] text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
                             Bấm chọn các ô bên dưới: Vùng tương ứng trên bản đồ SVG sẽ sáng bừng, các vùng khác mờ đi.
                         </p>
                     </div>
 
-                    <!-- 4 Ô địa điểm tương tác bấm -->
                     <div class="grid grid-cols-2 gap-2 my-2">
                         <div id="box-binhdien" onclick="selectMapRegion('binhdien')" class="map-box-item p-3 rounded-2xl bg-white dark:bg-slate-900 border-2 border-blue-500 cursor-pointer shadow-sm transition">
                             <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
@@ -861,7 +883,6 @@
                         </div>
                     </div>
 
-                    <!-- Hộp hiển thị thông tin địa điểm và 3 mục bổ trợ chữ rõ ràng -->
                     <div id="mapRegionInfo" class="p-4 rounded-2xl bg-white/95 dark:bg-slate-900/95 border border-blue-300 dark:border-blue-800 shadow-inner mt-2">
                         <div class="flex items-center justify-between mb-1">
                             <span id="infoTitle" class="text-xs sm:text-sm font-bold text-blue-600 dark:text-blue-400">Chợ Đầu Mối Bình Điền (Quận 8)</span>
@@ -869,7 +890,6 @@
                         </div>
                         <div class="text-xs text-slate-700 dark:text-gray-200 font-medium mb-3" id="infoSubtitle">Trung tâm mua bán hải sản & thịt tươi sống lớn nhất TPHCM</div>
                         
-                        <!-- 3 mục bổ trợ cho địa điểm được chọn (chữ to rõ, không quá nhỏ) -->
                         <div class="grid grid-cols-3 gap-2 text-[11px] text-slate-700 dark:text-gray-200 border-t border-blue-100 dark:border-blue-900 pt-2.5">
                             <div class="p-2 rounded-xl bg-blue-500/10 dark:bg-white/5 border border-blue-500/20">
                                 <span class="block font-bold text-blue-600 dark:text-blue-400 mb-1 text-[11px]">1. Nhiệt độ chuẩn</span>
@@ -890,7 +910,6 @@
 
             </div>
 
-            <!-- 4 Khối Thẻ Chi Tiết Dưới Bản Đồ (Thay đổi tương ứng theo ô được chọn) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="apple-card rounded-2xl p-6 reveal">
                     <div id="cardIcon1" class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold mb-4 text-lg">
@@ -926,7 +945,6 @@
                 </div>
             </div>
         </section>
-
 
 
         <!-- ==================== TAB 5: BÀI TOÁN KINH TẾ & SCALE ==================== -->
@@ -1064,7 +1082,7 @@
         </section>
 
 
-       <!-- ==================== TAB 7: KHẢO SÁT ==================== -->
+        <!-- ==================== TAB 7: KHẢO SÁT ==================== -->
         <section id="sec-survey" class="tab-content hidden max-w-7xl mx-auto w-full px-3 sm:px-6 py-4 sm:py-8">
             
             <div class="mb-4 text-center sm:text-left reveal">
@@ -1146,33 +1164,11 @@
                                 </div>
                             </div>
                             <div class="flex items-center justify-between bg-slate-100 dark:bg-white/5 p-1.5 rounded-xl border border-slate-200 dark:border-white/5">
-                                <span class="text-[10px] text-slate-500 dark:text-apple-grayText pl-1">Thu/Phóng:</span>
+                                <span class="text-[10px] text-slate-500 dark:text-apple-grayText pl-1">Kích thước:</span>
                                 <div class="flex gap-1">
-                                    <button onclick="resizeCropStep(-10)" class="w-6 h-6 rounded-lg bg-white dark:bg-white/10 active:bg-blue-600 text-slate-800 dark:text-gray-200"><i class="fa-solid fa-minus text-[10px]"></i></button>
-                                    <button onclick="resizeCropStep(10)" class="w-6 h-6 rounded-lg bg-white dark:bg-white/10 active:bg-blue-600 text-slate-800 dark:text-gray-200"><i class="fa-solid fa-plus text-[10px]"></i></button>
+                                    <button onclick="resizeCrop('shrink')" class="px-2 h-6 rounded-lg bg-white dark:bg-white/10 active:bg-blue-600 text-slate-800 dark:text-gray-200 text-[10px]">Thu nhỏ</button>
+                                    <button onclick="resizeCrop('grow')" class="px-2 h-6 rounded-lg bg-white dark:bg-white/10 active:bg-blue-600 text-slate-800 dark:text-gray-200 text-[10px]">Phóng to</button>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="mt-2.5 flex flex-col gap-2 text-xs">
-                            <div class="grid grid-cols-2 gap-2">
-                                <button id="btnResetAll" onclick="resetToInitialState()" class="hidden px-3 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/20 rounded-xl font-semibold transition flex items-center justify-center gap-1.5 text-xs">
-                                    <i class="fa-solid fa-rotate-left"></i>
-                                    <span>Đổi Ảnh Mới</span>
-                                </button>
-
-                                <button id="btnAutoCrop" class="w-full px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-semibold shadow-lg shadow-blue-600/20 transition flex items-center justify-center gap-2 text-xs col-span-2">
-                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                                    <span>AI Tự Tìm Đúng Tem Màu TTI</span>
-                                </button>
-                            </div>
-
-                            <div class="flex items-center justify-between gap-1 overflow-x-auto pt-1.5 border-t border-slate-200 dark:border-white/5">
-                                <span class="text-slate-500 dark:text-apple-grayText text-[10px] shrink-0">Mẫu thử TTI:</span>
-                                <button onclick="loadPreset('safe')" class="px-2.5 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 rounded-full text-[10px] shrink-0 hover:bg-emerald-500/20">An toàn</button>
-                                <button onclick="loadPreset('warning')" class="px-2.5 py-0.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 rounded-full text-[10px] shrink-0 hover:bg-amber-500/20">Cảnh báo</button>
-                                <button onclick="loadPreset('danger')" class="px-2.5 py-0.5 bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 rounded-full text-[10px] shrink-0 hover:bg-rose-500/20">Đứt chuỗi</button>
                             </div>
                         </div>
 
@@ -1180,199 +1176,188 @@
                 </section>
 
                 <section class="lg:col-span-5 flex flex-col gap-3 reveal">
-                    <div class="apple-card rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 flex flex-col gap-2.5 overflow-hidden">
-                        <div class="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-1.5">
-                            <span class="text-xs font-semibold text-slate-800 dark:text-gray-200 flex items-center gap-1.5">
-                                <i class="fa-solid fa-crop-simple text-blue-500"></i>
-                                Vùng Tem Trích Xuất
-                            </span>
-                            <span id="cropDimensions" class="text-[10px] font-mono text-slate-500 dark:text-apple-grayText">0 x 0 px</span>
+                    <div class="apple-card rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col gap-3">
+                        <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-white/10 text-xs font-bold text-slate-800 dark:text-white">
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-chart-pie text-blue-500"></i> Kết Quả Trích Xuất Phân Tích</span>
+                            <span id="analysisBadge" class="px-2 py-0.5 rounded-full bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-gray-300 text-[10px] font-mono">Chưa có ảnh</span>
                         </div>
 
-                        <div class="flex gap-3 items-center inner-box p-2.5 sm:p-3 rounded-2xl overflow-hidden">
-                            <div class="w-16 h-16 sm:w-20 sm:h-20 bg-black rounded-xl overflow-hidden border border-slate-300 dark:border-white/10 flex items-center justify-center shrink-0 relative shadow-inner">
-                                <canvas id="cropCanvas" class="w-full h-full object-cover"></canvas>
+                        <div class="grid grid-cols-4 gap-2 text-center">
+                            <div class="p-2.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                                <span class="block text-[10px] text-slate-400 mb-0.5 font-semibold">Đỏ (R)</span>
+                                <span id="valR" class="text-xs sm:text-sm font-mono font-bold text-slate-800 dark:text-white">--</span>
                             </div>
-
-                            <div class="flex flex-col gap-0.5 min-w-0 flex-1 overflow-hidden">
-                                <div class="text-[10px] text-slate-500 dark:text-apple-grayText truncate">Màu lõi trung bình vùng chọn:</div>
-                                <div class="flex items-center gap-2">
-                                    <div id="coreColorSwatch" class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg border border-slate-300 dark:border-white/20 shadow-inner bg-black shrink-0"></div>
-                                    <div class="flex flex-col min-w-0">
-                                        <span id="colorCategory" class="text-xs font-bold text-blue-600 dark:text-blue-400 truncate">Chưa xác định</span>
-                                        <span id="rgbValue" class="text-[10px] font-mono text-slate-700 dark:text-gray-300 truncate">RGB: ---</span>
-                                    </div>
-                                </div>
+                            <div class="p-2.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                                <span class="block text-[10px] text-slate-400 mb-0.5 font-semibold">Lục (G)</span>
+                                <span id="valG" class="text-xs sm:text-sm font-mono font-bold text-slate-800 dark:text-white">--</span>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="apple-card rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 flex flex-col gap-2.5 sm:gap-3 flex-grow">
-                        <div class="border-b border-slate-200 dark:border-white/10 pb-1.5 flex items-center justify-between">
-                            <span class="text-xs font-bold text-slate-800 dark:text-gray-200 uppercase tracking-wider flex items-center gap-1.5">
-                                <i class="fa-solid fa-chart-line text-blue-500"></i>
-                                Kết quả phân tích màu
-                            </span>
-                        </div>
-
-                        <div id="statusBox" class="p-3 sm:p-3.5 rounded-2xl inner-box flex items-start gap-2.5 sm:gap-3 transition">
-                            <div id="statusIcon" class="text-lg sm:text-xl text-slate-400 dark:text-gray-500 mt-0.5 shrink-0">
-                                <i class="fa-solid fa-circle-question"></i>
+                            <div class="p-2.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                                <span class="block text-[10px] text-slate-400 mb-0.5 font-semibold">Lam (B)</span>
+                                <span id="valB" class="text-xs sm:text-sm font-mono font-bold text-slate-800 dark:text-white">--</span>
                             </div>
-                            <div class="flex flex-col gap-0.5">
-                                <span class="text-[9px] text-slate-500 dark:text-apple-grayText uppercase font-semibold tracking-wider">Trạng thái bảo quản:</span>
-                                <h4 id="statusTitle" class="text-xs sm:text-sm font-bold text-slate-800 dark:text-gray-200">Chưa có dữ liệu</h4>
-                                <p id="statusDesc" class="text-[10px] sm:text-xs text-slate-500 dark:text-apple-grayText leading-relaxed">Tải ảnh hoặc dùng AI tự chọn vị trí tem TTI.</p>
+                            <div class="p-2.5 rounded-2xl bg-blue-500/10 border border-blue-500/20">
+                                <span class="block text-[10px] text-blue-600 dark:text-blue-400 mb-0.5 font-bold">Độ tối D</span>
+                                <span id="valD" class="text-xs sm:text-sm font-mono font-extrabold text-blue-600 dark:text-blue-400">--</span>
                             </div>
                         </div>
 
-                        <div class="flex flex-col gap-1.5 sm:gap-2 mt-1">
-                            <div class="flex justify-between items-center text-xs">
-                                <span class="font-semibold text-slate-700 dark:text-gray-300 text-[11px]">Vị trí trên bảng màu:</span>
-                                <span id="spectrumPercent" class="font-mono text-blue-600 dark:text-blue-400 font-bold">0%</span>
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-[11px] font-semibold text-slate-600 dark:text-apple-grayText">
+                                <span>Thang đo độ tối chuẩn hóa (0.000 → 1.000)</span>
+                                <span id="spectrumValText" class="font-mono text-blue-500">0.000</span>
                             </div>
-
                             <div class="spectrum-bar-container">
                                 <div id="spectrumPointer" class="spectrum-pointer" style="left: 0%;"></div>
                             </div>
-
-                            <div class="flex justify-between text-[9px] text-slate-500 dark:text-apple-grayText font-medium px-0.5">
-                                <span>Trắng / Xám nhạt</span>
-                                <span>Pastel / Xanh lơ</span>
-                                <span>Xanh dương</span>
-                                <span>Xanh đậm</span>
-                            </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-2 mt-auto pt-1.5">
-                            <div class="inner-box p-2 sm:p-2.5 rounded-2xl flex flex-col gap-0.5">
-                                <span class="text-[9px] text-slate-500 dark:text-apple-grayText">Chỉ số độ tối D (0-1):</span>
-                                <span id="darknessIndex" class="text-xs font-bold font-mono text-slate-800 dark:text-gray-200">0.000</span>
+                        <div id="resultCard" class="p-3.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 space-y-2">
+                            <div class="flex items-center gap-2">
+                                <div id="statusIcon" class="w-7 h-7 rounded-xl bg-slate-200 dark:bg-white/10 flex items-center justify-center text-slate-500 text-xs shrink-0">
+                                    <i class="fa-solid fa-circle-question"></i>
+                                /></div>
+                                <div>
+                                    <h4 id="statusTitle" class="text-xs sm:text-sm font-bold text-slate-800 dark:text-white">Chờ tải ảnh tem TTI</h4>
+                                    <span id="statusSubtitle" class="text-[10px] text-slate-500 dark:text-apple-grayText block">Vui lòng chọn hoặc kéo thả ảnh nhãn vào khung bên trái.</span>
+                                </div>
                             </div>
-                            <div class="inner-box p-2 sm:p-2.5 rounded-2xl flex flex-col gap-0.5">
-                                <span class="text-[9px] text-slate-500 dark:text-apple-grayText">Độ đứt chuỗi:</span>
-                                <span id="riskLevel" class="text-xs font-bold text-slate-800 dark:text-gray-200">Chưa xác định</span>
-                            </div>
+                            <p id="statusDesc" class="text-[11px] sm:text-xs text-slate-600 dark:text-apple-grayText leading-relaxed">
+                                Hệ thống tự động quét trích xuất chỉ số độ tối D trên tâm tem và đánh giá tình trạng chuỗi cung ứng lạnh.
+                            </p>
                         </div>
+
+                        <button id="btnAnalyze" onclick="triggerAnalysis()" disabled class="w-full py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-300 dark:disabled:bg-white/10 disabled:text-slate-500 text-white font-semibold rounded-2xl text-xs sm:text-sm transition shadow-lg shadow-blue-500/25 disabled:shadow-none hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Phân Tích Tâm Nhãn TTI
+                        </button>
+
                     </div>
                 </section>
 
             </div>
-
         </section>
 
     </div>
 
-
     <!-- FOOTER -->
-    <footer class="mt-12 py-8 border-t border-slate-200 dark:border-white/10 text-center text-xs text-slate-500 dark:text-apple-grayText">
+    <footer class="mt-16 py-8 border-t border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-[#161617] text-center text-xs text-slate-500 dark:text-apple-grayText">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>© 2026 TTI Analyzer System. Giải pháp giám sát chuỗi lạnh đô thị TP.HCM.</div>
-            <div class="flex gap-4">
-                <a href="#" onclick="switchTab('home')" class="hover:underline">Trang chủ</a>
-                <a href="#" onclick="switchTab('survey')" class="hover:underline">Khảo sát TTI</a>
-                <a href="#" onclick="toggleSidebar()" class="hover:underline">Danh mục thêm</a>
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px]">
+                    <i class="fa-solid fa-snowflake"></i>
+                </div>
+                <span class="font-bold text-slate-900 dark:text-white text-xs">TTI ANALYZER SYSTEM</span>
             </div>
+            <p>© 2026 Nghiên cứu Nhãn Cảnh Báo Điều Kiện Bảo Quản Lạnh TTI. Bảo lưu mọi quyền.</p>
         </div>
     </footer>
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // --- QUẢN LÝ SIDEBAR & TAB ---
-        function toggleSidebar() {
-            const sidebar = document.getElementById('rightSidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            const isOpen = sidebar.classList.contains('translate-x-full');
-            
-            if (isOpen) {
-                sidebar.classList.remove('translate-x-full');
-                overlay.classList.remove('opacity-0', 'pointer-events-none');
-            } else {
-                sidebar.classList.add('translate-x-full');
-                overlay.classList.add('opacity-0', 'pointer-events-none');
-            }
-        }
-
-        function switchTabFromSidebar(tabId) {
-            toggleSidebar();
-            switchTab(tabId);
-        }
-
+        // QUẢN LÝ TAB & SIDEBAR "THÊM"
         function switchTab(tabId) {
+            // Đóng sidebar nếu đang mở
+            closeMoreMenu();
+
             const tabs = ['home', 'about', 'explore', 'map', 'economy', 'lab', 'survey'];
             tabs.forEach(t => {
-                const sec = document.getElementById(`sec-${t}`);
+                const sec = document.getElementById('sec-' + t);
                 if (sec) {
                     if (t === tabId) {
                         sec.classList.remove('hidden');
+                        setTimeout(() => {
+                            sec.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+                        }, 50);
                     } else {
                         sec.classList.add('hidden');
+                        sec.querySelectorAll('.reveal').forEach(el => el.classList.remove('active'));
                     }
                 }
             });
 
-            // Cập nhật trạng thái active cho tab Trang chủ và Khảo sát trên thanh chính
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            if (tabId === 'home') {
-                const btnHome = document.getElementById('tab-home');
-                if (btnHome) btnHome.classList.add('active');
-            } else if (tabId === 'survey') {
-                const btnSurvey = document.getElementById('tab-survey');
-                if (btnSurvey) btnSurvey.classList.add('active');
-            }
+            // Cập nhật trạng thái active trên các nút tab hiển thị ngoài header (nếu có)
+            ['home', 'survey'].forEach(t => {
+                const btn = document.getElementById('tab-' + t);
+                if (btn) {
+                    if (t === tabId) btn.classList.add('active');
+                    else btn.classList.remove('active');
+                }
+            });
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            initScrollReveal();
         }
 
-        // --- DARK / LIGHT THEME ---
+        function switchTabFromSidebar(tabId) {
+            switchTab(tabId);
+        }
+
+        function toggleMoreMenu() {
+            const sidebar = document.getElementById('moreSidebar');
+            const overlay = document.getElementById('moreSidebarOverlay');
+            const moreIcon = document.getElementById('moreIcon');
+            
+            const isOpen = sidebar.classList.contains('translate-x-full');
+            if (isOpen) {
+                sidebar.classList.remove('translate-x-full');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                moreIcon.classList.add('rotate-180');
+            } else {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+                moreIcon.classList.remove('rotate-180');
+            }
+        }
+
+        function openMoreAndSelect(tabId) {
+            switchTab(tabId);
+        }
+
+        // CHUYỂN ĐỔI SÁNG / TỐI
         function toggleTheme() {
             const html = document.documentElement;
             const icon = document.getElementById('themeIcon');
             if (html.classList.contains('dark')) {
                 html.classList.remove('dark');
                 icon.className = 'fa-solid fa-sun text-xs sm:text-sm';
-                localStorage.setItem('theme', 'light');
             } else {
                 html.classList.add('dark');
                 icon.className = 'fa-solid fa-moon text-xs sm:text-sm';
-                localStorage.setItem('theme', 'dark');
             }
         }
 
-        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            const icon = document.getElementById('themeIcon');
-            if (icon) icon.className = 'fa-solid fa-moon text-xs sm:text-sm';
-        }
+        // TƯƠNG TÁC CẤU TẠO NHÃN TTI (KHOANG A / B / VÁCH NGĂN)
+        const ttiData = {
+            chamberA: {
+                title: "Khoang A: Chứa hỗn hợp Vitamin C + Iodine",
+                icon: "fa-vial",
+                desc: "Khoang chứa dung dịch hoạt hóa gồm Vitamin C và Iodine. Khoang này đóng vai trò chất khử tạo khoảng thời gian trễ (induction period) ban đầu nhằm ngăn chặn phản ứng đổi màu xảy ra quá sớm khi sản phẩm vẫn ở nhiệt độ chuẩn."
+            },
+            barrier: {
+                title: "Vách ngăn bông cotton xốp phân cách",
+                icon: "fa-arrows-left-right",
+                desc: "Vách ngăn thẩm thấu kiểm soát tốc độ khuếch tán dung dịch giữa hai khoang. Độ xốp và chiều dài vách ngăn quyết định trực tiếp thời gian sống (shelf-life) của nhãn TTI."
+            },
+            chamberB: {
+                title: "Khoang B: Chứa H₂O₂ và Hồ tinh bột",
+                icon: "fa-flask-vial",
+                desc: "Khi dung dịch từ khoang A khuếch tán qua vách ngăn, phản ứng oxy hóa khử diễn ra hoàn tất giai đoạn khử của Vitamin C, giải phóng iodine tự do phản ứng lập tức với hồ tinh bột tạo phức màu xanh đen vĩnh viễn."
+            }
+        };
 
-        // --- INTERACTIVE TTI COMPONENT (TAB KHÁM PHÁ) ---
-        function selectTTIPart(part) {
+        function selectTTIPart(partKey) {
             document.querySelectorAll('.tti-clickable-part').forEach(el => el.classList.remove('active-part'));
-            const targetEl = document.getElementById(`part-${part}`);
+            const targetEl = document.getElementById('part-' + partKey);
             if (targetEl) targetEl.classList.add('active-part');
 
-            const titleEl = document.getElementById('tti-display-title');
-            const descEl = document.getElementById('tti-display-desc');
-            const iconEl = document.getElementById('tti-display-icon');
-
-            if (part === 'chamberA') {
-                iconEl.innerHTML = '<i class="fa-solid fa-vial"></i>';
-                titleEl.innerText = 'Khoang A: Chứa hỗn hợp Vitamin C + Iodine';
-                descEl.innerText = 'Khoang chứa dung dịch hoạt hóa gồm Vitamin C và Iodine. Khoang này đóng vai trò chất khử tạo khoảng thời gian trễ (induction period) ban đầu nhằm ngăn chặn phản ứng đổi màu xảy ra quá sớm khi sản phẩm vẫn ở nhiệt độ chuẩn.';
-            } else if (part === 'barrier') {
-                iconEl.innerHTML = '<i class="fa-solid fa-arrows-split-up-and-left"></i>';
-                titleEl.innerText = 'Vách ngăn bông cotton thấm dịch';
-                descEl.innerText = 'Vách ngăn xốp chịu trách nhiệm kiểm soát tốc độ khuếch tán dung dịch từ Khoang A sang Khoang B theo đúng động học Arrhenius phụ thuộc nhiệt độ tích lũy.';
-            } else if (part === 'chamberB') {
-                iconEl.innerHTML = '<i class="fa-solid fa-flask-vial"></i>';
-                titleEl.innerText = 'Khoang B: Chứa H₂O₂ + Hồ tinh bột';
-                descEl.innerText = 'Khoang chứa tác chất phản ứng chính. Khi dung dịch từ Khoang A khuếch tán sang, phản ứng oxy hóa khử hoàn tất sẽ giải phóng Iot tự do, kết hợp với hồ tinh bột tạo màu xanh đen đặc trưng.';
+            const info = ttiData[partKey];
+            if (info) {
+                document.getElementById('tti-display-title').innerText = info.title;
+                document.getElementById('tti-display-icon').innerHTML = `<i class="fa-solid ${info.icon}"></i>`;
+                document.getElementById('tti-display-desc').innerText = info.desc;
             }
         }
 
-        // --- MAP INTERACTIVE LOGIC (TAB BẢN ĐỒ) ---
-        const mapData = {
+        // TƯƠNG TÁC BẢN ĐỒ VÙNG HCMC
+        const hcmcMapData = {
             binhdien: {
                 title: "Chợ Đầu Mối Bình Điền (Quận 8)",
                 subtitle: "Trung tâm mua bán hải sản & thịt tươi sống lớn nhất TPHCM",
@@ -1380,64 +1365,54 @@
                 sub1: "0.5°C - 2.8°C",
                 sub2: ">2.500 tấn/đêm",
                 sub3: "Quét tự động cổng xe",
-                cardIcon: '<i class="fa-solid fa-fish"></i>',
+                cardIcon: "fa-fish",
                 cardTitle: "Chợ Đầu Mối Bình Điền (Quận 8)",
                 cardDesc: "Trung tâm mua bán hải sản đông lạnh và thịt tươi sống lớn nhất TPHCM, phục vụ lượng tiêu thụ khổng lồ cho hàng triệu cư dân đô thị mỗi đêm.",
-                badge: "Điểm nóng giám sát chuỗi lạnh"
+                cardBadge: "Điểm nóng giám sát chuỗi lạnh"
             },
             thuduc: {
-                title: "Chợ Đầu Mối Thủ Đức (Thành phố Thủ Đức)",
-                subtitle: "Đầu mối cung cấp nông sản, rau củ quả tươi lớn phía Đông TP",
+                title: "Chợ Đầu Mối Thủ Đức",
+                subtitle: "Trung tâm cung ứng nông sản, rau củ quả tươi miền Đông",
                 percent: "96.4% Chuẩn",
-                sub1: "1.0°C - 3.5°C",
-                sub2: ">2.000 tấn/đêm",
-                sub3: "Kiểm tra nhiệt độ xe tải",
-                cardIcon: '<i class="fa-solid fa-carrot"></i>',
-                cardTitle: "Chợ Đầu Mối Thủ Đức (Thủ Đức)",
-                cardDesc: "Đầu mối tiếp nhận nông sản từ các tỉnh cao nguyên và miền Đông, yêu cầu kiểm soát chặt chẽ nhiệt độ mát để giữ độ tươi.",
-                badge: "Kiểm soát nông sản tươi"
+                sub1: "1.2°C - 4.0°C",
+                sub2: ">1.800 tấn/đêm",
+                sub3: "Kiểm tra tem điện thoại",
+                cardIcon: "fa-carrot",
+                cardTitle: "Chợ Đầu Mối Thủ Đức",
+                cardDesc: "Hub phân phối nông sản lớn phía Đông thành phố, đòi hỏi hệ thống xe tải lạnh và kiểm soát nhiệt độ nghiêm ngặt cho rau củ quả.",
+                cardBadge: "Giám sát chuỗi cung ứng mát"
             },
             hocmon: {
-                title: "Chợ Đầu Mối Hóc Môn (Huyện Hóc Môn)",
-                subtitle: "Trung tâm cung ứng thịt heo và thực phẩm chế biến Tây Bắc TPHCM",
-                percent: "95.2% Chuẩn",
-                sub1: "0.0°C - 3.0°C",
-                sub2: ">1.800 tấn/đêm",
-                sub3: "Giám sát chuỗi phân phối",
-                cardIcon: '<i class="fa-solid fa-drumstick-bite"></i>',
-                cardTitle: "Chợ Đầu Mối Hóc Môn (Hóc Môn)",
-                cardDesc: "Cung cấp nguồn thịt heo và thực phẩm tươi sống trọng điểm cho khu vực phía Tây và Bắc thành phố.",
-                badge: "Giám sát phân phối thịt"
+                title: "Chợ Đầu Mối Hóc Môn",
+                subtitle: "Trung tâm phân phối thịt gia súc và thực phẩm Tây Bắc thành phố",
+                percent: "95.1% Chuẩn",
+                sub1: "0.0°C - 3.5°C",
+                sub2: ">1.200 tấn/đêm",
+                sub3: "Giám sát lô hàng ngày",
+                cardIcon: "fa-drumstick-bite",
+                cardTitle: "Chợ Đầu Mối Hóc Môn",
+                cardDesc: "Chợ chuyên doanh thịt gia súc lớn, nơi nhãn TTI phát huy tối đa hiệu quả kiểm tra sốc nhiệt trong quá trình vận chuyển đêm.",
+                cardBadge: "Kiểm soát thịt tươi sống"
             },
             cuchi: {
-                title: "Củ Chi Milk & Fresh Hub (Huyện Củ Chi)",
-                subtitle: "Vùng chăn nuôi bò sữa và trung tâm chế biến chuỗi lạnh gốc",
-                percent: "99.1% Chuẩn",
-                sub1: "-1.0°C - 2.0°C",
-                sub2: ">1.200 tấn/ngày",
-                sub3: "Tem TTI dán tại nguồn",
-                cardIcon: '<i class="fa-solid fa-cow"></i>',
-                cardTitle: "Củ Chi Milk Hub (Củ Chi)",
-                cardDesc: "Vùng nguyên liệu sữa tươi và trang trại công nghệ cao, nơi tem TTI được kích hoạt ngay từ khâu đóng gói xuất xưởng.",
-                badge: "Điểm khởi nguồn chuỗi lạnh"
+                title: "Củ Chi Dairy & Cold Hub",
+                subtitle: "Vùng nguyên liệu sữa tươi và chế biến thực phẩm công nghệ cao",
+                percent: "99.2% Chuẩn",
+                sub1: "2.0°C - 4.0°C",
+                sub2: ">3.000 lít/ngày",
+                sub3: "Cảm biến TTI tự động",
+                cardIcon: "fa-cow",
+                cardTitle: "Củ Chi Dairy & Cold Hub",
+                cardDesc: "Trung tâm sản xuất sữa tươi và chế biến thực phẩm sạch lớn của TP.HCM, nơi áp dụng quy chuẩn tiền làm lạnh nghiêm ngặt nhất.",
+                cardBadge: "Chuỗi lạnh nguyên bản"
             }
         };
 
         function selectMapRegion(regionKey) {
-            // Highlight các box UI
-            document.querySelectorAll('.map-box-item').forEach(el => {
-                el.classList.remove('border-blue-500');
-                el.classList.add('border-transparent');
-            });
-            const activeBox = document.getElementById(`box-${regionKey}`);
-            if (activeBox) {
-                activeBox.classList.remove('border-transparent');
-                activeBox.classList.add('border-blue-500');
-            }
-
-            // Highlight các node trên SVG map
+            // Cập nhật SVG Node classes
             ['cuchi', 'hocmon', 'thuduc', 'binhdien'].forEach(k => {
-                const node = document.getElementById(`svg-region-${k}`);
+                const node = document.getElementById('svg-region-' + k);
+                const box = document.getElementById('box-' + k);
                 if (node) {
                     if (k === regionKey) {
                         node.classList.add('highlighted');
@@ -1447,10 +1422,19 @@
                         node.classList.add('dimmed');
                     }
                 }
+                if (box) {
+                    if (k === regionKey) {
+                        box.classList.add('border-blue-500', 'shadow-md');
+                        box.classList.remove('border-transparent');
+                    } else {
+                        box.classList.remove('border-blue-500', 'shadow-md');
+                        box.classList.add('border-transparent');
+                    }
+                }
             });
 
             // Cập nhật thông tin chi tiết
-            const data = mapData[regionKey];
+            const data = hcmcMapData[regionKey];
             if (data) {
                 document.getElementById('infoTitle').innerText = data.title;
                 document.getElementById('infoSubtitle').innerText = data.subtitle;
@@ -1459,27 +1443,251 @@
                 document.getElementById('subItem2').innerText = data.sub2;
                 document.getElementById('subItem3').innerText = data.sub3;
 
-                document.getElementById('cardIcon1').innerHTML = data.cardIcon;
+                document.getElementById('cardIcon1').innerHTML = `<i class="fa-solid ${data.cardIcon}"></i>`;
                 document.getElementById('cardTitle1').innerText = data.cardTitle;
                 document.getElementById('cardDesc1').innerText = data.cardDesc;
-                document.getElementById('cardBadge1').innerText = data.badge;
+                document.getElementById('cardBadge1').innerText = data.cardBadge;
             }
         }
 
-        // --- SCROLL REVEAL ANIMATION ---
-        function initScrollReveal() {
-            const reveals = document.querySelectorAll('.reveal');
-            reveals.forEach(element => {
-                const windowHeight = window.innerHeight;
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
-                    element.classList.add('active');
+        // TÍNH TOÁN XỬ LÝ ẢNH & KHOANH VÙNG CROP (TAB KHẢO SÁT TTI)
+        let imgObj = new Image();
+        let scale = 1, posX = 0, posY = 0;
+        let isDraggingImg = false, startX = 0, startY = 0;
+        let isCropping = false, cropX = 50, cropY = 50, cropW = 120, cropH = 120;
+        let activeHandle = null;
+
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const imageStage = document.getElementById('imageStage');
+        const sourceImage = document.getElementById('sourceImage');
+        const cropBox = document.getElementById('cropBox');
+        const scanOverlay = document.getElementById('scanOverlay');
+        const zoomControls = document.getElementById('zoomControls');
+        const mobileNudgePad = document.getElementById('mobileNudgePad');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    imgObj.onload = function() {
+                        initImageWorkspace();
+                    };
+                    imgObj.src = evt.target.result;
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        function initImageWorkspace() {
+            dropZone.classList.add('hidden');
+            imageStage.classList.remove('hidden');
+            zoomControls.classList.remove('hidden');
+            mobileNudgePad.classList.remove('hidden');
+            document.getElementById('btnAnalyze').removeAttribute('disabled');
+
+            sourceImage.src = imgObj.src;
+
+            const viewport = document.getElementById('viewport');
+            const vW = viewport.clientWidth;
+            const vH = viewport.clientHeight;
+
+            scale = Math.min(vW / imgObj.width, vH / imgObj.height) * 0.75;
+            document.getElementById('zoomVal').innerText = Math.round(scale * 100) + '%';
+
+            posX = (vW - imgObj.width * scale) / 2;
+            posY = (vH - imgObj.height * scale) / 2;
+            updateImageTransform();
+
+            cropW = Math.min(imgObj.width * scale * 0.4, 140);
+            cropH = Math.min(imgObj.height * scale * 0.4, 140);
+            cropX = (imgObj.width * scale - cropW) / 2;
+            cropY = (imgObj.height * scale - cropH) / 2;
+            updateCropBoxDOM();
+
+            isCropping = true;
+            cropBox.classList.remove('hidden');
+            document.getElementById('analysisBadge').innerText = "Đã tải ảnh - Sẵn sàng";
+        }
+
+        function updateImageTransform() {
+            imageStage.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+        }
+
+        function updateCropBoxDOM() {
+            cropBox.style.left = cropX + 'px';
+            cropBox.style.top = cropY + 'px';
+            cropBox.style.width = cropW + 'px';
+            cropBox.style.height = cropH + 'px';
+        }
+
+        // Kéo thả & crop tương tác chuột/touch
+        cropBox.addEventListener('pointerdown', (e) => {
+            e.stopPropagation();
+            if (e.target.classList.contains('crop-handle')) {
+                activeHandle = e.target.getAttribute('data-handle');
+            } else {
+                activeHandle = 'move';
+            }
+            startX = e.clientX;
+            startY = e.clientY;
+            cropBox.setPointerCapture(e.pointerId);
+        });
+
+        cropBox.addEventListener('pointermove', (e) => {
+            if (!activeHandle) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            startX = e.clientX;
+            startY = e.clientY;
+
+            const maxW = imgObj.width * scale;
+            const maxH = imgObj.height * scale;
+
+            if (activeHandle === 'move') {
+                cropX = Math.max(0, Math.min(maxW - cropW, cropX + dx));
+                cropY = Math.max(0, Math.min(maxH - cropH, cropY + dy));
+            } else {
+                if (activeHandle.includes('l')) {
+                    const newW = Math.max(40, cropW - dx);
+                    if (cropX + dx >= 0) { cropX += (cropW - newW); cropW = newW; }
+                }
+                if (activeHandle.includes('r')) {
+                    cropW = Math.max(40, Math.min(maxW - cropX, cropW + dx));
+                }
+                if (activeHandle.includes('t')) {
+                    const newH = Math.max(40, cropH - dy);
+                    if (cropY + dy >= 0) { cropY += (cropH - newH); cropH = newH; }
+                }
+                if (activeHandle.includes('b')) {
+                    cropH = Math.max(40, Math.min(maxH - cropY, cropH + dy));
+                }
+            }
+            updateCropBoxDOM();
+        });
+
+        cropBox.addEventListener('pointerup', (e) => { activeHandle = null; });
+
+        function nudgeCrop(dir) {
+            const step = 8;
+            const maxW = imgObj.width * scale;
+            const maxH = imgObj.height * scale;
+            if (dir === 'left') cropX = Math.max(0, cropX - step);
+            if (dir === 'right') cropX = Math.min(maxW - cropW, cropX + step);
+            if (dir === 'up') cropY = Math.max(0, cropY - step);
+            if (dir === 'down') cropY = Math.min(maxH - cropH, cropY + step);
+            updateCropBoxDOM();
+        }
+
+        function resizeCrop(action) {
+            const delta = 15;
+            if (action === 'shrink') {
+                cropW = Math.max(40, cropW - delta);
+                cropH = Math.max(40, cropH - delta);
+            } else {
+                cropW += delta;
+                cropH += delta;
+            }
+            updateCropBoxDOM();
+        }
+
+        // HÀM PHÂN TÍCH ẢNH THỰC TẾ QUA CANVAS
+        function triggerAnalysis() {
+            scanOverlay.classList.remove('hidden');
+            setTimeout(() => {
+                scanOverlay.classList.add('hidden');
+                
+                // Trích xuất pixel từ canvas tại vùng cropBox
+                const canvas = document.createElement('canvas');
+                canvas.width = imgObj.width;
+                canvas.height = imgObj.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(imgObj, 0, 0);
+
+                // Tọa độ thực trên ảnh gốc
+                const origX = cropX / scale;
+                const origY = cropY / scale;
+                const origW = cropW / scale;
+                const origH = cropH / scale;
+
+                const imgData = ctx.getImageData(origX, origY, origW, origH);
+                let rSum = 0, gSum = 0, bSum = 0, count = 0;
+                for (let i = 0; i < imgData.data.length; i += 16) { // Lấy mẫu thưa để tối ưu
+                    rSum += imgData.data[i];
+                    gSum += imgData.data[i+1];
+                    bSum += imgData.data[i+2];
+                    count++;
+                }
+
+                const rAvg = Math.round(rSum / count);
+                const gAvg = Math.round(gSum / count);
+                const bAvg = Math.round(bSum / count);
+
+                const dVal = 1 - (rAvg + gAvg + bAvg) / (3 * 255);
+                const dFormatted = dVal.toFixed(3);
+
+                // Cập nhật giao diện kết quả
+                document.getElementById('valR').innerText = rAvg;
+                document.getElementById('valG').innerText = gAvg;
+                document.getElementById('valB').innerText = bAvg;
+                document.getElementById('valD').innerText = dFormatted;
+                document.getElementById('spectrumValText').innerText = dFormatted;
+                document.getElementById('spectrumPointer.style.left').left = (dVal * 100) + '%';
+                document.getElementById('spectrumPointer').style.left = (dVal * 100) + '%';
+
+                const title = document.getElementById('statusTitle');
+                const sub = document.getElementById('statusSubtitle');
+                const desc = document.getElementById('statusDesc');
+                const icon = document.getElementById('statusIcon');
+
+                if (dVal < 0.25) {
+                    title.innerText = "Trạng thái: An toàn tuyệt đối (Độ lạnh chuẩn)";
+                    sub.innerText = `Chỉ số độ tối D = ${dFormatted} (Tông trắng / xám nhạt)`;
+                    desc.innerText = "Phản ứng đồng hồ chưa xảy ra. Chuỗi cung ứng lạnh được duy trì hoàn hảo liên tục, thực phẩm đạt chất lượng tối ưu.";
+                    icon.className = "w-7 h-7 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xs shrink-0";
+                    icon.innerHTML = '<i class="fa-solid fa-shield-check"></i>';
+                    document.getElementById('analysisBadge').innerText = "An toàn";
+                } else if (dVal < 0.65) {
+                    title.innerText = "Trạng thái: Cảnh báo tích nhiệt trung bình";
+                    sub.innerText = `Chỉ số độ tối D = ${dFormatted} (Tông xanh tím nhạt)`;
+                    desc.innerText = "Phản ứng đồng hồ bắt đầu tiến triển. Sản phẩm đã chịu một số giờ vượt nhiệt độ tiêu chuẩn, cần ưu tiên tiêu thụ sớm (FIFO).";
+                    icon.className = "w-7 h-7 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-xs shrink-0";
+                    icon.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+                    document.getElementById('analysisBadge').innerText = "Cảnh báo";
+                } else {
+                    title.innerText = "Trạng thái: Đứt chuỗi lạnh nghiêm trọng - Hỏng";
+                    sub.innerText = `Chỉ số độ tối D = ${dFormatted} (Tông xanh đen đậm)`;
+                    desc.innerText = "Phản ứng đồng hồ đã hoàn tất do nhiệt độ tích lũy vượt ngưỡng cao. Thực phẩm bị suy giảm chất lượng nặng, nguy cơ hỏng cao, không được phép lưu thông.";
+                    icon.className = "w-7 h-7 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center text-xs shrink-0";
+                    icon.innerHTML = '<i class="fa-solid fa-ban"></i>';
+                    document.getElementById('analysisBadge').innerText = "Nguy hiểm";
+                }
+            }, 1200);
+        }
+
+        // Scroll reveal animation observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
                 }
             });
-        }
-        window.addEventListener('scroll', initScrollReveal);
-        window.addEventListener('load', initScrollReveal);
+        }, { threshold: 0.1 });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            
+            // Khởi tạo KaTeX nếu có công thức
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ]
+                });
+            }
+        });
     </script>
 </body>
 </html>
