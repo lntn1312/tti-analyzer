@@ -160,6 +160,22 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
+        /* Interactive TTI Component Buttons */
+        .tti-part-btn {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        .tti-part-btn:hover {
+            transform: translateY(-2px);
+            border-color: rgba(41, 151, 255, 0.5);
+            box-shadow: 0 10px 20px -5px rgba(41, 151, 255, 0.2);
+        }
+        .tti-part-btn.active-part {
+            border-color: #2997ff;
+            background: rgba(41, 151, 255, 0.1) !important;
+            box-shadow: 0 0 15px rgba(41, 151, 255, 0.25);
+        }
+
         /* Spectrum Bar */
         .spectrum-bar-container {
             position: relative;
@@ -233,6 +249,7 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
         html.dark ::-webkit-scrollbar-thumb { background: #333336; }
 
+        /* ANIMATION SCROLL REVEAL APPLE STYLE */
         .reveal {
             opacity: 0;
             transform: translateY(40px) scale(0.98);
@@ -245,6 +262,7 @@
             transform: translateY(0) scale(1);
         }
 
+        /* TAB TRANSITION ANIMATION */
         .tab-content {
             animation: appleTabFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -267,6 +285,7 @@
     <header class="apple-nav-glass sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-1">
             
+            <!-- Logo Brand -->
             <div class="flex items-center gap-2 cursor-pointer shrink-0 group" onclick="switchTab('home')">
                 <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-blue-600 via-indigo-500 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform duration-300">
                     <i class="fa-solid fa-snowflake text-[10px] sm:text-xs"></i>
@@ -274,10 +293,11 @@
                 <span class="font-bold text-xs sm:text-base tracking-tight text-slate-900 dark:text-white">TTI ANALYZER</span>
             </div>
 
+            <!-- Navigation Tabs & Theme Toggle Button -->
             <div class="flex items-center gap-1 sm:gap-2 min-w-0">
                 <nav class="nav-container flex items-center gap-0.5 sm:gap-1 p-0.5 sm:p-1 rounded-full text-[10px] sm:text-xs font-medium overflow-x-auto shadow-inner no-scrollbar">
                     <button onclick="switchTab('home')" id="tab-home" class="tab-btn active px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">🏠 Trang chủ</button>
-                    <button onclick="switchTab('about')" id="tab-about" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">ℹ️ Giới thiệu</button>
+                    <button onclick="switchTab('about')" id="tab-about" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">ℹ️  Giới thiệu</button>
                     <button onclick="switchTab('explore')" id="tab-explore" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">🧭 Khám phá</button>
                     <button onclick="switchTab('map')" id="tab-map" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">
                         <span>🗺 Bản đồ HCMC</span>
@@ -294,6 +314,7 @@
                     </button>
                 </nav>
 
+                <!-- NÚT BẤM CHUYỂN ĐỔI GIAO DIỆN -->
                 <button id="themeToggleBtn" onclick="toggleTheme()" class="w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center bg-slate-200 dark:bg-white/10 text-slate-700 dark:text-amber-300 hover:scale-110 active:scale-95 transition-all shadow-sm border border-slate-300 dark:border-white/15 shrink-0" title="Chuyển chế độ Sáng / Tối">
                     <i id="themeIcon" class="fa-solid fa-sun text-xs sm:text-sm"></i>
                 </button>
@@ -309,6 +330,7 @@
         <section id="sec-home" class="tab-content max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-20 flex flex-col items-center text-center">
             
             <div class="reveal relative w-full flex flex-col items-center">
+                <!-- Ambient Glow Background -->
                 <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-72 sm:w-96 h-72 sm:h-96 bg-gradient-to-tr from-blue-500/20 via-indigo-500/20 to-cyan-400/20 rounded-full animate-glow pointer-events-none -z-10"></div>
 
                 <span class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-apple-blue mb-3 inline-block px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20">An toàn thực phẩm thế hệ mới</span>
@@ -331,6 +353,7 @@
                 </div>
             </div>
 
+            <!-- Banner Minh Họa Động Phong Cách Apple -->
             <div class="w-full mb-12 sm:mb-16 reveal">
                 <div class="apple-card rounded-3xl p-6 sm:p-10 text-left relative overflow-hidden bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-900 text-white border border-blue-500/20 shadow-2xl">
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10">
@@ -364,6 +387,7 @@
                 </div>
             </div>
 
+            <!-- Grid Highlight Features -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 w-full text-left">
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col justify-between reveal">
                     <div class="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 mb-6 text-xl">
@@ -405,6 +429,7 @@
                 <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto leading-relaxed">Nghiên cứu phát triển nhãn cảnh báo đứt chuỗi lạnh không dùng điện dựa trên phản ứng đồng hồ hóa học và công nghệ xử lý ảnh số.</p>
             </div>
 
+            <!-- Card Sứ Mệnh & Vấn Đề Nghiên Cứu -->
             <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-10 mb-8 sm:mb-10 reveal">
                 <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
                     <i class="fa-solid fa-bullseye text-blue-500"></i> Sứ mệnh & Vấn đề nghiên cứu
@@ -419,6 +444,7 @@
                 </div>
             </div>
 
+            <!-- Card Bổ sung giải thích chi tiết Chỉ số độ tối D chuẩn hóa -->
             <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-10 mb-8 sm:mb-10 border-l-4 border-l-blue-500 reveal">
                 <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
                     <i class="fa-solid fa-calculator text-blue-500"></i> Ý Nghĩa Chỉ Số Độ Tối D Trong Phân Tích Màu
@@ -437,7 +463,7 @@
                             <i class="fa-solid fa-arrow-down-short-wide"></i> Khi Chỉ Số D tiến về 0,000 ( ≈ 0 )
                         </div>
                         <p class="text-slate-600 dark:text-apple-grayText leading-relaxed">
-                            Màu sắc của tâm nhãn nằm ở tông <strong>Trắng hoặc Xám nhạt</strong>. Các giá trị R, G, B đều ở mức cao (gần 255). Điều này phản ánh phản ứng đồng hồ chưa xảy ra hoặc mới ở giai đoạn đầu, thực phẩm được bảo quản liên tục trong điều kiện lạnh an toàn đạt tiêu chuẩn.
+                            Màu sắc của tâm nhãn nằm ở tông <strong>Tr trắng hoặc Xám nhạt</strong>. Các giá trị R, G, B đều ở mức cao (gần 255). Điều này phản ánh phản ứng đồng hồ chưa xảy ra hoặc mới ở giai đoạn đầu, thực phẩm được bảo quản liên tục trong điều kiện lạnh an toàn đạt tiêu chuẩn.
                         </p>
                     </div>
 
@@ -452,6 +478,7 @@
                 </div>
             </div>
 
+            <!-- Grid 2 Cột Cơ chế Hóa học & Thuật toán -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 reveal">
                     <div class="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 mb-4 text-base sm:text-lg">
@@ -475,7 +502,7 @@
         </section>
 
 
-        <!-- ==================== TAB 3: KHÁM PHÁ (ĐÃ TÍCH HỢP CẤU TRÚC TTI) ==================== -->
+        <!-- ==================== TAB 3: KHÁM PHÁ (ĐÃ CẬP NHẬT BOX TƯƠNG TÁC 4 THÀNH PHẦN TTI) ==================== -->
         <section id="sec-explore" class="tab-content hidden max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
             <div class="text-center mb-10 sm:mb-14 reveal">
                 <span class="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-3 inline-block">Tri thức & Ứng dụng thực tiễn</span>
@@ -485,28 +512,61 @@
 
             <div class="space-y-6 sm:space-y-8">
                 
-                <!-- CARD CẤU TẠO CHI TIẾT TEM TTI -->
-                <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center reveal border-l-4 border-l-blue-500">
-                    <div class="md:col-span-4 flex justify-center">
-                        <div class="w-24 h-24 sm:w-36 sm:h-36 rounded-3xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 text-4xl sm:text-5xl shadow-inner">
-                            <i class="fa-solid fa-layer-group"></i>
+                <!-- BOX THÔNG TIN TƯƠNG TÁC CHUỘT: CẤU TẠO TEM TTI (4 THÀNH PHẦN) -->
+                <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 reveal border-l-4 border-l-blue-500">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 text-lg">
+                            <i class="fa-solid fa-hand-pointer"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Tương tác thành phần tem</span>
+                            <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">Cấu Tạo Chi Tiết Nhãn TTI Hai Khoang</h3>
                         </div>
                     </div>
-                    <div class="md:col-span-8">
-                        <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Cấu trúc công nghệ vật lý</span>
-                        <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mt-1 mb-3">Cấu Tạo Chi Tiết Của Tem TTI Hai Khoang</h3>
-                        <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-4">
-                            Tem cảnh báo thời gian - nhiệt độ (TTI) được thiết kế dạng thông minh nhiều lớp bóc dán trực tiếp trên bao bì thực phẩm, bao gồm các thành phần cốt lõi sau:
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-6">
+                        Bấm vào từng thành phần bên dưới để khám phá chi tiết chức năng và vai trò vận hành của nhãn cảnh báo điều kiện bảo quản lạnh:
+                    </p>
+
+                    <!-- 4 Nút thành phần tương tác -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                        <button onclick="selectTTIPart('chamberA')" id="btn-part-chamberA" class="tti-part-btn p-4 rounded-2xl inner-box text-left border border-slate-200 dark:border-white/10 active-part">
+                            <div class="text-blue-500 text-base mb-1.5"><i class="fa-solid fa-vial"></i></div>
+                            <div class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Khoang A</div>
+                            <div class="text-[10px] text-slate-500 dark:text-apple-grayText">Chất hoạt hóa</div>
+                        </button>
+
+                        <button onclick="selectTTIPart('chamberB')" id="btn-part-chamberB" class="tti-part-btn p-4 rounded-2xl inner-box text-left border border-slate-200 dark:border-white/10">
+                            <div class="text-emerald-500 text-base mb-1.5"><i class="fa-solid fa-flask-vial"></i></div>
+                            <div class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Khoang B</div>
+                            <div class="text-[10px] text-slate-500 dark:text-apple-grayText">Tâm chỉ thị màu</div>
+                        </button>
+
+                        <button onclick="selectTTIPart('barrier')" id="btn-part-barrier" class="tti-part-btn p-4 rounded-2xl inner-box text-left border border-slate-200 dark:border-white/10">
+                            <div class="text-amber-500 text-base mb-1.5"><i class="fa-solid fa-arrows-split-up-and-left"></i></div>
+                            <div class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Vách Ngăn</div>
+                            <div class="text-[10px] text-slate-500 dark:text-apple-grayText">Bông cotton</div>
+                        </button>
+
+                        <button onclick="selectTTIPart('outerBag')" id="btn-part-outerBag" class="tti-part-btn p-4 rounded-2xl inner-box text-left border border-slate-200 dark:border-white/10">
+                            <div class="text-purple-500 text-base mb-1.5"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Túi Bảo Vệ</div>
+                            <div class="text-[10px] text-slate-500 dark:text-apple-grayText">Màng chống UV</div>
+                        </button>
+                    </div>
+
+                    <!-- Khu vực hiển thị thông tin chi tiết khi bấm tương tác -->
+                    <div id="tti-display-box" class="p-5 sm:p-6 rounded-2xl bg-blue-500/5 dark:bg-white/5 border border-blue-500/20 transition-all duration-300">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div id="tti-display-icon" class="text-blue-500 text-xl"><i class="fa-solid fa-vial"></i></div>
+                            <h4 id="tti-display-title" class="font-bold text-slate-900 dark:text-white text-sm sm:text-base">Khoang A: Khoang chứa chất hoạt hóa</h4>
+                        </div>
+                        <p id="tti-display-desc" class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed">
+                            Chứa dung dịch hỗn hợp chất khử (Vitamin C) được cách ly an toàn trước khi kích hoạt vận chuyển. Khoang này đóng vai trò tạo ra thời gian trễ (induction period) trước khi phản ứng tạo màu xảy ra.
                         </p>
-                        <ul class="text-xs sm:text-sm text-slate-700 dark:text-gray-300 space-y-2.5 list-disc list-inside">
-                            <li><strong>Khoang chứa chất hoạt hóa (Active Chamber):</strong> Chứa dung dịch hỗn hợp chất khử Vitamin C và chất xúc tác được cách ly an toàn trước khi kích hoạt.</li>
-                            <li><strong>Khoang phản ứng màu tâm (Indicator Core):</strong> Chứa màng hồ tinh bột kết hợp dung dịch Iodine. Đây là vùng hiển thị trung tâm sẽ chuyển màu trực quan.</li>
-                            <li><strong>Vách ngăn kích hoạt cơ học (Activation Barrier):</strong> Lớp màng mỏng ngăn cách hai khoang, cho phép người dùng ấn nhẹ bằng tay để bắt đầu quá trình ghi nhận nhiệt độ trước khi đưa vào vận chuyển.</li>
-                            <li><strong>Lớp màng bảo vệ trong suốt chống UV:</strong> Bảo vệ phản ứng hóa học khỏi tác động của ánh sáng ngoại vi và hơi ẩm bên ngoài môi trường kho lạnh.</li>
-                        </ul>
                     </div>
                 </div>
 
+                <!-- Card 1: Nguyên nhân nhiệt tác động đến bảo quản -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center reveal">
                     <div class="md:col-span-4 flex justify-center">
                         <div class="w-24 h-24 sm:w-36 sm:h-36 rounded-3xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-500 text-4xl sm:text-5xl shadow-inner">
@@ -527,6 +587,7 @@
                     </div>
                 </div>
 
+                <!-- Card 2: Biện pháp bảo quản lạnh đúng tiêu chuẩn -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center reveal">
                     <div class="md:col-span-8 order-2 md:order-1">
                         <span class="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">Giải pháp vận hành</span>
@@ -572,6 +633,7 @@
                 <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Giám sát các "điểm nóng" chuỗi cung ứng thực phẩm tươi sống theo thời gian thực tại TP.HCM qua định vị quét tem TTI.</p>
             </div>
 
+            <!-- Interactive Google Maps Integration Frame -->
             <div class="apple-card rounded-3xl p-4 sm:p-6 mb-8 reveal">
                 <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
                     <div class="flex items-center gap-2">
@@ -581,6 +643,7 @@
                     <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">Trạng thái: Trực tuyến (Live Feed)</span>
                 </div>
 
+                <!-- Google Maps Embed Trực Tiếp -->
                 <div class="w-full h-80 sm:h-[450px] rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 relative shadow-inner">
                     <iframe 
                         width="100%" 
@@ -594,6 +657,7 @@
                 </div>
             </div>
 
+            <!-- Các Điểm Nóng & Luồng Vận Chuyển Chi Tiết -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="apple-card rounded-2xl p-6 reveal">
                     <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold mb-4">
@@ -639,6 +703,7 @@
                 <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Phân tích chi phí - lợi ích (Cost-Benefit) và tiềm năng tiết kiệm hàng chục tỷ đồng lãng phí thực phẩm mỗi năm.</p>
             </div>
 
+            <!-- Bảng So Sánh Chi Phí -->
             <div class="apple-card rounded-3xl p-6 sm:p-8 mb-8 reveal">
                 <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                     <i class="fa-solid fa-scale-balanced text-emerald-500"></i> So Sánh Chi Phí: Nhãn TTI Không Dùng Điện vs Datalogger Điện Tử
@@ -679,6 +744,7 @@
                 </div>
             </div>
 
+            <!-- Điểm Nhấn Tiết Kiệm Tại TP.HCM -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="apple-card rounded-3xl p-6 sm:p-8 reveal flex flex-col justify-between">
                     <div>
@@ -723,6 +789,7 @@
                 <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Tư liệu thực tế từ phòng thí nghiệm của nhóm tác giả: Quá trình pha chế hóa chất, thử nghiệm màu và ép màng nhãn hai khoang.</p>
             </div>
 
+            <!-- Grid Hình Ảnh Thực Nghiệm -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div class="apple-card rounded-3xl p-4 reveal">
                     <div class="w-full h-48 rounded-2xl bg-slate-200 dark:bg-slate-800 overflow-hidden mb-4 relative flex items-center justify-center">
@@ -755,6 +822,7 @@
                 </div>
             </div>
 
+            <!-- Lời Nhắn Đến Ban Giám Khảo -->
             <div class="apple-card rounded-3xl p-6 sm:p-8 reveal border-l-4 border-l-purple-500 text-left">
                 <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
                     <i class="fa-solid fa-award text-purple-500"></i> Cam Kết Từ Nhóm Nghiên Cứu
@@ -776,6 +844,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
 
+                <!-- LEFT COLUMN: IMAGE STAGE -->
                 <section class="lg:col-span-7 flex flex-col gap-3 reveal">
                     
                     <div class="apple-card rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 flex flex-col h-[400px] sm:h-[500px] relative overflow-hidden">
@@ -837,6 +906,7 @@
 
                         </div>
 
+                        <!-- Mobile Controls -->
                         <div id="mobileNudgePad" class="mt-2 grid grid-cols-2 gap-2 text-xs hidden">
                             <div class="flex items-center justify-between bg-slate-100 dark:bg-white/5 p-1.5 rounded-xl border border-slate-200 dark:border-white/5">
                                 <span class="text-[10px] text-slate-500 dark:text-apple-grayText pl-1">Dịch chuyển:</span>
@@ -856,6 +926,7 @@
                             </div>
                         </div>
 
+                        <!-- Action Buttons -->
                         <div class="mt-2.5 flex flex-col gap-2 text-xs">
                             <div class="grid grid-cols-2 gap-2">
                                 <button id="btnResetAll" onclick="resetToInitialState()" class="hidden px-3 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/20 rounded-xl font-semibold transition flex items-center justify-center gap-1.5 text-xs">
@@ -881,6 +952,7 @@
 
                 </section>
 
+                <!-- RIGHT COLUMN: RESULTS -->
                 <section class="lg:col-span-5 flex flex-col gap-3 reveal">
 
                     <div class="apple-card rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 flex flex-col gap-2.5 overflow-hidden">
@@ -910,6 +982,7 @@
                         </div>
                     </div>
 
+                    <!-- Kết quả phân tích màu -->
                     <div class="apple-card rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 flex flex-col gap-2.5 sm:gap-3 flex-grow">
                         
                         <div class="border-b border-slate-200 dark:border-white/10 pb-1.5 flex items-center justify-between">
@@ -969,6 +1042,7 @@
 
     </div>
 
+    <!-- FOOTER CHUẨN CÔNG NGHIỆP -->
     <footer class="border-t border-slate-200 dark:border-white/10 py-5 sm:py-7 text-center text-xs sm:text-sm font-medium text-slate-500 dark:text-apple-grayText">
         Phân Tích Nhãn Cảnh Báo Điều Kiện Bảo Quản Lạnh TTI &copy; 2026
     </footer>
@@ -976,6 +1050,48 @@
     <canvas id="hiddenCanvas" class="hidden"></canvas>
 
     <script>
+        // CẤU HÌNH INTERACTIVE TTI PARTS CHO MỤC KHÁM PHÁ
+        const ttiDataContent = {
+            chamberA: {
+                title: "Khoang A: Khoang chứa chất hoạt hóa",
+                desc: "Chứa dung dịch hỗn hợp chất khử (Vitamin C) được cách ly an toàn trước khi kích hoạt vận chuyển. Khoang này đóng vai trò tạo ra thời gian trễ (induction period) để kiểm soát tốc độ phản ứng với nhiệt độ.",
+                icon: '<i class="fa-solid fa-vial"></i>',
+                color: 'text-blue-500'
+            },
+            chamberB: {
+                title: "Khoang B: Khoang phản ứng tâm chỉ thị màu",
+                desc: "Chứa hồ tinh bột kết hợp dung dịch Iodine (Iot). Đây là vùng hiển thị trung tâm sẽ chuyển dần từ màu trắng sang xanh Navy, xanh tím và xanh đen sẫm khi các phản ứng hóa học hoàn tất.",
+                icon: '<i class="fa-solid fa-flask-vial"></i>',
+                color: 'text-emerald-500'
+            },
+            barrier: {
+                title: "Vách ngăn cơ học (Làm từ bông cotton)",
+                desc: "Giải thích: Nơi đây đóng vai trò là màng ngăn xốp chứa bông cotton thấm hút đặc biệt, dùng để cách ly hoàn toàn dung dịch giữa khoang A và khoang B ở trạng thái tĩnh. Khi người dùng ấn nhẹ bằng tay trước lúc vận chuyển, lực cơ học sẽ làm vách ngăn mở ra, cho phép dung dịch từ khoang A thấm qua bông cotton sang khoang B để bắt đầu quá trình ghi nhận nhiệt độ tích lũy.",
+                icon: '<i class="fa-solid fa-arrows-split-up-and-left"></i>',
+                color: 'text-amber-500'
+            },
+            outerBag: {
+                title: "Túi bảo vệ tem bên ngoài (Màng chống UV)",
+                desc: "Lớp màng polymer trong suốt bọc phía ngoài cùng, có nhiệm vụ bảo vệ hệ phản ứng hóa học bên trong khỏi tác động ngoại cảnh như độ ẩm môi trường kho lạnh, bụi bẩn và tia cực tím (UV) gây nhiễu màu.",
+                icon: '<i class="fa-solid fa-shield-halved"></i>',
+                color: 'text-purple-500'
+            }
+        };
+
+        function selectTTIPart(partKey) {
+            // Xóa active tất cả các nút
+            document.querySelectorAll('.tti-part-btn').forEach(btn => btn.classList.remove('active-part'));
+            // Thêm active cho nút được bấm
+            document.getElementById(`btn-part-${partKey}`).classList.add('active-part');
+
+            const info = ttiDataContent[partKey];
+            document.getElementById('tti-display-title').textContent = info.title;
+            document.getElementById('tti-display-desc').textContent = info.desc;
+            document.getElementById('tti-display-icon').innerHTML = info.icon;
+            document.getElementById('tti-display-icon').className = `text-xl ${info.color}`;
+        }
+
+        // CẤU HÌNH THEME SÁNG / TỐI (LIGHT / DARK MODE)
         function initTheme() {
             const savedTheme = localStorage.getItem('theme');
             const themeIcon = document.getElementById('themeIcon');
@@ -1006,6 +1122,7 @@
 
         initTheme();
 
+        // SCROLL REVEAL OBSERVER APPLE STYLE
         function setupScrollReveal() {
             const reveals = document.querySelectorAll('.reveal');
             const observer = new IntersectionObserver((entries) => {
@@ -1019,6 +1136,7 @@
             reveals.forEach(el => observer.observe(el));
         }
 
+        // TAB NAVIGATION LOGIC
         function switchTab(tabId) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
@@ -1040,6 +1158,7 @@
             setupScrollReveal();
         });
 
+        // TTI ANALYZER LOGIC
         const dropZone = document.getElementById('dropZone');
         const fileInput = document.getElementById('fileInput');
         const viewport = document.getElementById('viewport');
@@ -1409,6 +1528,8 @@
             rgbValue.textContent = `RGB: ${avgR}, ${avgG}, ${avgB}`;
 
             const hsv = rgbToHsv(avgR, avgG, avgB);
+            
+            // CÔNG THỨC D CHUẨN THANG 0 ĐẾN 1, LÀM TRÒN 3 CHỮ SỐ THẬP PHÂN
             const darkness = 1 - (avgR + avgG + avgB) / (3 * 255);
             darknessIndex.textContent = darkness.toFixed(3);
 
