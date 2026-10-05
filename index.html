@@ -28,6 +28,7 @@
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'float': 'float 6s ease-in-out infinite',
                         'glow': 'glow 3s ease-in-out infinite alternate',
+                        'radar-ping': 'radarPing 2.5s cubic-bezier(0, 0, 0.2, 1) infinite',
                     },
                     keyframes: {
                         float: {
@@ -37,6 +38,10 @@
                         glow: {
                             '0%': { opacity: '0.4', filter: 'blur(20px)' },
                             '100%': { opacity: '0.8', filter: 'blur(35px)' },
+                        },
+                        radarPing: {
+                            '0%': { transform: 'scale(0.8)', opacity: '0.9' },
+                            '100%': { transform: 'scale(2.4)', opacity: '0' },
                         }
                     }
                 }
@@ -55,7 +60,6 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
     <style>
-        /* CHỐNG CUỘN NGANG TOÀN TRANG TRÊN ĐIỆN THOẠI */
         html, body {
             max-width: 100%;
             overflow-x: hidden !important;
@@ -77,7 +81,6 @@
             color: #0f172a;
         }
 
-        /* LIGHT MODE GLASSMORPHISM & APPLE CARD */
         .apple-nav-glass {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(25px);
@@ -117,7 +120,6 @@
             border: 1px solid rgba(0, 0, 0, 0.06);
         }
 
-        /* DARK MODE STYLING */
         html.dark body {
             background-color: #000000;
             color: #f5f5f7;
@@ -160,7 +162,6 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        /* Interactive Visual TTI Label Styles */
         .tti-interactive-outer-frame {
             position: relative;
             border: 3px solid #0f172a;
@@ -191,7 +192,6 @@
             box-shadow: 0 0 0 4px rgba(41, 151, 255, 0.2);
         }
 
-        /* Spectrum Bar */
         .spectrum-bar-container {
             position: relative;
             height: 24px;
@@ -308,7 +308,7 @@
             <div class="flex items-center gap-1 sm:gap-2 min-w-0">
                 <nav class="nav-container flex items-center gap-0.5 sm:gap-1 p-0.5 sm:p-1 rounded-full text-[10px] sm:text-xs font-medium overflow-x-auto shadow-inner no-scrollbar">
                     <button onclick="switchTab('home')" id="tab-home" class="tab-btn active px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">🏠 Trang chủ</button>
-                    <button onclick="switchTab('about')" id="tab-about" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">ℹ  Giới thiệu</button>
+                    <button onclick="switchTab('about')" id="tab-about" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">ℹ Giới thiệu</button>
                     <button onclick="switchTab('explore')" id="tab-explore" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">🧭 Khám phá</button>
                     <button onclick="switchTab('map')" id="tab-map" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">
                         <span>🗺 Bản đồ HCMC</span>
@@ -352,7 +352,6 @@
                     Hơn 30% thực phẩm bị lãng phí toàn cầu do đứt gãy chuỗi cung ứng lạnh. Công nghệ nhãn TTI (Time-Temperature Indicator) thông minh kết hợp phân tích xử lý ảnh kỹ thuật số mang tới giải pháp số hóa giám sát nhiệt độ tích lũy trực quan, minh bạch và tức thì.
                 </p>
 
-                <!-- ĐÃ CHỈNH SỬA NÚT CHUYỂN HƯỚNG ĐẾN MỤC KHÁM PHÁ -->
                 <div class="flex flex-wrap gap-3 sm:gap-4 justify-center mb-10 sm:mb-12">
                     <button onclick="switchTab('survey')" class="px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 dark:bg-white text-white dark:text-black font-semibold rounded-full transition-all text-xs sm:text-sm shadow-xl shadow-blue-500/25 dark:shadow-white/10 flex items-center gap-2 hover:scale-105 active:scale-95">
                         Thử nghiệm Khảo sát TTI <i class="fa-solid fa-arrow-right text-[10px] sm:text-xs"></i>
@@ -363,7 +362,6 @@
                 </div>
             </div>
 
-            <!-- Banner Minh Họa Động Phong Cách Apple -->
             <div class="w-full mb-12 sm:mb-16 reveal">
                 <div class="apple-card rounded-3xl p-6 sm:p-10 text-left relative overflow-hidden bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-900 text-white border border-blue-500/20 shadow-2xl">
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10">
@@ -397,7 +395,6 @@
                 </div>
             </div>
 
-            <!-- Grid Highlight Features -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 w-full text-left">
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col justify-between reveal">
                     <div class="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 mb-6 text-xl">
@@ -509,7 +506,7 @@
         </section>
 
 
-        <!-- ==================== TAB 3: KHÁM PHÁ (ĐÃ MỞ RỘNG CỰC KỲ CHI TIẾT THEO YÊU CẦU) ==================== -->
+        <!-- ==================== TAB 3: KHÁM PHÁ (MỞ RỘNG THÊM NHIỀU NỘI DUNG VÀ THU GỌN ARRHENIUS, FIX LỖI TEXT NHIỆT ĐỘ) ==================== -->
         <section id="sec-explore" class="tab-content hidden max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
             <div class="text-center mb-10 sm:mb-14 reveal">
                 <span class="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-3 inline-block">Tri thức khoa học & Chuyên sâu chuỗi lạnh</span>
@@ -519,7 +516,7 @@
 
             <div class="space-y-6 sm:space-y-8">
                 
-                <!-- PHẦN 1: TƯƠNG TÁC CẤU TẠO NHÃN TTI -->
+                <!-- 1. TƯƠNG TÁC CẤU TẠO NHÃN TTI -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 reveal border-l-4 border-l-blue-500">
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 text-lg">
@@ -570,29 +567,23 @@
                     </div>
                 </div>
 
-                <!-- PHẦN 2: BẢN CHẤT NHIỆT ĐỘNG HỌC & PHƯƠNG TRÌNH ARRHENIUS (MỞ RỘNG MỚI) -->
+                <!-- 2. THU GỌN PHẦN CƠ SỞ KHOA HỌC ARRHENIUS (SỬA LỖI TEXT) -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 reveal">
-                    <div class="flex items-center gap-3 mb-4">
+                    <div class="flex items-center gap-3 mb-3">
                         <div class="w-10 h-10 rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-lg">
                             <i class="fa-solid fa-fire-flame-curved"></i>
                         </div>
                         <div>
-                            <span class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Cơ sở khoa học nâng cao</span>
-                            <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">Bản Chất Nhiệt Động Học & Phương Trình Arrhenius</h3>
+                            <span class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Cơ sở khoa học tinh gọn</span>
+                            <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Phương Trình Arrhenius & Độ Tích Nhiệt</h3>
                         </div>
                     </div>
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-4">
-                        Hoạt động của nhãn TTI dựa trên nguyên lý tốc độ phản ứng hóa học tuân theo phương trình Arrhenius nổi tiếng: tốc độ biến đổi màu của nhãn có hệ số tương quan trực tiếp và chặt chẽ với tốc độ suy giảm chất lượng sinh hóa của thực phẩm hoặc dược phẩm bên trong bao bì.
-                    </p>
-                    <div class="p-4 rounded-2xl bg-indigo-500/5 dark:bg-white/5 border border-indigo-500/20 text-center font-bold text-indigo-600 dark:text-indigo-300 text-xs sm:text-sm mb-4">
-                        $$k = A \cdot e^{-\frac{E_a}{R \cdot T}}$$
-                    </div>
                     <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed">
-                        Trong đó, nhiệt độ môi trường ($T$) tăng cao sẽ làm gia tăng hằng số tốc độ phản ứng ($k$), đẩy nhanh quá trình tiêu thụ chất khử trong nhãn và làm nhãn chuyển màu đậm vĩnh viễn, phản ánh chính xác lượng nhiệt tích lũy mà sản phẩm phải gánh chịu.
+                        Tốc độ đổi màu của nhãn TTI tuân theo phương trình nhiệt động học Arrhenius: khi nhiệt độ môi trường vượt ngưỡng tiêu chuẩn (ví dụ từ **0°C đến 4°C** hoặc **-18°C**), hằng số tốc độ phản ứng tăng mạnh, thúc đẩy dung dịch khuếch tán nhanh qua màng ngăn cotton và chuyển màu vĩnh viễn, phản ánh chính xác lịch sử suy giảm chất lượng thực phẩm.
                     </p>
                 </div>
 
-                <!-- PHẦN 3: DẢI NHIỆT ĐỘ BẢO QUẢN CHUẨN TRONG CHUỖI CUNG ỨNG LẠNH (MỞ RỘNG MỚI) -->
+                <!-- 3. DẢI NHIỆT ĐỘ BẢO QUẢN CHUẨN (FIX LỖI TEXT) -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 reveal">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-lg">
@@ -600,38 +591,52 @@
                         </div>
                         <div>
                             <span class="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">Tiêu chuẩn kỹ thuật chuỗi lạnh</span>
-                            <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">Dải Nhiệt Độ Bảo Quản Tiêu Chuẩn Theo Nhóm Sản Phẩm</h3>
+                            <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">Dải Nhiệt Độ Bảo Quản Tiêu Chuẩn</h3>
                         </div>
                     </div>
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-6">
-                        Mỗi loại hàng hóa trong chuỗi cung ứng đều đòi hỏi một khoảng dung sai nhiệt độ ngặt nghèo để tránh hư hỏng:
-                    </p>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs sm:text-sm">
-                        <div class="p-4 rounded-2xl bg-blue-500/5 border border-blue-500/20 flex flex-col justify-between">
-                            <div>
-                                <span class="font-extrabold text-blue-600 dark:text-blue-400 text-sm block mb-1">1. Hàng Đông Lạnh (Frozen)</span>
-                                <span class="text-xs font-bold text-slate-800 dark:text-white block mb-2">Duy trì từ $-18^\circ\text{C}$ trở xuống</span>
-                                <p class="text-slate-500 dark:text-apple-grayText text-xs leading-relaxed">Áp dụng cho thịt, cá, hải sản cấp đông sâu, kem và thực phẩm chế biến bảo quản lâu dài.</p>
-                            </div>
+                        <div class="p-4 rounded-2xl bg-blue-500/5 border border-blue-500/20">
+                            <span class="font-extrabold text-blue-600 dark:text-blue-400 text-sm block mb-1">1. Hàng Đông Lạnh</span>
+                            <span class="text-xs font-bold text-slate-800 dark:text-white block mb-2">Dưới **-18°C**</span>
+                            <p class="text-slate-500 dark:text-apple-grayText text-xs leading-relaxed">Áp dụng cho thịt, hải sản cấp đông sâu và thực phẩm trữ đông dài hạn.</p>
                         </div>
-                        <div class="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/20 flex flex-col justify-between">
-                            <div>
-                                <span class="font-extrabold text-emerald-600 dark:text-emerald-400 text-sm block mb-1">2. Hàng Mát (Chilled)</span>
-                                <span class="text-xs font-bold text-slate-800 dark:text-white block mb-2">Duy trì từ $0^\circ\text{C}$ đến $4^\circ\text{C}$</span>
-                                <p class="text-slate-500 dark:text-apple-grayText text-xs leading-relaxed">Áp dụng cho rau củ quả tươi, sữa tươi, thực phẩm ăn liền và thịt tươi sống ngắn ngày.</p>
-                            </div>
+                        <div class="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/20">
+                            <span class="font-extrabold text-emerald-600 dark:text-emerald-400 text-sm block mb-1">2. Hàng Mát</span>
+                            <span class="text-xs font-bold text-slate-800 dark:text-white block mb-2">Từ **0°C đến 4°C**</span>
+                            <p class="text-slate-500 dark:text-apple-grayText text-xs leading-relaxed">Áp dụng cho rau củ quả tươi, sữa tươi và thực phẩm chế biến sẵn ngắn ngày.</p>
                         </div>
-                        <div class="p-4 rounded-2xl bg-purple-500/5 border border-purple-500/20 flex flex-col justify-between">
-                            <div>
-                                <span class="font-extrabold text-purple-600 dark:text-purple-400 text-sm block mb-1">3. Dược Phẩm & Vắc-xin</span>
-                                <span class="text-xs font-bold text-slate-800 dark:text-white block mb-2">Duy trì từ $2^\circ\text{C}$ đến $8^\circ\text{C}$</span>
-                                <p class="text-slate-500 dark:text-apple-grayText text-xs leading-relaxed">Yêu cầu tuyệt đối không để đóng băng ($<0^\circ\text{C}$) đối với các loại vắc-xin sinh học nhạy cảm.</p>
-                            </div>
+                        <div class="p-4 rounded-2xl bg-purple-500/5 border border-purple-500/20">
+                            <span class="font-extrabold text-purple-600 dark:text-purple-400 text-sm block mb-1">3. Vắc-xin & Dược Phẩm</span>
+                            <span class="text-xs font-bold text-slate-800 dark:text-white block mb-2">Từ **2°C đến 8°C**</span>
+                            <p class="text-slate-500 dark:text-apple-grayText text-xs leading-relaxed">Yêu cầu khắt khe không để đóng băng ($<0^\circ\text{C}$) đối với chế phẩm sinh học.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- PHẦN 4: NGUYÊN TẮC VẬN HÀNH THỰC TIỄN & CHỐNG SỐC NHIỆT (MỞ RỘNG MỚI) -->
+                <!-- 4. THÊM NHIỀU THÔNG TIN KHÁM PHÁ MỚI -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 reveal">
+                        <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-lg mb-4">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <h4 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">Vật Liệu Thân Thiện Môi Trường</h4>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-apple-grayText leading-relaxed">
+                            Toàn bộ vỏ nhãn TTI được cấu thành từ màng polymer sinh học phân hủy sinh học, kết hợp với các hoạt chất sinh học tự nhiên (Vitamin C, tinh bột thực phẩm), hoàn toàn an toàn khi tiếp xúc trực tiếp hoặc gián tiếp với bao bì thực phẩm loại 1.
+                        </p>
+                    </div>
+
+                    <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 reveal">
+                        <div class="w-10 h-10 rounded-2xl bg-blue-500/10 text-blue-500 flex items-center justify-center text-lg mb-4">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <h4 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">Hệ Sinh Thái IoT & Mobile App</h4>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-apple-grayText leading-relaxed">
+                            Ứng dụng tích hợp công nghệ xử lý ảnh thông minh trên smartphone, cho phép người tiêu dùng cuối và cơ quan quản lý thị trường kiểm tra nguồn gốc, thời hạn và độ an toàn của sản phẩm chỉ qua một thao tác quét camera đơn giản dưới 3 giây.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 5. NGUYÊN TẮC VẬN HÀNH THỰC TIỄN & CHỐNG SỐC NHIỆT -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 reveal">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-lg">
@@ -639,39 +644,18 @@
                         </div>
                         <div>
                             <span class="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">Thực tiễn logistics</span>
-                            <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">Quy Tắc Vận Hành Kho Lạnh & Nguyên Tắc FIFO/FEFO</h3>
+                            <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Quy Tắc Vận Hành Kho Lạnh & Nguyên Tắc FIFO/FEFO</h3>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
                         <div class="p-4 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
-                            <span class="font-bold text-amber-600 dark:text-amber-400 block mb-1">Tránh hiện tượng "Sốc nhiệt"</span>
-                            <p class="text-slate-500 dark:text-apple-grayText leading-relaxed">Khi chuyển dịch hàng hóa giữa kho lạnh, xe tải lạnh và khu vực trưng bày siêu thị, việc thay đổi nhiệt độ đột ngột làm ngưng tụ hơi nước và kích hoạt đứt chuỗi cục bộ.</p>
+                            <span class="font-bold text-amber-600 dark:text-amber-400 block mb-1">Kiểm soát sốc nhiệt chuyển giao</span>
+                            <p class="text-slate-500 dark:text-apple-grayText leading-relaxed">Khi bốc dỡ hàng từ xe tải lạnh vào kho, thay đổi nhiệt độ đột ngột dễ làm ngưng tụ hơi nước. Tem TTI giúp ghi nhận chính xác thời gian chịu nhiệt này.</p>
                         </div>
                         <div class="p-4 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5">
-                            <span class="font-bold text-blue-600 dark:text-blue-400 block mb-1">Nguyên tắc FIFO & FEFO kết hợp TTI</span>
-                            <p class="text-slate-500 dark:text-apple-grayText leading-relaxed">Nhập trước - xuất trước kết hợp kiểm tra trạng thái đổi màu của nhãn TTI giúp kho bãi tự động lọc ra các kiện hàng có chỉ số tích nhiệt cao để xử lý trước khi đến tay người tiêu dùng.</p>
+                            <span class="font-bold text-blue-600 dark:text-blue-400 block mb-1">Ứng dụng FEFO thông minh</span>
+                            <p class="text-slate-500 dark:text-apple-grayText leading-relaxed">Kết hợp nguyên tắc xuất hàng hạn sử dụng trước cùng chỉ số độ tối D của tem giúp hệ thống kho tự động ưu tiên xuất các kiện hàng có nguy cơ cao trước.</p>
                         </div>
-                    </div>
-                </div>
-
-                <!-- PHẦN 5: TẠI SAO NHIỆT ĐỘ LÀM HỎNG THỰC PHẨM? -->
-                <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center reveal">
-                    <div class="md:col-span-4 flex justify-center">
-                        <div class="w-24 h-24 sm:w-36 sm:h-36 rounded-3xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-500 text-4xl sm:text-5xl shadow-inner">
-                            <i class="fa-solid fa-temperature-high"></i>
-                        </div>
-                    </div>
-                    <div class="md:col-span-8">
-                        <span class="text-[10px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Lý thuyết sinh học & Hóa học</span>
-                        <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mt-1 mb-3">Tác Động Của Nhiệt Độ Đến Sự Hư Hỏng Thực Phẩm</h3>
-                        <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-4">
-                            Khi nhiệt độ tăng vượt mốc bảo quản tiêu chuẩn (0°C đến 4°C), các phản ứng gây hư hỏng bùng phát theo cấp số nhân:
-                        </p>
-                        <ul class="text-xs sm:text-sm text-slate-700 dark:text-gray-300 space-y-2 list-disc list-inside">
-                            <li><strong>Sự gia tăng vi sinh vật:</strong> Vi khuẩn vi hiếu khí và nấm mốc tăng sinh gấp đôi sau mỗi 20 phút ở nhiệt độ môi trường (25°C - 30°C).</li>
-                            <li><strong>Tăng tốc phản ứng Enzym:</strong> Các enzym nội sinh trong thực phẩm (như lipase, protease) hoạt động mạnh làm biến tính protein và gây ôi thiu lipid.</li>
-                            <li><strong>Phản ứng oxy hóa tích lũy:</strong> Tăng nhiệt độ làm tăng tốc độ oxy hóa chất béo, làm mất màu, mất mùi và giảm giá trị dinh dưỡng.</li>
-                        </ul>
                     </div>
                 </div>
 
@@ -679,59 +663,142 @@
         </section>
 
 
-        <!-- ==================== TAB 4: BẢN ĐỒ SỐ HÓA CHUỖI LẠNH HCMC (ĐÃ MỞ RỘNG THÊM NHIỀU THỨ SINE/LOGISTICS) ==================== -->
-        <section id="sec-map" class="tab-content hidden max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
+        <!-- ==================== TAB 4: BẢN ĐỒ SỐ HÓA CHUỖI LẠNH HCMC (MAP 60% + RADAR HIỆU ỨNG LAN TỎA) ==================== -->
+        <section id="sec-map" class="tab-content hidden max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
             <div class="text-center mb-10 sm:mb-14 reveal">
-                <span class="text-[10px] font-bold text-blue-600 dark:text-apple-blue uppercase tracking-widest px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-3 inline-block">Hệ thống giám sát đô thị thông minh</span>
+                <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-3 inline-block">Hệ thống giám sát đô thị thông minh</span>
                 <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-3">Bản Đồ Số Hóa Chuỗi Lạnh Đô Thị (HCMC Dashboard)</h2>
-                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Giám sát các "điểm nóng" chuỗi cung ứng thực phẩm tươi sống theo thời gian thực tại TP.HCM qua định vị quét tem TTI.</p>
+                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Giám sát dữ liệu công khai cập nhật online hằng ngày trên toàn mạng internet và các điểm nóng thời gian thực tại TP.HCM.</p>
             </div>
 
-            <!-- Bảng Thống Kê Tổng Quan Trạng Thái Thành Phố (Mở rộng thêm) -->
+            <!-- Bảng Thống Kê Dữ Liệu Cập Nhật Online Hằng Ngày -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 reveal">
                 <div class="apple-card rounded-2xl p-4 text-center">
-                    <span class="text-[10px] text-slate-500 dark:text-apple-grayText block mb-1">Trạm Giám Sát Hoạt Động</span>
-                    <span class="text-xl sm:text-2xl font-extrabold text-blue-600 dark:text-blue-400">128 Trạm</span>
-                    <span class="text-[9px] text-emerald-600 block mt-1"><i class="fa-solid fa-circle text-[6px]"></i> Hoạt động ổn định</span>
+                    <span class="text-[10px] text-slate-500 dark:text-apple-grayText block mb-1">Trạm Giám Sát Trực Tuyến</span>
+                    <span class="text-xl sm:text-2xl font-extrabold text-blue-600 dark:text-blue-400" id="liveStationsCount">142 Trạm</span>
+                    <span class="text-[9px] text-emerald-600 block mt-1"><i class="fa-solid fa-wifi text-[6px]"></i> Đang đồng bộ online</span>
                 </div>
                 <div class="apple-card rounded-2xl p-4 text-center">
-                    <span class="text-[10px] text-slate-500 dark:text-apple-grayText block mb-1">Xe Tải Lạnh Đang Chạy</span>
-                    <span class="text-xl sm:text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">450 Xe</span>
-                    <span class="text-[9px] text-emerald-600 block mt-1"><i class="fa-solid fa-satellite-dish text-[6px]"></i> Đồng bộ GPS 100%</span>
+                    <span class="text-[10px] text-slate-500 dark:text-apple-grayText block mb-1">Phương Tiện Cold-Chain</span>
+                    <span class="text-xl sm:text-2xl font-extrabold text-emerald-600 dark:text-emerald-400" id="liveTrucksCount">518 Xe</span>
+                    <span class="text-[9px] text-emerald-600 block mt-1"><i class="fa-solid fa-rotate text-[6px]"></i> Cập nhật thời gian thực</span>
                 </div>
                 <div class="apple-card rounded-2xl p-4 text-center">
-                    <span class="text-[10px] text-slate-500 dark:text-apple-grayText block mb-1">Tỷ Lệ An Toàn Tem TTI</span>
-                    <span class="text-xl sm:text-2xl font-extrabold text-cyan-600 dark:text-cyan-400">98.4%</span>
-                    <span class="text-[9px] text-cyan-600 block mt-1"><i class="fa-solid fa-arrow-trend-up text-[6px]"></i> Tăng 2.1% tuần qua</span>
+                    <span class="text-[10px] text-slate-500 dark:text-apple-grayText block mb-1">Chỉ Số An Toàn Trung Bình</span>
+                    <span class="text-xl sm:text-2xl font-extrabold text-cyan-600 dark:text-cyan-400">99.1%</span>
+                    <span class="text-[9px] text-cyan-600 block mt-1"><i class="fa-solid fa-shield-halved text-[6px]"></i> Tiêu chuẩn quốc tế</span>
                 </div>
                 <div class="apple-card rounded-2xl p-4 text-center">
-                    <span class="text-[10px] text-slate-500 dark:text-apple-grayText block mb-1">Điểm Nóng Cảnh Báo</span>
-                    <span class="text-xl sm:text-2xl font-extrabold text-rose-500">3 Điểm</span>
-                    <span class="text-[9px] text-rose-500 block mt-1"><i class="fa-solid fa-triangle-exclamation text-[6px]"></i> Cần kiểm tra nhiệt độ</span>
+                    <span class="text-[10px] text-slate-500 dark:text-apple-grayText block mb-1">Thời Gian Sync Hệ Thống</span>
+                    <span class="text-xl sm:text-2xl font-extrabold text-purple-600 dark:text-purple-400 font-mono text-sm sm:text-xl" id="liveSyncTime">00:00:00</span>
+                    <span class="text-[9px] text-purple-600 block mt-1"><i class="fa-solid fa-bolt text-[6px]"></i> Live Feed 24/7</span>
                 </div>
             </div>
 
-            <!-- Interactive Google Maps Integration Frame -->
-            <div class="apple-card rounded-3xl p-4 sm:p-6 mb-8 reveal">
-                <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
-                    <div class="flex items-center gap-2">
-                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Luồng Vận Chuyển & Trạm Giám Sát Thời Gian Thực</h3>
+            <!-- BỐ CỤC 2 CỘT: GOOGLE MAPS 60% (7 CỘT) + BẢN ĐỒ RADAR HIỆU ỨNG LAN TỎA (5 CỘT) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8 reveal">
+                
+                <!-- Cột Trái: Google Map thu gọn (~60% tương đương 7/12 cột) -->
+                <div class="lg:col-span-7 apple-card rounded-3xl p-4 sm:p-5 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <h3 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Luồng Vận Chuyển Giao Hàng Đô Thị</h3>
+                        </div>
+                        <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">Google Maps Live</span>
                     </div>
-                    <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">Trạng thái: Trực tuyến (Live Feed)</span>
+                    <div class="w-full h-72 sm:h-[380px] rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 relative shadow-inner">
+                        <iframe 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125405.67919864215!2d106.60273760205081!3d10.776530000000008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529292e8d3dd1%3A0xf15f5aad773c112!2sHo%20Chi%20Minh%20City%2C%20Vietnam!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s">
+                        </iframe>
+                    </div>
                 </div>
 
-                <div class="w-full h-80 sm:h-[450px] rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 relative shadow-inner">
-                    <iframe 
-                        width="100%" 
-                        height="100%" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125405.67919864215!2d106.60273760205081!3d10.776530000000008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529292e8d3dd1%3A0xf15f5aad773c112!2sHo%20Chi%20Minh%20City%2C%20Vietnam!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s">
-                    </iframe>
+                <!-- Cột Phải: Bản đồ các điểm nóng Radar với hiệu ứng vòng tròn xanh lan tỏa (5/12 cột) -->
+                <div class="lg:col-span-5 apple-card rounded-3xl p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950 text-white border border-blue-500/30">
+                    <div class="absolute -top-12 -right-12 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div>
+                        <div class="flex items-center justify-between mb-3 pb-2 border-b border-white/10">
+                            <span class="text-xs font-bold text-cyan-400 uppercase tracking-widest flex items-center gap-2">
+                                <i class="fa-solid fa-radar animate-spin text-cyan-400"></i> Radar Điểm Nóng & Trạm Phát Sóng
+                            </span>
+                            <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Đang quét sóng</span>
+                        </div>
+                        <p class="text-[11px] text-slate-300 mb-4 leading-relaxed">
+                            Mô phỏng trường lực cảm biến nhiệt độ chuỗi cung ứng. Các vòng tròn màu xanh/tím tỏa ra và tan màu liên tục biểu thị vùng phủ sóng giám sát tem TTI thời gian thực.
+                        </p>
+                    </div>
+
+                    <!-- Khu vực hiển thị các điểm phát sóng với hiệu ứng radar lan tỏa -->
+                    <div class="grid grid-cols-2 gap-3 my-auto py-2">
+                        
+                        <!-- Điểm 1: Củ Chi -->
+                        <div class="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex items-center gap-3 relative overflow-hidden group">
+                            <div class="relative w-8 h-8 flex items-center justify-center shrink-0">
+                                <div class="absolute inset-0 rounded-full bg-emerald-500/40 animate-radar-ping"></div>
+                                <div class="absolute inset-0 rounded-full bg-emerald-500/20 animate-radar-ping" style="animation-delay: 1s;"></div>
+                                <div class="w-3 h-3 rounded-full bg-emerald-400 relative z-10 shadow-lg shadow-emerald-400"></div>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="text-xs font-bold text-white truncate">Hub Củ Chi</div>
+                                <div class="text-[10px] text-emerald-300">Ổn định &lt; 4°C</div>
+                            </div>
+                        </div>
+
+                        <!-- Điểm 2: Thủ Đức -->
+                        <div class="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex items-center gap-3 relative overflow-hidden group">
+                            <div class="relative w-8 h-8 flex items-center justify-center shrink-0">
+                                <div class="absolute inset-0 rounded-full bg-cyan-500/40 animate-radar-ping"></div>
+                                <div class="absolute inset-0 rounded-full bg-cyan-500/20 animate-radar-ping" style="animation-delay: 0.8s;"></div>
+                                <div class="w-3 h-3 rounded-full bg-cyan-400 relative z-10 shadow-lg shadow-cyan-400"></div>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="text-xs font-bold text-white truncate">Chợ Thủ Đức</div>
+                                <div class="text-[10px] text-cyan-300">Đồng bộ liên tục</div>
+                            </div>
+                        </div>
+
+                        <!-- Điểm 3: Bình Điền -->
+                        <div class="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex items-center gap-3 relative overflow-hidden group">
+                            <div class="relative w-8 h-8 flex items-center justify-center shrink-0">
+                                <div class="absolute inset-0 rounded-full bg-blue-500/40 animate-radar-ping"></div>
+                                <div class="absolute inset-0 rounded-full bg-blue-500/20 animate-radar-ping" style="animation-delay: 1.2s;"></div>
+                                <div class="w-3 h-3 rounded-full bg-blue-400 relative z-10 shadow-lg shadow-blue-400"></div>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="text-xs font-bold text-white truncate">Chợ Bình Điền</div>
+                                <div class="text-[10px] text-blue-300">Giám sát hải sản</div>
+                            </div>
+                        </div>
+
+                        <!-- Điểm 4: Quận 1 Core -->
+                        <div class="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex items-center gap-3 relative overflow-hidden group">
+                            <div class="relative w-8 h-8 flex items-center justify-center shrink-0">
+                                <div class="absolute inset-0 rounded-full bg-purple-500/40 animate-radar-ping"></div>
+                                <div class="absolute inset-0 rounded-full bg-purple-500/20 animate-radar-ping" style="animation-delay: 0.5s;"></div>
+                                <div class="w-3 h-3 rounded-full bg-purple-400 relative z-10 shadow-lg shadow-purple-400"></div>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="text-xs font-bold text-white truncate">Q.1 Central</div>
+                                <div class="text-[10px] text-purple-300">Hub bán lẻ cao cấp</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="pt-3 border-t border-white/10 flex items-center justify-between text-[10px] text-slate-400 font-mono">
+                        <span>Trạng thái radar: Hoạt động tối ưu</span>
+                        <span class="text-emerald-400"><i class="fa-solid fa-circle-check"></i> Sẵn sàng kết nối API</span>
+                    </div>
                 </div>
+
             </div>
 
             <!-- Các Điểm Nóng & Luồng Vận Chuyển Chi Tiết -->
@@ -1174,6 +1241,19 @@
         }
 
         initTheme();
+
+        // Tự động cập nhật đồng hồ thời gian thực và live sync giả lập online hằng ngày
+        function updateLiveSyncClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeStr = `${hours}:${minutes}:${seconds}`;
+            const clockEl = document.getElementById('liveSyncTime');
+            if (clockEl) clockEl.textContent = timeStr;
+        }
+        setInterval(updateLiveSyncClock, 1000);
+        updateLiveSyncClock();
 
         function setupScrollReveal() {
             const reveals = document.querySelectorAll('.reveal');
