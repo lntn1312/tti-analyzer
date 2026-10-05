@@ -160,20 +160,35 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        /* Interactive TTI Component Buttons */
-        .tti-part-btn {
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        /* Interactive Visual TTI Label Styles */
+        .tti-interactive-box {
+            position: relative;
+            border: 3px solid #0f172a;
+            border-radius: 1.5rem;
+            background: #ffffff;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        html.dark .tti-interactive-box {
+            border-color: rgba(255,255,255,0.3);
+            background: #1c1c1e;
+        }
+
+        .tti-clickable-part {
             cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 2px solid transparent;
         }
-        .tti-part-btn:hover {
-            transform: translateY(-2px);
-            border-color: rgba(41, 151, 255, 0.5);
-            box-shadow: 0 10px 20px -5px rgba(41, 151, 255, 0.2);
-        }
-        .tti-part-btn.active-part {
+        .tti-clickable-part:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(41, 151, 255, 0.2);
             border-color: #2997ff;
-            background: rgba(41, 151, 255, 0.1) !important;
-            box-shadow: 0 0 15px rgba(41, 151, 255, 0.25);
+        }
+        .tti-clickable-part.active-part {
+            border-color: #2997ff !important;
+            background-color: rgba(41, 151, 255, 0.12) !important;
+            box-shadow: 0 0 0 4px rgba(41, 151, 255, 0.2);
         }
 
         /* Spectrum Bar */
@@ -502,66 +517,76 @@
         </section>
 
 
-        <!-- ==================== TAB 3: KHÁM PHÁ (ĐÃ CẬP NHẬT BOX TƯƠNG TÁC 4 THÀNH PHẦN TTI CHUẨN SƠ ĐỒ MỚI) ==================== -->
+        <!-- ==================== TAB 3: KHÁM PHÁ (MÔ PHỎNG NHÃN TTI TƯƠNG TÁC TRỰC QUAN) ==================== -->
         <section id="sec-explore" class="tab-content hidden max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
             <div class="text-center mb-10 sm:mb-14 reveal">
                 <span class="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-3 inline-block">Tri thức & Ứng dụng thực tiễn</span>
                 <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-3">Khám Phá Toàn Diện Về Bảo Quản Lạnh & TTI</h2>
-                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Tìm hiểu cấu tạo chi tiết tem TTI theo sơ đồ nguyên lý mới, tác động sinh hóa của nhiệt độ và tiêu chuẩn chuỗi lạnh.</p>
+                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Tương tác trực tiếp trên sơ đồ cấu tạo nhãn TTI để tìm hiểu từng thành phần hóa học và cơ chế vận hành.</p>
             </div>
 
             <div class="space-y-6 sm:space-y-8">
                 
-                <!-- BOX THÔNG TIN TƯƠNG TÁC CHUỘT: CẤU TẠO TEM TTI (4 THÀNH PHẦN THEO SƠ ĐỒ MỚI) -->
+                <!-- BOX THÔNG TIN TƯƠNG TÁC MÔ PHỎNG HÌNH ẢNH NHÃN TTI -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 reveal border-l-4 border-l-blue-500">
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 text-lg">
                             <i class="fa-solid fa-hand-pointer"></i>
                         </div>
                         <div>
-                            <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Tương tác thành phần tem</span>
-                            <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">Cấu Tạo Chi Tiết Nhãn TTI Hai Khoang</h3>
+                            <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Mô hình trực quan tương tác</span>
+                            <h3 class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">Bấm Vào Từng Khoang Trên Nhãn TTI</h3>
                         </div>
                     </div>
                     <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed mb-6">
-                        Bấm vào Khoang A, Khoang B hoặc Vách ngăn bên dưới để tương tác trực quan với các thành phần của tem:
+                        Mô hình nhãn dưới đây mô phỏng chính xác sơ đồ cấu tạo thực tế. Bạn hãy bấm vào <strong>Khoang A</strong>, <strong>Khoang B</strong>, hoặc <strong>Vách ngăn</strong> để xem chi tiết thông tin (*Túi bảo vệ bên ngoài bao bọc toàn bộ khung nhãn*):
                     </p>
 
-                    <!-- 4 Nút thành phần tương tác -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-                        <button onclick="selectTTIPart('chamberA')" id="btn-part-chamberA" class="tti-part-btn p-4 rounded-2xl inner-box text-left border border-slate-200 dark:border-white/10 active-part">
-                            <div class="text-blue-500 text-base mb-1.5"><i class="fa-solid fa-vial"></i></div>
-                            <div class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Khoang A</div>
-                            <div class="text-[10px] text-slate-500 dark:text-apple-grayText">Vitamin C + Iod</div>
-                        </button>
+                    <!-- KHUNG MÔ PHỎNG NHÃN TTI TƯƠNG TÁC -->
+                    <div class="tti-interactive-box mb-6">
+                        <!-- Nhãn Thông Báo Tỉnh / Gợi Ý -->
+                        <div class="absolute -top-3 left-6 px-3 py-1 bg-blue-600 text-white rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm">
+                            <i class="fa-solid fa-shield-halved mr-1"></i> Túi Bảo Vệ Tem Bên Ngoài (Bao bọc toàn khung)
+                        </div>
 
-                        <button onclick="selectTTIPart('chamberB')" id="btn-part-chamberB" class="tti-part-btn p-4 rounded-2xl inner-box text-left border border-slate-200 dark:border-white/10">
-                            <div class="text-emerald-500 text-base mb-1.5"><i class="fa-solid fa-flask-vial"></i></div>
-                            <div class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Khoang B</div>
-                            <div class="text-[10px] text-slate-500 dark:text-apple-grayText">H₂O₂ + Hồ tinh bột</div>
-                        </button>
+                        <!-- Các thành phần bên trong -->
+                        <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center mt-3 pt-2">
+                            
+                            <!-- Khoang A -->
+                            <div onclick="selectTTIPart('chamberA')" id="part-chamberA" class="tti-clickable-part sm:col-span-5 p-5 rounded-2xl bg-blue-500/10 border-2 border-blue-400/40 text-center active-part">
+                                <div class="text-blue-600 dark:text-blue-400 text-xl mb-1"><i class="fa-solid fa-vial"></i></div>
+                                <h4 class="font-extrabold text-slate-900 dark:text-white text-base sm:text-lg mb-1">Khoang A</h4>
+                                <div class="text-xs font-semibold text-blue-600 dark:text-blue-300">Vitamin C + Iod</div>
+                                <span class="inline-block mt-2 text-[10px] px-2.5 py-0.5 rounded-full bg-blue-500 text-white font-medium">Bấm xem chi tiết</span>
+                            </div>
 
-                        <button onclick="selectTTIPart('barrier')" id="btn-part-barrier" class="tti-part-btn p-4 rounded-2xl inner-box text-left border border-slate-200 dark:border-white/10">
-                            <div class="text-amber-500 text-base mb-1.5"><i class="fa-solid fa-arrows-split-up-and-left"></i></div>
-                            <div class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Vách Ngăn</div>
-                            <div class="text-[10px] text-slate-500 dark:text-apple-grayText">Làm từ bông cotton</div>
-                        </button>
+                            <!-- Vách Ngăn (Bông cotton) -->
+                            <div onclick="selectTTIPart('barrier')" id="part-barrier" class="tti-clickable-part sm:col-span-2 p-3 rounded-2xl bg-amber-500/15 border-2 border-amber-400/50 text-center flex flex-col items-center justify-center">
+                                <div class="text-amber-600 dark:text-amber-400 text-lg mb-1"><i class="fa-solid fa-arrows-split-up-and-left"></i></div>
+                                <h4 class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Vách ngăn</h4>
+                                <div class="text-[10px] text-slate-600 dark:text-amber-300 font-medium">Bông cotton</div>
+                                <span class="inline-block mt-1.5 text-[9px] px-2 py-0.5 rounded-full bg-amber-500 text-white">Bấm xem</span>
+                            </div>
 
-                        <button onclick="selectTTIPart('outerBag')" id="btn-part-outerBag" class="tti-part-btn p-4 rounded-2xl inner-box text-left border border-slate-200 dark:border-white/10">
-                            <div class="text-purple-500 text-base mb-1.5"><i class="fa-solid fa-shield-halved"></i></div>
-                            <div class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Túi Bảo Vệ</div>
-                            <div class="text-[10px] text-slate-500 dark:text-apple-grayText">Bao bọc bên ngoài</div>
-                        </button>
+                            <!-- Khoang B -->
+                            <div onclick="selectTTIPart('chamberB')" id="part-chamberB" class="tti-clickable-part sm:col-span-5 p-5 rounded-2xl bg-emerald-500/10 border-2 border-emerald-400/40 text-center">
+                                <div class="text-emerald-600 dark:text-emerald-400 text-xl mb-1"><i class="fa-solid fa-flask-vial"></i></div>
+                                <h4 class="font-extrabold text-slate-900 dark:text-white text-base sm:text-lg mb-1">Khoang B</h4>
+                                <div class="text-xs font-semibold text-emerald-600 dark:text-emerald-300">H₂O₂ + Hồ tinh bột</div>
+                                <span class="inline-block mt-2 text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500 text-white font-medium">Bấm xem chi tiết</span>
+                            </div>
+
+                        </div>
                     </div>
 
                     <!-- Khu vực hiển thị thông tin chi tiết khi bấm tương tác -->
                     <div id="tti-display-box" class="p-5 sm:p-6 rounded-2xl bg-blue-500/5 dark:bg-white/5 border border-blue-500/20 transition-all duration-300">
                         <div class="flex items-center gap-3 mb-2">
                             <div id="tti-display-icon" class="text-blue-500 text-xl"><i class="fa-solid fa-vial"></i></div>
-                            <h4 id="tti-display-title" class="font-bold text-slate-900 dark:text-white text-sm sm:text-base">Khoang A: Chứa Vitamin C + Iod</h4>
+                            <h4 id="tti-display-title" class="font-bold text-slate-900 dark:text-white text-sm sm:text-base">Khoang A: Chứa hỗn hợp Vitamin C + Iod</h4>
                         </div>
                         <p id="tti-display-desc" class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed">
-                            Chứa dung dịch hỗn hợp chất khử Vitamin C kết hợp cùng Iod. Khoang này đóng vai trò chất hoạt hóa ban đầu, tạo ra khoảng thời gian trễ trước khi khuếch tán sang khoang phản ứng.
+                            Khoang chứa dung dịch hoạt hóa gồm Vitamin C và Iod. Khoang này đóng vai trò chất khử tạo khoảng thời gian trễ (induction period) ban đầu nhằm ngăn chặn phản ứng đổi màu xảy ra quá sớm khi sản phẩm vẫn ở nhiệt độ chuẩn.
                         </p>
                     </div>
                 </div>
@@ -1050,17 +1075,17 @@
     <canvas id="hiddenCanvas" class="hidden"></canvas>
 
     <script>
-        // CẤU HÌNH INTERACTIVE TTI PARTS CHO MỤC KHÁM PHÁ (SƠ ĐỒ MỚI)
+        // CẤU HÌNH NỘI DUNG TƯƠNG TÁC CHO MỤC KHÁM PHÁ (CHÍNH XÁC THEO YÊU CẦU)
         const ttiDataContent = {
             chamberA: {
-                title: "Khoang A: Chứa hỗn hợp Vitamin C + Iod",
-                desc: "Khoang chứa dung dịch hoạt hóa gồm Vitamin C và Iod. Khoang này đóng vai trò chất khử tạo khoảng thời gian trễ (induction period) ban đầu nhằm ngăn chặn phản ứng đổi màu xảy ra quá sớm khi sản phẩm vẫn ở nhiệt độ chuẩn.",
+                title: "Khoang A: Chứa Vitamin C + Iod",
+                desc: "Khoang chứa dung dịch hoạt hóa gồm Vitamin C kết hợp với Iod. Khoang này đóng vai trò chất khử tạo ra khoảng thời gian trễ (induction period) ban đầu nhằm ngăn chặn phản ứng đổi màu xảy ra quá sớm khi sản phẩm vẫn ở nhiệt độ chuẩn.",
                 icon: '<i class="fa-solid fa-vial"></i>',
                 color: 'text-blue-500'
             },
             chamberB: {
-                title: "Khoang B: Chứa dung dịch H₂O₂ + Hồ tinh bột",
-                desc: "Khoang chứa chất oxy hóa (Hydrogen peroxide - H₂O₂) kết hợp cùng hồ tinh bột. Đây là vùng hiển thị trung tâm sẽ chuyển màu trực quan (xanh navy, xanh tím đến xanh đen sẫm) ngay khi dung dịch từ khoang A vượt qua vách ngăn khuếch tán sang do tích lũy nhiệt độ.",
+                title: "Khoang B: Chứa H₂O₂ + Hồ tinh bột",
+                desc: "Khoang chứa dung dịch chất oxy hóa (Hydrogen peroxide - H₂O₂) kết hợp cùng hồ tinh bột. Đây là vùng hiển thị trung tâm sẽ chuyển dần màu sắc từ trắng sang xanh Navy, xanh tím và xanh đen sẫm ngay khi dung dịch từ khoang A khuếch tán sang do tích lũy nhiệt độ.",
                 icon: '<i class="fa-solid fa-flask-vial"></i>',
                 color: 'text-emerald-500'
             },
@@ -1069,20 +1094,14 @@
                 desc: "Giải thích: Nơi đây đóng vai trò là lớp màng xốp làm từ bông cotton thấm hút đặc biệt, dùng để cách ly hoàn toàn dung dịch giữa khoang A và khoang B ở trạng thái tĩnh. Khi người dùng ấn nhẹ kích hoạt trước lúc vận chuyển, vách ngăn cotton này cho phép dung dịch khuếch tán từ từ từ khoang A sang khoang B để bắt đầu quá trình ghi nhận lịch sử nhiệt độ tích lũy.",
                 icon: '<i class="fa-solid fa-arrows-split-up-and-left"></i>',
                 color: 'text-amber-500'
-            },
-            outerBag: {
-                title: "Túi bảo vệ tem bên ngoài (Màng bao bọc)",
-                desc: "Lớp màng polymer trong suốt bao bọc toàn bộ bên ngoài cấu trúc tem. Túi bảo vệ này giữ vai trò cô lập hệ phản ứng hóa học với môi trường bên ngoài, chống bay hơi dung dịch, ngăn chặn độ ẩm kho lạnh và bảo vệ tem khỏi tia cực tím (UV).",
-                icon: '<i class="fa-solid fa-shield-halved"></i>',
-                color: 'text-purple-500'
             }
         };
 
         function selectTTIPart(partKey) {
-            // Xóa active tất cả các nút
-            document.querySelectorAll('.tti-part-btn').forEach(btn => btn.classList.remove('active-part'));
-            // Thêm active cho nút được bấm
-            document.getElementById(`btn-part-${partKey}`).classList.add('active-part');
+            // Xóa active tất cả các phần tử trên nhãn mô phỏng
+            document.querySelectorAll('.tti-clickable-part').forEach(el => el.classList.remove('active-part'));
+            // Thêm active cho phần được bấm
+            document.getElementById(`part-${partKey}`).classList.add('active-part');
 
             const info = ttiDataContent[partKey];
             document.getElementById('tti-display-title').textContent = info.title;
