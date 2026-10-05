@@ -157,6 +157,24 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
+        /* SVG Map Custom Interactive Styles */
+        .map-region-node {
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .map-region-node:hover {
+            filter: brightness(1.2);
+        }
+        .map-region-node.dimmed {
+            opacity: 0.25;
+            filter: grayscale(80%);
+        }
+        .map-region-node.highlighted {
+            opacity: 1;
+            filter: drop-shadow(0 0 12px rgba(41, 151, 255, 0.8));
+            transform: scale(1.03);
+        }
+
         .tti-interactive-outer-frame {
             position: relative;
             border: 3px solid #0f172a;
@@ -567,9 +585,8 @@
                     <div class="w-full h-64 sm:h-80 rounded-2xl bg-slate-200 dark:bg-slate-800 overflow-hidden relative flex items-center justify-center border border-slate-300 dark:border-white/10 shadow-inner">
                         <!-- Thẻ hình ảnh cautructem.jpg -->
                         <img src="./cautructem.jpg" alt="Cấu trúc chi tiết nhãn TTI" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'400\'><rect width=\'100%\' height=\'100%\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2394a3b8\' font-size=\'20\' font-family=\'sans-serif\'>Hình ảnh: cautructem.jpg (Chèn tệp vào cùng thư mục)</text></svg>';">
-                        
                     </div>
-                    <p class="text-xs text-slate-500 dark:text-apple-grayText mt-3 font-medium">Hình ảnh sản phẩm thực tế tem TTI.</p>
+                    <p class="text-xs text-slate-500 dark:text-apple-grayText mt-3 font-medium">Sơ đồ minh họa nguyên lý cấu trúc màng hai khoang và cơ chế khuếch tán dung dịch của nhãn TTI.</p>
                 </div>
 
                 <!-- 2. TÁC ĐỘNG CỦA NHIỆT ĐỘ ĐẾN BẢO QUẢN THỰC PHẨM -->
@@ -670,9 +687,8 @@
                     <div class="w-full h-64 sm:h-80 rounded-2xl bg-slate-200 dark:bg-slate-800 overflow-hidden relative flex items-center justify-center border border-slate-300 dark:border-white/10 shadow-inner">
                         <!-- Thẻ hình ảnh spdonglanh.jpg -->
                         <img src="./spdonglanh.jpg" alt="Sản phẩm bảo quản lạnh chuẩn" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'400\'><rect width=\'100%\' height=\'100%\' fill=\'%230f172a\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2394a3b8\' font-size=\'20\' font-family=\'sans-serif\'>Hình ảnh: spdonglanh.jpg (Chèn tệp vào cùng thư mục)</text></svg>';">
-                       
                     </div>
-                    <p class="text-xs text-slate-500 dark:text-apple-grayText mt-3 font-medium">Thực phẩm bảo quản lạnh.</p>
+                    <p class="text-xs text-slate-500 dark:text-apple-grayText mt-3 font-medium">Hệ thống tủ bảo quản đông lạnh và xe tải chuyên dụng duy trì chuỗi cung ứng lạnh đạt chuẩn đô thị.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -728,31 +744,68 @@
             <div class="text-center mb-10 sm:mb-14 reveal">
                 <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-3 inline-block">Hệ thống giám sát đô thị thông minh</span>
                 <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-3">Bản Đồ Số Hóa Chuỗi Lạnh Đô Thị (HCMC Dashboard)</h2>
-                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Giám sát dữ liệu công khai cập nhật online hằng ngày trên toàn mạng internet và các điểm nóng thời gian thực tại TP.HCM.</p>
+                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Tự tạo bản đồ TP.HCM vector độc quyền, đồng bộ tương tác sáng bừng vùng trọng điểm và làm mờ xám các khu vực còn lại.</p>
             </div>
 
-            <!-- BỐ CỤC 2 CỘT: GOOGLE MAPS TOÀN CẢNH HCMC (60%) + BẢN ĐỒ PHỤ BOX XANH PASTEL TƯƠNG TÁC BẤM VÀO 4 Ô ĐỊA ĐIỂM (40%) -->
+            <!-- BỐ CỤC 2 CỘT: BẢN ĐỒ SVG TỰ TẠO TP.HCM (60%) + BẢN ĐỒ PHỤ BOX XANH PASTEL TƯƠNG TÁC (40%) -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8 reveal">
                 
-                <!-- Cột Trái: Google Map toàn cảnh TP.HCM (~60% tương đương 7/12 cột) -->
+                <!-- Cột Trái: Bản đồ SVG Tự Thiết Kế TP.HCM (~60% tương đương 7/12 cột) -->
                 <div class="lg:col-span-7 apple-card rounded-3xl p-4 sm:p-5 flex flex-col justify-between">
                     <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
                         <div class="flex items-center gap-2">
                             <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                            <h3 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Bản Đồ Tổng Quan Mạng Lưới Chuỗi Lạnh TP.HCM</h3>
+                            <h3 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Bản Đồ Vector Vùng Trọng Điểm TP.HCM</h3>
                         </div>
-                        <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">Google Maps HCMC View</span>
+                        <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">Interactive SVG Map</span>
                     </div>
-                    <div class="w-full h-72 sm:h-[380px] rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 relative shadow-inner">
-                        <iframe 
-                            width="100%" 
-                            height="100%" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d250646.29415418197!2d106.51351187428813!3d10.824424364239855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f11.3!3m3!1m2!1s0x317529292e8d3dd1%3A0xf15f5aad773c112!2sHo%20Chi%20Minh%20City%2C%20Vietnam!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s">
-                        </iframe>
+
+                    <!-- KHUNG SVG MAP THỦ CÔNG ĐỘC QUYỀN -->
+                    <div class="w-full h-72 sm:h-[380px] rounded-2xl bg-slate-950 overflow-hidden border border-slate-800 relative shadow-inner flex items-center justify-center p-2">
+                        <svg viewBox="0 0 600 450" class="w-full h-full drop-shadow-lg" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Nền bản đồ mô phỏng địa hình TP.HCM -->
+                            <rect width="600" height="450" fill="#090d16" rx="16"/>
+                            
+                            <!-- Đường sông Sài Gòn & Nhà Bè uốn lượn -->
+                            <path d="M 120,40 Q 220,150 280,240 T 450,420" stroke="#1e293b" stroke-width="18" fill="none" stroke-linecap="round"/>
+                            <path d="M 280,240 Q 340,280 420,260" stroke="#1e293b" stroke-width="12" fill="none" stroke-linecap="round"/>
+
+                            <!-- 1. CỦ CHI HUB (Phía Bắc) -->
+                            <g id="svg-region-cuchi" class="map-region-node" onclick="selectMapRegion('cuchi')">
+                                <ellipse cx="180" cy="90" rx="65" ry="45" fill="#10b981" fill-opacity="0.3" stroke="#10b981" stroke-width="2"/>
+                                <circle cx="180" cy="90" r="10" class="animate-ping" fill="#10b981" opacity="0.6"/>
+                                <circle cx="180" cy="90" r="6" fill="#10b981"/>
+                                <text x="180" y="148" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">Củ Chi Hub (Sữa)</text>
+                            </g>
+
+                            <!-- 2. CHỢ HÓC MÔN (Phía Tây Bắc) -->
+                            <g id="svg-region-hocmon" class="map-region-node" onclick="selectMapRegion('hocmon')">
+                                <ellipse cx="230" cy="180" rx="55" ry="35" fill="#f59e0b" fill-opacity="0.3" stroke="#f59e0b" stroke-width="2"/>
+                                <circle cx="230" cy="180" r="10" class="animate-ping" fill="#f59e0b" opacity="0.6"/>
+                                <circle cx="230" cy="180" r="6" fill="#f59e0b"/>
+                                <text x="230" y="230" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">Chợ Hóc Môn</text>
+                            </g>
+
+                            <!-- 3. CHỢ THỦ ĐỨC (Phía Đông) -->
+                            <g id="svg-region-thuduc" class="map-region-node" onclick="selectMapRegion('thuduc')">
+                                <ellipse cx="420" cy="170" rx="60" ry="40" fill="#06b6d4" fill-opacity="0.3" stroke="#06b6d4" stroke-width="2"/>
+                                <circle cx="420" cy="170" r="10" class="animate-ping" fill="#06b6d4" opacity="0.6"/>
+                                <circle cx="420" cy="170" r="6" fill="#06b6d4"/>
+                                <text x="420" y="225" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">Chợ Thủ Đức</text>
+                            </g>
+
+                            <!-- 4. CHỢ BÌNH ĐIỀN (Phía Nam - Quận 8) -->
+                            <g id="svg-region-binhdien" class="map-region-node highlighted" onclick="selectMapRegion('binhdien')">
+                                <ellipse cx="300" cy="340" rx="65" ry="45" fill="#3b82f6" fill-opacity="0.4" stroke="#3b82f6" stroke-width="3"/>
+                                <circle cx="300" cy="340" r="12" class="animate-ping" fill="#3b82f6" opacity="0.7"/>
+                                <circle cx="300" cy="340" r="7" fill="#3b82f6"/>
+                                <text x="300" y="398" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">Chợ Bình Điền (Q.8)</text>
+                            </g>
+                        </svg>
+
+                        <div class="absolute bottom-3 left-3 px-3 py-1 rounded-xl bg-black/70 backdrop-blur-md text-white text-[10px] font-mono border border-white/15">
+                            Bấm vào các vùng để tương tác trực tiếp
+                        </div>
                     </div>
                 </div>
 
@@ -765,10 +818,10 @@
                             <span class="text-xs font-bold text-blue-600 dark:text-blue-300 uppercase tracking-widest flex items-center gap-2">
                                 <i class="fa-solid fa-map-location-dot"></i> 4 Tâm Điểm Thực Phẩm Đông Dân TPHCM
                             </span>
-                            <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-300 border border-blue-500/20">Bấm vào ô để xem</span>
+                            <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-300 border border-blue-500/20">Bấm vào ô để sáng bản đồ</span>
                         </div>
                         <p class="text-[11px] text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
-                            Bấm chọn các ô địa điểm bên dưới để đồng bộ toàn bộ hệ thống thông tin chi tiết:
+                            Bấm chọn các ô bên dưới: Vùng tương ứng trên bản đồ SVG sẽ sáng bừng, các vùng khác mờ đi.
                         </p>
                     </div>
 
@@ -1243,7 +1296,7 @@
             document.getElementById('tti-display-icon').className = `text-xl ${info.color}`;
         }
 
-        // Dữ liệu 4 địa điểm tương tác bấm và đồng bộ 4 khối thẻ bên dưới
+        // Dữ liệu 4 địa điểm tương tác bấm và đồng bộ SVG Map + 4 khối thẻ bên dưới
         const regionMapData = {
             binhdien: {
                 title: "Chợ Đầu Mối Bình Điền (Quận 8)",
@@ -1308,6 +1361,7 @@
         };
 
         function selectMapRegion(regionKey) {
+            // 1. Đồng bộ ô chọn ở bản đồ phụ
             document.querySelectorAll('.map-box-item').forEach(el => {
                 el.classList.remove('border-blue-500', 'border-2');
                 el.classList.add('border-2', 'border-transparent');
@@ -1318,6 +1372,22 @@
                 activeBox.classList.add('border-blue-500', 'border-2');
             }
 
+            // 2. Đồng bộ hiệu ứng SVG Map: Vùng được chọn sáng lên, các vùng khác mờ xám đi
+            const allRegions = ['binhdien', 'thuduc', 'hocmon', 'cuchi'];
+            allRegions.forEach(key => {
+                const node = document.getElementById(`svg-region-${key}`);
+                if (node) {
+                    if (key === regionKey) {
+                        node.classList.add('highlighted');
+                        node.classList.remove('dimmed');
+                    } else {
+                        node.classList.remove('highlighted');
+                        node.classList.add('dimmed');
+                    }
+                }
+            });
+
+            // 3. Đồng bộ dữ liệu chi tiết
             const data = regionMapData[regionKey];
             if (!data) return;
 
