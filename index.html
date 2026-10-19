@@ -72,7 +72,7 @@
             touch-action: manipulation;
             -webkit-font-smoothing: antialiased;
             transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            background-color: #fcfbf9; /* Trắng nhạt be sang trọng */
+            background-color: #fcfbf9;
             color: #1c1c1e;
         }
 
@@ -111,7 +111,7 @@
         }
 
         .nav-container, .inner-box {
-            background: #f4f2ee; /* Be nhạt ấm áp */
+            background: #f4f2ee;
             border: 1px solid rgba(0, 0, 0, 0.06);
         }
 
@@ -157,7 +157,6 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        /* SVG Map Custom Interactive Styles (Be/Trắng nền, ranh giới rõ nét) */
         .map-region-node {
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -319,20 +318,37 @@
             </div>
 
             <div class="flex items-center gap-1 sm:gap-2 min-w-0">
-                <nav class="nav-container flex items-center gap-0.5 sm:gap-1 p-0.5 sm:p-1 rounded-full text-[10px] sm:text-xs font-medium overflow-x-auto shadow-inner no-scrollbar">
-                    <button onclick="switchTab('home')" id="tab-home" class="tab-btn active px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">🏠 Trang chủ</button>
-                    <button onclick="switchTab('about')" id="tab-about" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">ℹ Giới thiệu</button>
-                    <button onclick="switchTab('explore')" id="tab-explore" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">🧭 Khám phá</button>
-                    <button onclick="switchTab('map')" id="tab-map" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">
-                        <span>🗺 Bản đồ HCMC</span>
-                    </button>
-                    <button onclick="switchTab('economy')" id="tab-economy" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">
-                        <span>📈 Kinh tế & Scale</span>
-                    </button>
-                    <button onclick="switchTab('survey')" id="tab-survey" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full flex items-center gap-1">
+                <!-- THANH ĐIỀU HƯỚNG CHỈ CÒN TRANG CHỦ, KHẢO SÁT VÀ NÚT THÊM -->
+                <nav class="nav-container flex items-center gap-0.5 sm:gap-1 p-0.5 sm:p-1 rounded-full text-[10px] sm:text-xs font-medium shadow-inner relative">
+                    <button onclick="switchTab('home')" id="tab-home" class="tab-btn active px-3 sm:px-4 py-1.5 rounded-full">🏠 Trang chủ</button>
+                    <button onclick="switchTab('survey')" id="tab-survey" class="tab-btn px-3 sm:px-4 py-1.5 rounded-full flex items-center gap-1">
                         <span>📋 Khảo sát</span>
                         <span class="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0 animate-ping"></span>
                     </button>
+                    
+                    <!-- NÚT THÊM ĐỂ HIỂN THỊ CÁC MỤC KHÁC -->
+                    <div class="relative">
+                        <button id="moreDropdownBtn" onclick="toggleMoreMenu(event)" class="tab-btn px-3 sm:px-4 py-1.5 rounded-full flex items-center gap-1.5 bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold border border-blue-500/20">
+                            <span>➕ Thêm</span>
+                            <i class="fa-solid fa-chevron-down text-[9px] transition-transform duration-300" id="chevronIcon"></i>
+                        </button>
+
+                        <!-- MENU THẢ XUỐNG (DROPDOWN) CHO CÁC THẺ CÒN LẠI -->
+                        <div id="moreDropdownMenu" class="absolute right-0 mt-2 w-48 bg-white dark:bg-[#161617] rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 py-2 hidden z-50 flex flex-col gap-1">
+                            <button onclick="switchTabAndClose('about')" id="tab-about" class="tab-btn text-left px-4 py-2 text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-info text-blue-500 w-4"></i> Giới thiệu
+                            </button>
+                            <button onclick="switchTabAndClose('explore')" id="tab-explore" class="tab-btn text-left px-4 py-2 text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2">
+                                <i class="fa-solid fa-compass text-cyan-500 w-4"></i> Khám phá
+                            </button>
+                            <button onclick="switchTabAndClose('map')" id="tab-map" class="tab-btn text-left px-4 py-2 text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2">
+                                <i class="fa-solid fa-map text-emerald-500 w-4"></i> Bản đồ HCMC
+                            </button>
+                            <button onclick="switchTabAndClose('economy')" id="tab-economy" class="tab-btn text-left px-4 py-2 text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-purple-500 w-4"></i> Kinh tế & Scale
+                            </button>
+                        </div>
+                    </div>
                 </nav>
 
                 <button id="themeToggleBtn" onclick="toggleTheme()" class="w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center bg-slate-200 dark:bg-white/10 text-slate-700 dark:text-amber-300 hover:scale-110 active:scale-95 transition-all shadow-sm border border-slate-300 dark:border-white/15 shrink-0" title="Chuyển chế độ Sáng / Tối">
@@ -577,10 +593,8 @@
                     </div>
                 </div>
 
-                <!-- ẢNH ĐƯỢC CHÈN: cautructem.jpg (Dưới phần cấu tạo tem và trên phần tác động nhiệt) -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 reveal overflow-hidden text-center">
                     <div class="w-full h-64 sm:h-80 rounded-2xl bg-slate-200 dark:bg-slate-800 overflow-hidden relative flex items-center justify-center border border-slate-300 dark:border-white/10 shadow-inner">
-                        <!-- Thẻ hình ảnh cautructem.jpg -->
                         <img src="./cautructem.jpg" alt="Cấu trúc chi tiết nhãn TTI" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'400\'><rect width=\'100%\' height=\'100%\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2394a3b8\' font-size=\'20\' font-family=\'sans-serif\'>Hình ảnh: cautructem.jpg (Chèn tệp vào cùng thư mục)</text></svg>';">
                     </div>
                     <p class="text-xs text-slate-500 dark:text-apple-grayText mt-3 font-medium">Hình ảnh thực tế cấu tạo tem TTI.</p>
@@ -679,10 +693,8 @@
                     </div>
                 </div>
 
-                <!-- ẢNH ĐƯỢC CHÈN: spdonglanh.jpg (Dưới phần dải nhiệt độ và trên phần thân thiện môi trường) -->
                 <div class="apple-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 reveal overflow-hidden text-center">
                     <div class="w-full h-64 sm:h-80 rounded-2xl bg-slate-200 dark:bg-slate-800 overflow-hidden relative flex items-center justify-center border border-slate-300 dark:border-white/10 shadow-inner">
-                        <!-- Thẻ hình ảnh spdonglanh.jpg -->
                         <img src="./spdonglanh.jpg" alt="Sản phẩm bảo quản lạnh chuẩn" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'400\'><rect width=\'100%\' height=\'100%\' fill=\'%230f172a\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2394a3b8\' font-size=\'20\' font-family=\'sans-serif\'>Hình ảnh: spdonglanh.jpg (Chèn tệp vào cùng thư mục)</text></svg>';">
                     </div>
                     <p class="text-xs text-slate-500 dark:text-apple-grayText mt-3 font-medium">Thực phẩm đông lạnh.</p>
@@ -744,10 +756,8 @@
                 <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Tự tạo bản đồ TP.HCM vector độc quyền, đồng bộ tương tác sáng bừng vùng trọng điểm và làm mờ xám các khu vực còn lại.</p>
             </div>
 
-            <!-- BỐ CỤC 2 CỘT: BẢN ĐỒ SVG TỰ TẠO TP.HCM (60%) + BẢN ĐỒ PHỤ BOX XANH PASTEL TƯƠNG TÁC (40%) -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8 reveal">
                 
-                <!-- Cột Trái: Bản đồ SVG Tự Thiết Kế TP.HCM (Nền Trắng Nhạt Be / Ranh giới rõ nét) -->
                 <div class="lg:col-span-7 apple-card rounded-3xl p-4 sm:p-5 flex flex-col justify-between">
                     <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
                         <div class="flex items-center gap-2">
@@ -757,27 +767,18 @@
                         <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">Interactive SVG Map</span>
                     </div>
 
-                    <!-- KHUNG SVG MAP THỦ CÔNG ĐỘC QUYỀN VỚI NỀN TRẮNG NHẠT - BE & RANH GIỚI SẮC NÉT -->
                     <div class="w-full h-72 sm:h-[380px] rounded-2xl bg-[#f4f2ee] dark:bg-slate-950 overflow-hidden border border-slate-300 dark:border-slate-800 relative shadow-inner flex items-center justify-center p-2 transition-colors duration-500">
                         <svg viewBox="0 0 600 450" class="w-full h-full drop-shadow-md" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Nền tổng thể bản đồ TP.HCM (Trắng nhạt / be) -->
                             <rect width="600" height="450" fill="#f8f6f0" rx="16" class="dark:fill-[#090d16] transition-colors duration-500"/>
                             
-                            <!-- Ranh giới các vùng/quận huyện giả lập dạng mảng bản đồ địa lý -->
-                            <!-- Khu vực phía Bắc / Củ Chi -->
                             <path d="M 50,20 L 320,20 L 300,160 L 120,170 Z" fill="#e8e4dc" stroke="#cbd5e1" stroke-width="1.5" class="dark:fill-[#131b2e] dark:stroke-[#334155]"/>
-                            <!-- Khu vực Tây Bắc / Hóc Môn - Quận 12 -->
                             <path d="M 120,170 L 300,160 L 290,260 L 150,270 Z" fill="#eeeae2" stroke="#cbd5e1" stroke-width="1.5" class="dark:fill-[#172033] dark:stroke-[#334155]"/>
-                            <!-- Khu vực Đông / Thủ Đức - Quận 9 cũ -->
                             <path d="M 320,20 L 520,60 L 530,280 L 300,260 Z" fill="#e2ded6" stroke="#cbd5e1" stroke-width="1.5" class="dark:fill-[#0f172a] dark:stroke-[#334155]"/>
-                            <!-- Khu vực Nam / Bình Chánh - Quận 8 - Nhà Bè -->
                             <path d="M 150,270 L 300,260 L 530,280 L 480,430 L 180,430 Z" fill="#eae6de" stroke="#cbd5e1" stroke-width="1.5" class="dark:fill-[#111827] dark:stroke-[#334155]"/>
 
-                            <!-- Đường sông Sài Gòn & Nhà Bè uốn lượn xuyên suốt thành phố -->
                             <path d="M 140,20 Q 230,160 300,250 T 480,430" stroke="#93c5fd" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.7"/>
                             <path d="M 300,250 Q 360,290 440,270" stroke="#93c5fd" stroke-width="7" fill="none" stroke-linecap="round" opacity="0.7"/>
 
-                            <!-- 1. CỦ CHI HUB (Phía Bắc) -->
                             <g id="svg-region-cuchi" class="map-region-node" onclick="selectMapRegion('cuchi')">
                                 <ellipse cx="180" cy="90" rx="65" ry="45" fill="#10b981" fill-opacity="0.25" stroke="#10b981" stroke-width="2.5"/>
                                 <circle cx="180" cy="90" r="10" class="animate-ping" fill="#10b981" opacity="0.6"/>
@@ -785,7 +786,6 @@
                                 <text x="180" y="148" fill="#0f172a" class="dark:fill-white font-bold" font-size="11" text-anchor="middle">Củ Chi Hub (Sữa)</text>
                             </g>
 
-                            <!-- 2. CHỢ HÓC MÔN (Phía Tây Bắc) -->
                             <g id="svg-region-hocmon" class="map-region-node" onclick="selectMapRegion('hocmon')">
                                 <ellipse cx="230" cy="180" rx="55" ry="35" fill="#f59e0b" fill-opacity="0.25" stroke="#f59e0b" stroke-width="2.5"/>
                                 <circle cx="230" cy="180" r="10" class="animate-ping" fill="#f59e0b" opacity="0.6"/>
@@ -793,7 +793,6 @@
                                 <text x="230" y="230" fill="#0f172a" class="dark:fill-white font-bold" font-size="11" text-anchor="middle">Chợ Hóc Môn</text>
                             </g>
 
-                            <!-- 3. CHỢ THỦ ĐỨC (Phía Đông) -->
                             <g id="svg-region-thuduc" class="map-region-node" onclick="selectMapRegion('thuduc')">
                                 <ellipse cx="420" cy="170" rx="60" ry="40" fill="#06b6d4" fill-opacity="0.25" stroke="#06b6d4" stroke-width="2.5"/>
                                 <circle cx="420" cy="170" r="10" class="animate-ping" fill="#06b6d4" opacity="0.6"/>
@@ -801,7 +800,6 @@
                                 <text x="420" y="225" fill="#0f172a" class="dark:fill-white font-bold" font-size="11" text-anchor="middle">Chợ Thủ Đức</text>
                             </g>
 
-                            <!-- 4. CHỢ BÌNH ĐIỀN (Phía Nam - Quận 8) -->
                             <g id="svg-region-binhdien" class="map-region-node highlighted" onclick="selectMapRegion('binhdien')">
                                 <ellipse cx="300" cy="340" rx="65" ry="45" fill="#3b82f6" fill-opacity="0.35" stroke="#3b82f6" stroke-width="3"/>
                                 <circle cx="300" cy="340" r="12" class="animate-ping" fill="#3b82f6" opacity="0.7"/>
@@ -816,7 +814,6 @@
                     </div>
                 </div>
 
-                <!-- Cột Phải: Bản đồ phụ BOX XANH DƯƠNG PASTEL (4 Ô địa điểm bấm vào) -->
                 <div class="lg:col-span-5 rounded-3xl p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 shadow-lg">
                     <div class="absolute -top-12 -right-12 w-48 h-48 bg-blue-400/10 rounded-full blur-3xl pointer-events-none"></div>
                     
@@ -832,7 +829,6 @@
                         </p>
                     </div>
 
-                    <!-- 4 Ô địa điểm tương tác bấm -->
                     <div class="grid grid-cols-2 gap-2 my-2">
                         <div id="box-binhdien" onclick="selectMapRegion('binhdien')" class="map-box-item p-3 rounded-2xl bg-white dark:bg-slate-900 border-2 border-blue-500 cursor-pointer shadow-sm transition">
                             <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
@@ -863,7 +859,6 @@
                         </div>
                     </div>
 
-                    <!-- Hộp hiển thị thông tin địa điểm và 3 mục bổ trợ chữ rõ ràng -->
                     <div id="mapRegionInfo" class="p-4 rounded-2xl bg-white/95 dark:bg-slate-900/95 border border-blue-300 dark:border-blue-800 shadow-inner mt-2">
                         <div class="flex items-center justify-between mb-1">
                             <span id="infoTitle" class="text-xs sm:text-sm font-bold text-blue-600 dark:text-blue-400">Chợ Đầu Mối Bình Điền (Quận 8)</span>
@@ -871,7 +866,6 @@
                         </div>
                         <div class="text-xs text-slate-700 dark:text-gray-200 font-medium mb-3" id="infoSubtitle">Trung tâm mua bán hải sản & thịt tươi sống lớn nhất TPHCM</div>
                         
-                        <!-- 3 mục bổ trợ cho địa điểm được chọn (chữ to rõ, không quá nhỏ) -->
                         <div class="grid grid-cols-3 gap-2 text-[11px] text-slate-700 dark:text-gray-200 border-t border-blue-100 dark:border-blue-900 pt-2.5">
                             <div class="p-2 rounded-xl bg-blue-500/10 dark:bg-white/5 border border-blue-500/20">
                                 <span class="block font-bold text-blue-600 dark:text-blue-400 mb-1 text-[11px]">1. Nhiệt độ chuẩn</span>
@@ -892,7 +886,6 @@
 
             </div>
 
-            <!-- 4 Khối Thẻ Chi Tiết Dưới Bản Đồ (Thay đổi tương ứng theo ô được chọn) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="apple-card rounded-2xl p-6 reveal">
                     <div id="cardIcon1" class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold mb-4 text-lg">
@@ -1220,6 +1213,33 @@
     <canvas id="hiddenCanvas" class="hidden"></canvas>
 
     <script>
+        // HÀM ĐIỀU KHIỂN MENU "THÊM"
+        function toggleMoreMenu(event) {
+            event.stopPropagation();
+            const menu = document.getElementById('moreDropdownMenu');
+            const chevron = document.getElementById('chevronIcon');
+            menu.classList.toggle('hidden');
+            chevron.classList.toggle('rotate-180');
+        }
+
+        // Đóng menu khi bấm ra ngoài màn hình
+        window.addEventListener('click', () => {
+            const menu = document.getElementById('moreDropdownMenu');
+            const chevron = document.getElementById('chevronIcon');
+            if (menu && !menu.classList.contains('hidden')) {
+                menu.classList.add('hidden');
+                chevron.classList.remove('rotate-180');
+            }
+        });
+
+        function switchTabAndClose(tabId) {
+            switchTab(tabId);
+            const menu = document.getElementById('moreDropdownMenu');
+            const chevron = document.getElementById('chevronIcon');
+            menu.classList.add('hidden');
+            chevron.classList.remove('rotate-180');
+        }
+
         const ttiDataContent = {
             chamberA: {
                 title: "Khoang A: Chứa Vitamin C + Iodine",
@@ -1252,7 +1272,6 @@
             document.getElementById('tti-display-icon').className = `text-xl ${info.color}`;
         }
 
-        // Dữ liệu 4 địa điểm tương tác bấm và đồng bộ SVG Map + 4 khối thẻ bên dưới
         const regionMapData = {
             binhdien: {
                 title: "Chợ Đầu Mối Bình Điền (Quận 8)",
@@ -1317,7 +1336,6 @@
         };
 
         function selectMapRegion(regionKey) {
-            // 1. Đồng bộ ô chọn ở bản đồ phụ
             document.querySelectorAll('.map-box-item').forEach(el => {
                 el.classList.remove('border-blue-500', 'border-2');
                 el.classList.add('border-2', 'border-transparent');
@@ -1328,7 +1346,6 @@
                 activeBox.classList.add('border-blue-500', 'border-2');
             }
 
-            // 2. Đồng bộ hiệu ứng SVG Map: Vùng được chọn sáng lên, các vùng khác mờ xám đi
             const allRegions = ['binhdien', 'thuduc', 'hocmon', 'cuchi'];
             allRegions.forEach(key => {
                 const node = document.getElementById(`svg-region-${key}`);
@@ -1343,7 +1360,6 @@
                 }
             });
 
-            // 3. Đồng bộ dữ liệu chi tiết
             const data = regionMapData[regionKey];
             if (!data) return;
 
@@ -1417,10 +1433,15 @@
         }
 
         function switchTab(tabId) {
+            // Cập nhật trạng thái active cho các nút chính (Trang chủ, Khảo sát)
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
 
-            document.getElementById(`tab-${tabId}`).classList.add('active');
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+            
             document.getElementById(`sec-${tabId}`).classList.remove('hidden');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1493,7 +1514,6 @@
             }
         });
 
-        // TỐI ƯU CHO DI ĐỘNG: Tự động nén ảnh chụp từ camera có kích thước quá lớn để chống tràn RAM
         function handleFile(file) {
             if (!file.type.startsWith('image/')) return;
             const reader = new FileReader();
