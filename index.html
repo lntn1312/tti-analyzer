@@ -329,9 +329,6 @@
                     <button onclick="switchTab('economy')" id="tab-economy" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">
                         <span>📈 Kinh tế & Scale</span>
                     </button>
-                    <button onclick="switchTab('lab')" id="tab-lab" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">
-                        <span>🧪 Thực nghiệm R&D</span>
-                    </button>
                     <button onclick="switchTab('survey')" id="tab-survey" class="tab-btn px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full flex items-center gap-1">
                         <span>📋 Khảo sát</span>
                         <span class="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0 animate-ping"></span>
@@ -1017,58 +1014,7 @@
         </section>
 
 
-        <!-- ==================== TAB 6: NHẬT KÝ THỰC NGHIỆM & R&D LAB NOTES ==================== -->
-        <section id="sec-lab" class="tab-content hidden max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
-            <div class="text-center mb-10 sm:mb-14 reveal">
-                <span class="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 mb-3 inline-block">Minh chứng khoa học thực tế</span>
-                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-3">Nhật Ký Thực Nghiệm & Hình Ảnh R&D Lab</h2>
-                <p class="text-slate-600 dark:text-apple-grayText text-xs sm:text-base max-w-2xl mx-auto">Tư liệu thực tế từ phòng thí nghiệm của nhóm tác giả: Quá trình pha chế hóa chất, thử nghiệm màu và ép màng nhãn hai khoang.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="apple-card rounded-3xl p-4 reveal">
-                    <div class="w-full h-48 rounded-2xl bg-slate-200 dark:bg-slate-800 overflow-hidden mb-4 relative flex items-center justify-center">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-purple-600/20"></div>
-                        <i class="fa-solid fa-vial text-4xl text-blue-500"></i>
-                        <span class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/60 text-white text-[10px] font-mono">lab_chemical_1.jpg</span>
-                    </div>
-                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-1">Pha Chế Vitamin C & Iodine</h4>
-                    <p class="text-xs text-slate-500 dark:text-apple-grayText leading-relaxed">Chuẩn bị nồng độ dung dịch chuẩn để tạo thời gian trễ chính xác cho đồng hồ phản ứng nhiệt độ.</p>
-                </div>
-
-                <div class="apple-card rounded-3xl p-4 reveal">
-                    <div class="w-full h-48 rounded-2xl bg-slate-200 dark:bg-slate-800 overflow-hidden mb-4 relative flex items-center justify-center">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-600/20 to-cyan-600/20"></div>
-                        <i class="fa-solid fa-flask-vial text-4xl text-emerald-500"></i>
-                        <span class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/60 text-white text-[10px] font-mono">lab_starch_h2o2.jpg</span>
-                    </div>
-                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-1">Hồ Tinh Bột & H₂O₂ 3%</h4>
-                    <p class="text-xs text-slate-500 dark:text-apple-grayText leading-relaxed">Thử nghiệm phản ứng tạo phức màu xanh đen đặc trưng khi hoàn tất giai đoạn khử của Vitamin C.</p>
-                </div>
-
-                <div class="apple-card rounded-3xl p-4 reveal">
-                    <div class="w-full h-48 rounded-2xl bg-slate-200 dark:bg-slate-800 overflow-hidden mb-4 relative flex items-center justify-center">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-purple-600/20 to-pink-600/20"></div>
-                        <i class="fa-solid fa-layer-group text-4xl text-purple-500"></i>
-                        <span class="absolute bottom-2 right-2 px-2.5 py-1 rounded-lg bg-black/60 text-white text-[10px] font-mono">lab_lamination.jpg</span>
-                    </div>
-                    <h4 class="text-base font-bold text-slate-900 dark:text-white mb-1">Ép Màng Nhãn Hai Khoang</h4>
-                    <p class="text-xs text-slate-500 dark:text-apple-grayText leading-relaxed">Hoàn thiện nguyên mẫu tem dán thực tế với vách ngăn dễ kích hoạt bằng tay trước khi dán lên sản phẩm.</p>
-                </div>
-            </div>
-
-            <div class="apple-card rounded-3xl p-6 sm:p-8 reveal border-l-4 border-l-purple-500 text-left">
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
-                    <i class="fa-solid fa-award text-purple-500"></i> Cam Kết Từ Nhóm Nghiên Cứu
-                </h3>
-                <p class="text-xs sm:text-sm text-slate-600 dark:text-apple-grayText leading-relaxed">
-                    Sản phẩm không chỉ dừng lại ở lý thuyết mô phỏng mà đã được chế tạo thành công thành nguyên mẫu vật lý hoàn chỉnh, sẵn sàng thử nghiệm diện rộng tại các kho lạnh và hệ thống phân phối thực phẩm tại TP.HCM.
-                </p>
-            </div>
-        </section>
-
-
-        <!-- ==================== TAB 7: KHẢO SÁT ==================== -->
+        <!-- ==================== TAB 6: KHẢO SÁT ==================== -->
         <section id="sec-survey" class="tab-content hidden max-w-7xl mx-auto w-full px-3 sm:px-6 py-4 sm:py-8">
             
             <div class="mb-4 text-center sm:text-left reveal">
