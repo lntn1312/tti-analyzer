@@ -336,16 +336,16 @@
                         <!-- MENU THẢ XUỐNG (DROPDOWN) CHO CÁC THẺ CÒN LẠI -->
                         <div id="moreDropdownMenu" class="absolute right-0 mt-2 w-48 bg-white dark:bg-[#161617] rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 py-2 hidden z-50 flex flex-col gap-1">
                             <button onclick="switchTabAndClose('about')" id="tab-about" class="tab-btn text-left px-4 py-2 text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2">
-                                <i class="fa-solid fa-circle-info text-blue-500 w-4"></i> Giới thiệu
+                                📋 Giới thiệu
                             </button>
                             <button onclick="switchTabAndClose('explore')" id="tab-explore" class="tab-btn text-left px-4 py-2 text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2">
-                                <i class="fa-solid fa-compass text-cyan-500 w-4"></i> Khám phá
+                                🔭 Khám phá
                             </button>
                             <button onclick="switchTabAndClose('map')" id="tab-map" class="tab-btn text-left px-4 py-2 text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2">
-                                <i class="fa-solid fa-map text-emerald-500 w-4"></i> Bản đồ HCMC
+                                🏢 Bản đồ HCMC
                             </button>
                             <button onclick="switchTabAndClose('economy')" id="tab-economy" class="tab-btn text-left px-4 py-2 text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2">
-                                <i class="fa-solid fa-chart-line text-purple-500 w-4"></i> Kinh tế & Scale
+                                📊 Kinh tế & Scale
                             </button>
                         </div>
                     </div>
@@ -1905,7 +1905,7 @@
                         catText = "Trắng Nhạt";
                     }
                     percent = Math.round((1 - luminance) * 30);
-                    title = "An Toàn Tuyệt Đối";
+                    title = "An Toàn Cao";
                     desc = "Nhãn giữ nguyên sắc trắng/xám nhạt ban đầu (D bé). Điều kiện bảo quản lạnh đạt tiêu chuẩn tối ưu!";
                     statusClass = "p-3 sm:p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300";
                     iconHtml = `<i class="fa-solid fa-circle-check text-emerald-500"></i>`;
@@ -1915,7 +1915,7 @@
                 else if ((h >= 160 && h <= 245) && (s <= 0.35) && (luminance >= 0.50)) {
                     catText = "Màu Pastel Xanh";
                     percent = Math.round(15 + (s * 50));
-                    title = "An Toàn (Đã Kích Hoạt Phản Ứng)";
+                    title = "An Toàn (Trong giới hạn)";
                     desc = "Chuyển màu Pastel xanh / xanh lơ nhạt nhẹ. Sản phẩm vẫn nằm trong giới hạn an toàn cho phép.";
                     statusClass = "p-3 sm:p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300";
                     iconHtml = `<i class="fa-solid fa-circle-check text-emerald-500"></i>`;
@@ -1946,7 +1946,7 @@
                 else {
                     catText = "Xanh Đen / Tím Than Sẫm";
                     percent = 100;
-                    title = "Hỏng Hoàn Toàn (Nguy Hiểm)";
+                    title = "Nguy Hiểm Cao";
                     desc = "Tem chuyển sang màu xanh đen đậm hoàn toàn (Chỉ số D đạt tối đa). Thực phẩm không còn đảm bảo an toàn!";
                     statusClass = "p-3 sm:p-3.5 rounded-2xl bg-rose-500/15 border border-rose-500/40 text-rose-800 dark:text-rose-200";
                     iconHtml = `<i class="fa-solid fa-circle-exclamation text-rose-500"></i>`;
